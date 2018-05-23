@@ -1,9 +1,9 @@
-# pxfunc（开发函数库）
+# funclib（凡客莱布）
 
 通用、实用、易用、好用的函数库！
 
 -------------------------------------------------------------------------------
-- pxfunc.js ( For Javascript )：https://github.com/CN-Tower/pxfunc.js
+- funclib.js ( For Javascript )：https://github.com/CN-Tower/funclib.js
 
 -------------------------------------------------------------------------------
-- pxfunc.py ( For Python )：https://github.com/CN-Tower/pxfunc.py
+- funclib.py ( For Python )：https://github.com/CN-Tower/funclib.py
