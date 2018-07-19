@@ -1,10 +1,7 @@
 # funclib（凡客函数库）
-> 通用、实用、易用、好用的函数库！
+> 通用、实用、易用、好用，提高开发效率、提高代码质量、提高交付能力！
 
-### 文档（Documents）: http://funclib.net
-
--------------------------------------------------------------------------------
-- funclib.net ( 官网 )：https://github.com/CN-Tower/funclib.net
+### http://funclib.net
 
 -------------------------------------------------------------------------------
 - funclib.js ( 凡客杰斯 )：https://github.com/CN-Tower/funclib.js
