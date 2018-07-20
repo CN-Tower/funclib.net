@@ -2,6 +2,21 @@
     var functions = document.querySelectorAll('[data-name]');
     var sections = document.querySelectorAll('.searchable_section');
     var searchInput = document.getElementById('function_filter');
+    var docWrap = document.getElementById('doc_wrap');
+
+    setDocWrapHeight();
+    window.onresize = setDocWrapHeight;
+
+    function setDocWrapHeight() {
+      var winHeight=0;
+      if (window.innerHeight){
+        winHeight = window.innerHeight;
+      }
+      else if ((document.body) && (document.body.clientHeight)){
+        winHeight = document.body.clientHeight;
+      }
+      docWrap.style.height = (winHeight || 760) + 'px';
+    }
   
     function searchValue() {
       return searchInput.value.trim().replace(/^_\.?/, '');
