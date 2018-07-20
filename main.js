@@ -1,6 +1,7 @@
 (function() {
     var functions = document.querySelectorAll('[data-name]');
     var sections = document.querySelectorAll('.searchable_section');
+    var methodLinks = document.querySelectorAll('.searchable_section a');
     var searchInput = document.getElementById('function_filter');
     var docWrap = document.getElementById('doc_wrap');
 
@@ -15,8 +16,21 @@
       else if ((document.body) && (document.body.clientHeight)){
         winHeight = document.body.clientHeight;
       }
-      docWrap.style.height = (winHeight || 760) + 'px';
+      docWrap.style.height = (winHeight - 48 || 760) + 'px';
     }
+
+    [].slice.call(methodLinks).forEach(function(lk) {
+      lk.addEventListener('click', function(e) {
+        var elId = lk.getAttribute('href');
+        var viewEl = document.querySelector(elId);
+        viewEl.scrollIntoView({block: "nearest", behavior: "smooth"});
+        if ( e && e.preventDefault ) {
+          e.preventDefault(); 
+        } else {
+          window.event.returnValue = false; 
+        }
+      });
+    });
   
     function searchValue() {
       return searchInput.value.trim().replace(/^_\.?/, '');
@@ -40,20 +54,20 @@
     }
   
     function filterToc() {
-      _.each(functions, filterElement);
+      functions.forEach(filterElement);
   
       var emptySearch = searchValue() === '';
   
       // Hide the titles of empty sections
-      _.each(sections, function(section) {
+      sections.forEach(function(section) {
         var sectionFunctions = section.querySelectorAll('[data-name]');
-        var showSection = emptySearch || _.some(sectionFunctions, doesMatch);
+        var showSection = emptySearch || sectionFunctions.some(doesMatch);
         section.style.display = showSection ? '' : 'none';
       });
     }
   
     function gotoFirst() {
-      var firstFunction = _.find(functions, doesMatch);
+      var firstFunction = functions.filter(doesMatch)[0];
       if (firstFunction) {
         window.location.hash = firstFunction.getAttribute('data-name');
         searchInput.focus();
