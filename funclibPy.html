@@ -1,0 +1,2544 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="target-densitydpi=device-dpi" />
+  <meta name="HandheldFriendly" content="true" />
+  <link rel="canonical" href="http://funclib.net/" />
+  <link rel="icon" href="data:image/ico;base64,iVBORw0KGgoAAAANSUhEUgAAADYAAAA2CAIAAAADJ/2KAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAHGUlEQVRoge2Za2xcRxXHzzzue5+2w9qVH7VsFzsNSWgJokmLmgBJo5AqlUCt3FZItEhBNBUUgRpeQkKoQiJ8SFrEp4gi1A+UR0lbgtWoiDZSaENsJUpjObFxEr8d767Xu3f3vmaGD7vd9ePuOkG7dpDy/zaPe+/vnjNzZuYMEkLA7S283gCri/rWxlNm/+D180OT/UPjo+OztYZojtVtvqd5U0fsvp7Wtqa6Za1opaNfPzVw/K8fYKq5SJZUQ1IDtUb07KxrmVg4zErv3d7zrccfkqWS7ZYgTs2lvvurN1I2psFGhEmtyXzlZmZVnnn5xa82NYR9EHt/8Oq8iMpazc1WWcy1YGHsT798Jm/L0nR57eTZlE3XnQ8AiKQyJfrS8VP5YgExnjJ/e+JDKRRbP7AlkgMNH1ya6B8cgyLie+euEC0EaLUYJITgjLm2Z2eZawvOoGZh1SP6ux9ehmLQOTc4zrFaiY1zz8m5VrrewA1BsqWz8fzwdDzDE1kk62FMpaojSqrRPzReQhy6OiMpZb3MmWel4zs3hr7z9Fc4557HQkFjIW1SSmbmUt8++g7XP4GJf4j93xEV/frVYSg6enwmQRW9HB8z53761Kefe+JhVZF1TQ0FDQAIBQ1dU9tbYoce2+xameryAQAgzBiDcqtLSUK4VuYbezo/u6WLEv9I2RyLCuZVnbCoVRA5Zzpkd2//VJHPdT2MUTy5EAoanHNVkSdm51G1vXwLiJ6Te+KhdlWVizX/GZt+7sibSA4LweoN9PDWtr7+KUmNrBsi95x7O5qKJsyY2d+f/LcSaaGKDkJkOXv7fBrJkarPlVtAFJzVR4LFIsZ4eCqHaT0AAEKYUKglXOGjlZuF4IZeipe6ps6lPby2O4xVEUU0XLKiZTuAMSBUY6ol8nOTEJy5rmVy7tmZxOKWnGU7ZhJjCgAIIUxlSTXy2zbBOXMtz8kJwQmVqWJgQkEIzplnZz0nJzgDAIQwJpRICpG1mxzBPp04cw2RPPz1B2QJCyEY5wQXjB0K6L/5/n5UsCK6fG32lbeH1WA9wtizzZ3d2pcf3AogpuYWjvzxImgRz8mGaW7/jtZHd90fMDQAyJi58em59/uH3zo7yeQokZRVfeKD6NrZF57atrn77pVNhJCezrZisb05NjSW+OcVm0iqLKzne/fld3hd7XxwdPr190Z6d3U9/shuXVOLMSFgaN0dLd0dLY/uTB5+5e8ztkEVA1Wk9BmLgnlBXan8Z3kpihwxJMEZCK7J4HmFNYZgLAn76PNffHLfA6GA4bssxRqivzi0d1OMe3a28nbJBxEROjE7zzlfFTFn2aPTGUwkAFh2BnrywK7ujlZdK0QDx3EX0mZ+zS1qQ13kx8/u0USa8yX1y+TjaEkNvHxicOj6nISBufbB3kcWM736l39gKgMAQnginh0Yc2Q9DGL5/0iUShIFgIW0OTmbOHn6o5HJ+Z7W+i987pN3N8dUpeAlQvDnN9b3XcphLQhl5IOICWVy5G8XTMFZdn7mYG+pybKdP5weV0MbID+jMZX1MEJopaPyfMlU+uhr754eSstaEJHg6MXsn8+c+snT23bc30MpBQBNVb524MG+CyeECJQbkf7THhOajwg0l17+gKLL5f94seZT6RePvTWW0fRII/o4JhBJ/fUbA9s2d+URAQAj1BShsw4rtxepVTZiLjH/8+N9Y6YuacEiHwBgQpM2nb6RLNYIEGGdivLDsVaIhJCBq1lJXeE+hAiVR8amF/eMGvI6IAIAJtR3eCFMpm4sFIuqLEWDilgx4UrvqQldZSFsOSWbEUJkSiok6NYpM7bUuAJuMXTfbrqDWA3dQayG7iBWQ3cQq6H/f0S0Im+7siZfjfFN9gSE0LImjEmFE9YqJ1kiKReGrnW2xjyPybJ09uIokXxOXgiheAYmZ5ONDRHOeYWeAECoPDCSsGzHcVwAkGXp/Y9mCA2XYyhcanzp4DEtdk/+oLRYnHlONlWn8Q1hdTKRy3iypAZ8j+icebaZbAyhiKFU7imE4K5tmcmNzQEAuDSeUQN1hMorD9Qzw+fO/O57hVf0tDddSZiKsTwHhwlVA3Wm4JkUR5KuyGWzJZhQLdiQZCyZEpV7IoSIrOpS42jKAwA94n9q8exsc6wOimPxM/e2cCfr+0ZACGGCqYQwWSVzgBAm9KZ6FvItEqZSuVHoOVbbXQ0lxPu6WzDLVX7pGgux3I4tbVBE3NR519auRtdMVHxq7eRamajKH9u1FRYHnR8+sxtyc5y56wf2sQRnqYkjLxzIl0qIAV352Tf3uYlRJ7tQ5tG1kGtlnPjIj57d43+TCgDxlHn42JsTcZtRQ1J1IlW60qqimGczxxZOOqrylw7tX3xx7nNlDgDv/Guw78zly9embyTWyKLRUKC5Mbp3e3d+/C2WP+Jtpf8COJHjS4XBSYwAAAAASUVORK5CYII="
+    type="image/x-icon" />
+  <link rel="stylesheet" href="./main.css" />
+  <title>FuncLib</title>
+</head>
+
+<body>
+  <header>
+    <div class="fn-title">
+      <span class="fn-title-logo"></span>
+      <h1 class="fn-title-text">FuncLib</h1>
+    </div>
+    <ul class="nav">
+      <li><a href="./index.html">funclib.js</a></li>
+      <li class="active"><a href="./funclibPy.html">funclib.py</a></li>
+    </ul>
+  </header>
+  <section id="top_"></section>
+  <section id="doc_wrap">
+    <div id="sidebar" class="interface">
+
+      <a class="toc_title" href="#">
+        funclib.js
+        <span class="version">(2.1.5)</span>
+      </a>
+      <ul class="toc_section">
+        <li>&raquo;
+          <a href="https://github.com/CN-Tower/funclib">GitHub Repository</a>
+        </li>
+      </ul>
+
+      <input id="function_filter" placeholder="Filter" type="text" autofocus />
+
+      <div class="searchable_section">
+        <a class="toc_title" href="#">
+          Introduction
+        </a>
+      </div>
+
+      <div class="searchable_section">
+        <a class="toc_title" href="#collections">
+          Collections
+        </a>
+        <ul class="toc_section">
+          <li data-name="each" data-aliases="forEach">
+            <a href="#each">fn.each</a>
+          </li>
+          <li data-name="map" data-aliases="collect">
+            <a href="#map">fn.map</a>
+          </li>
+          <li data-name="reduce" data-aliases="inject foldl">
+            <a href="#reduce">fn.reduce</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="searchable_section">
+        <a class="toc_title" href="#arrays">
+          Arrays
+        </a>
+        <ul class="toc_section">
+          <li data-name="first" data-aliases="head take">
+            <a href="#first">fn.first</a>
+          </li>
+          <li data-name="initial">
+            <a href="#initial">fn.initial</a>
+          </li>
+          <li data-name="last">
+            <a href="#last">fn.last</a>
+          </li>
+          <li data-name="rest" data-aliases="tail drop">
+            <a href="#rest">fn.rest</a>
+          </li>
+          <li data-name="compact">
+            <a href="#compact">fn.compact</a>
+          </li>
+          <li data-name="flatten">
+            <a href="#flatten">fn.flatten</a>
+          </li>
+          <li data-name="without">
+            <a href="#without">fn.without</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="searchable_section">
+        <a class="toc_title" href="#functions">
+          Functions
+        </a>
+        <ul class="toc_section">
+          <li data-name="bind">
+            <a href="#bind">fn.bind</a>
+          </li>
+          <li data-name="bindAll">
+            <a href="#bindAll">fn.bindAll</a>
+          </li>
+          <li data-name="partial">
+            <a href="#partial">fn.partial</a>
+          </li>
+          <li data-name="memoize">
+            <a href="#memoize">fn.memoize</a>
+          </li>
+          <li data-name="delay">
+            <a href="#delay">fn.delay</a>
+          </li>
+          <li data-name="defer">
+            <a href="#defer">fn.defer</a>
+          </li>
+          <li data-name="throttle">
+            <a href="#throttle">fn.throttle</a>
+          </li>
+          <li data-name="debounce">
+            <a href="#debounce">fn.debounce</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="searchable_section">
+        <a class="toc_title" href="#objects">
+          Objects
+        </a>
+        <ul class="toc_section">
+          <li data-name="keys">
+            <a href="#keys">fn.keys</a>
+          </li>
+          <li data-name="allKeys">
+            <a href="#allKeys">fn.allKeys</a>
+          </li>
+          <li data-name="values">
+            <a href="#values">fn.values</a>
+          </li>
+          <li data-name="mapObject">
+            <a href="#mapObject">fn.mapObject</a>
+          </li>
+          <li data-name="pairs">
+            <a href="#pairs">fn.pairs</a>
+          </li>
+          <li data-name="invert">
+            <a href="#invert">fn.invert</a>
+          </li>
+          <li data-name="create">
+            <a href="#create">fn.create</a>
+          </li>
+          <li data-name="object-functions" data-aliases="methods">
+            <a href="#object-functions">fn.functions</a>
+          </li>
+          <li data-name="findKey">
+            <a href="#findKey">fn.findKey</a>
+          </li>
+          <li data-name="extend">
+            <a href="#extend">fn.extend</a>
+          </li>
+          <li data-name="extendOwn" data-aliases="assign">
+            <a href="#extendOwn">fn.extendOwn</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="searchable_section">
+        <a class="toc_title" href="#utility">
+          Utility
+        </a>
+        <ul class="toc_section">
+          <li data-name="noConflict">
+            <a href="#noConflict">fn.noConflict</a>
+          </li>
+          <li data-name="identity">
+            <a href="#identity">fn.identity</a>
+          </li>
+          <li data-name="constant">
+            <a href="#constant">fn.constant</a>
+          </li>
+          <li data-name="noop">
+            <a href="#noop">fn.noop</a>
+          </li>
+          <li data-name="times">
+            <a href="#times">fn.times</a>
+          </li>
+          <li data-name="random">
+            <a href="#random">fn.random</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="searchable_section">
+        <a class="toc_title" href="#links">
+          Links
+        </a>
+      </div>
+
+      <div class="searchable_section">
+        <a class="toc_title" href="#changelog">
+          Change Log
+        </a>
+      </div>
+
+    </div>
+
+    <div class="container">
+
+      <h2 id="introduction">
+        funclib.js
+      </h2>
+
+      <p>
+        <a href="http://github.com/CN-Tower/funclib.js/">funclib.js</a>
+        is a JavaScript library that provides a whole mess of useful functional programming helpers without extending any built-in
+        objects. It&rsquo;s the answer to the question: &ldquo;If I sit down in front of a blank HTML page, and want to start
+        being productive immediately, what do I need?&rdquo; &hellip; and the tie to go along with
+        <a href="http://jquery.com">jQuery</a>'s tux and
+        <a href="http://backbonejs.org">Backbone</a>'s suspenders.
+      </p>
+
+      <p>
+        funclib.js provides over 100 functions that support both your favorite workaday functional helpers:
+        <b>map</b>,
+        <b>filter</b>,
+        <b>invoke</b> &mdash; as well as more specialized goodies: function binding, javascript templating, creating quick indexes,
+        deep equality testing, and so on.
+      </p>
+
+      <p>
+        A complete
+        <a href="test/">Test Suite</a>
+        is included for your perusal.
+      </p>
+
+      <p>
+        You may also read through the
+        <a href="docs/funclib.js.html">annotated source code</a>.
+      </p>
+
+      <p>
+        Enjoying funclib.js, and want to
+        <i>turn it up to 11?</i> Try
+        <a href="http://documentcloud.github.io/funclib.js-contrib/">funclib.js-contrib</a>.
+      </p>
+
+      <p>
+        The project is
+        <a href="https://github.com/jashkenas/funclib.js">hosted on GitHub</a>. You can report bugs and discuss features on the
+        <a href="https://github.com/jashkenas/funclib.js/issues">issues page</a>
+        or chat in the
+        <a href="https://gitter.im/jashkenas/funclib.js">Gitter</a>
+        channel.
+      </p>
+
+      <p>
+        <i>funclib.js is an open-source component of
+          <a href="http://documentcloud.org/">DocumentCloud</a>.</i>
+      </p>
+
+      <h2>Downloads
+        <i style="padding-left: 12px; font-size:12px;">(Right-click, and use "Save As")</i>
+      </h2>
+
+      <table>
+        <tr>
+          <td>
+            <a href="funclib.js.js">Development Version (1.9.1)</a>
+          </td>
+          <td>
+            <i>60kb, Uncompressed with Plentiful Comments</i>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a href="funclib.js-min.js">Production Version (1.9.1)</a>
+          </td>
+          <td>
+            <i>6.5kb, Minified and Gzipped</i>
+            &nbsp;
+            <small>(
+              <a href="funclib.js-min.js.map">Source Map</a>)</small>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <div class="rule"></div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a href="https://raw.github.com/jashkenas/funclib.js/master/funclib.js.js">Edge Version</a>
+          </td>
+          <td>
+            <i>Unreleased, current
+              <tt>master</tt>, use by your own judgement and at your own risk</i>
+          </td>
+        </tr>
+      </table>
+
+      <h2>Installation</h2>
+
+      <ul>
+        <li>
+          <b>Node.js</b>
+          <tt>npm install funclib.js</tt>
+        </li>
+        <li>
+          <b>Meteor.js</b>
+          <tt>meteor add funclib.js</tt>
+        </li>
+        <li>
+          <b>Require.js</b>
+          <tt>require(["funclib.js"], ...</tt>
+        </li>
+        <li>
+          <b>Bower</b>
+          <tt>bower install funclib.js</tt>
+        </li>
+        <li>
+          <b>Component</b>
+          <tt>component install jashkenas/funclib.js</tt>
+        </li>
+      </ul>
+
+      <div id="documentation">
+
+        <h2 id="collections">Collection Functions (Arrays or Objects)</h2>
+
+        <p id="each">
+          <b class="header">each</b>
+          <code>fn.each(list, iteratee, [context])</code>
+          <span class="alias">Alias:
+            <b>forEach</b>
+          </span>
+          <br /> Iterates over a
+          <b>list</b> of elements, yielding each in turn to an
+          <b>iteratee</b> function. The
+          <b>iteratee</b> is bound to the
+          <b>context</b> object, if one is passed. Each invocation of
+          <b>iteratee</b> is called with three arguments:
+          <tt>(element, index, list)</tt>. If
+          <b>list</b> is a JavaScript object,
+          <b>iteratee</b>'s arguments will be
+          <tt>(value, key, list)</tt>. Returns the
+          <b>list</b> for chaining.
+        </p>
+        <pre>
+      fn.each([1, 2, 3], alert);
+      =&gt; alerts each number in turn...
+      fn.each({one: 1, two: 2, three: 3}, alert);
+      =&gt; alerts each number value in turn...</pre>
+
+        <p>
+          <i>
+            Note: Collection functions work on arrays, objects, and array-like objects such as</i>
+          <tt>arguments</tt>,
+          <tt>NodeList</tt>
+          <i>
+            and similar. But it works by duck-typing, so avoid passing objects with a numeric
+            <tt>length</tt> property. It's also good to note that an
+            <tt>each</tt> loop cannot be broken out of — to break, use
+            <b>fn.find</b>
+            instead.
+          </i>
+        </p>
+
+        <p id="map">
+          <b class="header">map</b>
+          <code>fn.map(list, iteratee, [context])</code>
+          <span class="alias">Alias:
+            <b>collect</b>
+          </span>
+          <br /> Produces a new array of values by mapping each value in
+          <b>list</b>
+          through a transformation function (
+          <a href="#iteratee">
+            <b>iteratee</b>
+          </a>). The iteratee is passed three arguments: the
+          <tt>value</tt>, then the
+          <tt>index</tt> (or
+          <tt>key</tt>) of the iteration, and finally a reference to the entire
+          <tt>list</tt>.
+        </p>
+        <pre>
+      fn.map([1, 2, 3], function(num){ return num * 3; });
+      =&gt; [3, 6, 9]
+      fn.map({one: 1, two: 2, three: 3}, function(num, key){ return num * 3; });
+      =&gt; [3, 6, 9]
+      fn.map([[1, 2], [3, 4]], fn.first);
+      =&gt; [1, 3]</pre>
+
+        <p id="reduce">
+          <b class="header">reduce</b>
+          <code>fn.reduce(list, iteratee, [memo], [context])</code>
+          <span class="alias">Aliases:
+            <b>inject</b>,
+            <b>foldl</b>
+          </span>
+          <br /> Also known as
+          <b>inject</b> and
+          <b>foldl</b>, reduce boils down a
+          <b>list</b> of values into a single value.
+          <b>Memo</b> is the initial state of the reduction, and each successive step of it should be returned by
+          <b>iteratee</b>. The iteratee is passed four arguments: the
+          <tt>memo</tt>, then the
+          <tt>value</tt> and
+          <tt>index</tt> (or key) of the iteration, and finally a reference to the entire
+          <tt>list</tt>.
+        </p>
+        <p>
+          If no memo is passed to the initial invocation of reduce, the iteratee is not invoked on the first element of the list. The
+          first element is instead passed as the memo in the invocation of the iteratee on the next element in the list.
+        </p>
+        <pre>
+      var sum = fn.reduce([1, 2, 3], function(memo, num){ return memo + num; }, 0);
+      =&gt; 6
+      </pre>
+
+        <p id="reduceRight">
+          <b class="header">reduceRight</b>
+          <code>fn.reduceRight(list, iteratee, [memo], [context])</code>
+          <span class="alias">Alias:
+            <b>foldr</b>
+          </span>
+          <br /> The right-associative version of
+          <b>reduce</b>.
+          <b>Foldr</b>
+          is not as useful in JavaScript as it would be in a language with lazy evaluation.
+        </p>
+        <pre>
+      var list = [[0, 1], [2, 3], [4, 5]];
+      var flat = fn.reduceRight(list, function(a, b) { return a.concat(b); }, []);
+      =&gt; [4, 5, 2, 3, 0, 1]
+      </pre>
+
+        <p id="find">
+          <b class="header">find</b>
+          <code>fn.find(list, predicate, [context])</code>
+          <span class="alias">Alias:
+            <b>detect</b>
+          </span>
+          <br /> Looks through each value in the
+          <b>list</b>, returning the first one that passes a truth test (
+          <b>predicate</b>), or
+          <tt>undefined</tt> if no value passes the test. The function returns as soon as it finds an acceptable element, and
+          doesn't traverse the entire list.
+          <b>predicate</b> is transformed through
+          <a href="#iteratee">
+            <b>iteratee</b>
+          </a>
+          to facilitate shorthand syntaxes.
+        </p>
+        <pre>
+      var even = fn.find([1, 2, 3, 4, 5, 6], function(num){ return num % 2 == 0; });
+      =&gt; 2
+      </pre>
+
+        <p id="filter">
+          <b class="header">filter</b>
+          <code>fn.filter(list, predicate, [context])</code>
+          <span class="alias">Alias:
+            <b>select</b>
+          </span>
+          <br /> Looks through each value in the
+          <b>list</b>, returning an array of all the values that pass a truth test (
+          <b>predicate</b>).
+          <b>predicate</b> is transformed through
+          <a href="#iteratee">
+            <b>iteratee</b>
+          </a>
+          to facilitate shorthand syntaxes.
+        </p>
+        <pre>
+      var evens = fn.filter([1, 2, 3, 4, 5, 6], function(num){ return num % 2 == 0; });
+      =&gt; [2, 4, 6]
+      </pre>
+
+        <p id="findWhere">
+          <b class="header">findWhere</b>
+          <code>fn.findWhere(list, properties)</code>
+          <br /> Looks through the
+          <b>list</b> and returns the
+          <i>first</i> value that
+          <a href="#matches">matches</a>
+          all of the key-value pairs listed in
+          <b>properties</b>.
+        </p>
+        <p>
+          If no match is found, or if
+          <b>list</b> is empty,
+          <i>undefined</i> will be returned.
+        </p>
+        <pre>
+      fn.findWhere(publicServicePulitzers, {newsroom: "The New York Times"});
+      =&gt; {year: 1918, newsroom: "The New York Times",
+        reason: "For its public service in publishing in full so many official reports,
+        documents and speeches by European statesmen relating to the progress and
+        conduct of the war."}
+      </pre>
+
+        <p id="where">
+          <b class="header">where</b>
+          <code>fn.where(list, properties)</code>
+          <br /> Looks through each value in the
+          <b>list</b>, returning an array of all the values that
+          <a href="#matches">matches</a> the key-value pairs listed in
+          <b>properties</b>.
+        </p>
+        <pre>
+      fn.where(listOfPlays, {author: "Shakespeare", year: 1611});
+      =&gt; [{title: "Cymbeline", author: "Shakespeare", year: 1611},
+          {title: "The Tempest", author: "Shakespeare", year: 1611}]
+      </pre>
+
+        <p id="reject">
+          <b class="header">reject</b>
+          <code>fn.reject(list, predicate, [context])</code>
+          <br /> Returns the values in
+          <b>list</b> without the elements that the truth test (
+          <b>predicate</b>) passes. The opposite of
+          <b>filter</b>.
+          <b>predicate</b> is transformed through
+          <a href="#iteratee">
+            <b>iteratee</b>
+          </a>
+          to facilitate shorthand syntaxes.
+        </p>
+        <pre>
+      var odds = fn.reject([1, 2, 3, 4, 5, 6], function(num){ return num % 2 == 0; });
+      =&gt; [1, 3, 5]
+      </pre>
+
+        <p id="every">
+          <b class="header">every</b>
+          <code>fn.every(list, [predicate], [context])</code>
+          <span class="alias">Alias:
+            <b>all</b>
+          </span>
+          <br /> Returns
+          <i>true</i> if all of the values in the
+          <b>list</b> pass the
+          <b>predicate</b> truth test. Short-circuits and stops traversing the list if a false element is found.
+          <b>predicate</b> is transformed through
+          <a href="#iteratee">
+            <b>iteratee</b>
+          </a>
+          to facilitate shorthand syntaxes.
+        </p>
+        <pre>
+      fn.every([2, 4, 5], function(num) { return num % 2 == 0; });
+      =&gt; false
+      </pre>
+
+        <p id="some">
+          <b class="header">some</b>
+          <code>fn.some(list, [predicate], [context])</code>
+          <span class="alias">Alias:
+            <b>any</b>
+          </span>
+          <br /> Returns
+          <i>true</i> if any of the values in the
+          <b>list</b> pass the
+          <b>predicate</b> truth test. Short-circuits and stops traversing the list if a true element is found.
+          <b>predicate</b> is transformed through
+          <a href="#iteratee">
+            <b>iteratee</b>
+          </a>
+          to facilitate shorthand syntaxes.
+        </p>
+        <pre>
+      fn.some([null, 0, 'yes', false]);
+      =&gt; true
+      </pre>
+
+        <p id="contains">
+          <b class="header">contains</b>
+          <code>fn.contains(list, value, [fromIndex])</code>
+          <span class="alias">Aliases:
+            <b>include</b>,
+            <b>includes</b>
+          </span>
+          <br /> Returns
+          <i>true</i> if the
+          <b>value</b> is present in the
+          <b>list</b>. Uses
+          <b>indexOf</b> internally, if
+          <b>list</b> is an Array. Use
+          <b>fromIndex</b> to start your search at a given index.
+        </p>
+        <pre>
+      fn.contains([1, 2, 3], 3);
+      =&gt; true
+      </pre>
+
+        <p id="invoke">
+          <b class="header">invoke</b>
+          <code>fn.invoke(list, methodName, *arguments)</code>
+          <br /> Calls the method named by
+          <b>methodName</b> on each value in the
+          <b>list</b>. Any extra arguments passed to
+          <b>invoke</b> will be forwarded on to the method invocation.
+        </p>
+        <pre>
+      fn.invoke([[5, 1, 7], [3, 2, 1]], 'sort');
+      =&gt; [[1, 5, 7], [1, 2, 3]]
+      </pre>
+
+        <p id="pluck">
+          <b class="header">pluck</b>
+          <code>fn.pluck(list, propertyName)</code>
+          <br /> A convenient version of what is perhaps the most common use-case for
+          <b>map</b>: extracting a list of property values.
+        </p>
+        <pre>
+      var stooges = [{name: 'moe', age: 40}, {name: 'larry', age: 50}, {name: 'curly', age: 60}];
+      fn.pluck(stooges, 'name');
+      =&gt; ["moe", "larry", "curly"]
+      </pre>
+
+        <p id="max">
+          <b class="header">max</b>
+          <code>fn.max(list, [iteratee], [context])</code>
+          <br /> Returns the maximum value in
+          <b>list</b>. If an
+          <a href="#iteratee">
+            <b>iteratee</b>
+          </a>
+          function is provided, it will be used on each value to generate the criterion by which the value is ranked.
+          <i>-Infinity</i> is returned if
+          <b>list</b> is empty, so an
+          <a href="#isEmpty">isEmpty</a> guard may be required. Non-numerical values in
+          <b>list</b> will be ignored.
+        </p>
+        <pre>
+      var stooges = [{name: 'moe', age: 40}, {name: 'larry', age: 50}, {name: 'curly', age: 60}];
+      fn.max(stooges, function(stooge){ return stooge.age; });
+      =&gt; {name: 'curly', age: 60};
+      </pre>
+
+        <p id="min">
+          <b class="header">min</b>
+          <code>fn.min(list, [iteratee], [context])</code>
+          <br /> Returns the minimum value in
+          <b>list</b>. If an
+          <a href="#iteratee">
+            <b>iteratee</b>
+          </a>
+          function is provided, it will be used on each value to generate the criterion by which the value is ranked.
+          <i>Infinity</i> is returned if
+          <b>list</b> is empty, so an
+          <a href="#isEmpty">isEmpty</a> guard may be required. Non-numerical values in
+          <b>list</b> will be ignored.
+        </p>
+        <pre>
+      var numbers = [10, 5, 100, 2, 1000];
+      fn.min(numbers);
+      =&gt; 2
+      </pre>
+
+        <p id="sortBy">
+          <b class="header">sortBy</b>
+          <code>fn.sortBy(list, iteratee, [context])</code>
+          <br /> Returns a (stably) sorted copy of
+          <b>list</b>, ranked in ascending order by the results of running each value through
+          <a href="#iteratee">
+            <b>iteratee</b>
+          </a>. iteratee may also be the string name of the property to sort by (eg.
+          <tt>length</tt>).
+        </p>
+        <pre>
+      fn.sortBy([1, 2, 3, 4, 5, 6], function(num){ return Math.sin(num); });
+      =&gt; [5, 4, 6, 3, 1, 2]
+      
+      var stooges = [{name: 'moe', age: 40}, {name: 'larry', age: 50}, {name: 'curly', age: 60}];
+      fn.sortBy(stooges, 'name');
+      =&gt; [{name: 'curly', age: 60}, {name: 'larry', age: 50}, {name: 'moe', age: 40}];
+      </pre>
+        <p id="groupBy">
+          <b class="header">groupBy</b>
+          <code>fn.groupBy(list, iteratee, [context])</code>
+          <br /> Splits a collection into sets, grouped by the result of running each value through
+          <b>iteratee</b>. If
+          <b>iteratee</b> is a string instead of a function, groups by the property named by
+          <b>iteratee</b> on each of the values.
+        </p>
+        <pre>
+      fn.groupBy([1.3, 2.1, 2.4], function(num){ return Math.floor(num); });
+      =&gt; {1: [1.3], 2: [2.1, 2.4]}
+      
+      fn.groupBy(['one', 'two', 'three'], 'length');
+      =&gt; {3: ["one", "two"], 5: ["three"]}
+      </pre>
+
+        <p id="indexBy">
+          <b class="header">indexBy</b>
+          <code>fn.indexBy(list, iteratee, [context])</code>
+          <br /> Given a
+          <b>list</b>, and an
+          <a href="#iteratee">
+            <b>iteratee</b>
+          </a> function that returns a key for each element in the list (or a property name), returns an object with an index
+          of each item. Just like
+          <a href="#groupBy">groupBy</a>, but for when you know your keys are unique.
+        </p>
+        <pre>
+      var stooges = [{name: 'moe', age: 40}, {name: 'larry', age: 50}, {name: 'curly', age: 60}];
+      fn.indexBy(stooges, 'age');
+      =&gt; {
+        "40": {name: 'moe', age: 40},
+        "50": {name: 'larry', age: 50},
+        "60": {name: 'curly', age: 60}
+      }
+      </pre>
+
+        <p id="countBy">
+          <b class="header">countBy</b>
+          <code>fn.countBy(list, iteratee, [context])</code>
+          <br /> Sorts a list into groups and returns a count for the number of objects in each group. Similar to
+          <tt>groupBy</tt>, but instead of returning a list of values, returns a count for the number of values in that group.
+        </p>
+        <pre>
+      fn.countBy([1, 2, 3, 4, 5], function(num) {
+        return num % 2 == 0 ? 'even': 'odd';
+      });
+      =&gt; {odd: 3, even: 2}
+      </pre>
+
+        <p id="shuffle">
+          <b class="header">shuffle</b>
+          <code>fn.shuffle(list)</code>
+          <br /> Returns a shuffled copy of the
+          <b>list</b>, using a version of the
+          <a href="http://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle</a>.
+        </p>
+        <pre>
+      fn.shuffle([1, 2, 3, 4, 5, 6]);
+      =&gt; [4, 1, 6, 3, 5, 2]
+      </pre>
+
+        <p id="sample">
+          <b class="header">sample</b>
+          <code>fn.sample(list, [n])</code>
+          <br /> Produce a random sample from the
+          <b>list</b>. Pass a number to return
+          <b>n</b> random elements from the list. Otherwise a single random item will be returned.
+        </p>
+        <pre>
+      fn.sample([1, 2, 3, 4, 5, 6]);
+      =&gt; 4
+      
+      fn.sample([1, 2, 3, 4, 5, 6], 3);
+      =&gt; [1, 6, 2]
+      </pre>
+
+        <p id="toArray">
+          <b class="header">toArray</b>
+          <code>fn.toArray(list)</code>
+          <br /> Creates a real Array from the
+          <b>list</b> (anything that can be iterated over). Useful for transmuting the
+          <b>arguments</b> object.
+        </p>
+        <pre>
+      (function(){ return fn.toArray(arguments).slice(1); })(1, 2, 3, 4);
+      =&gt; [2, 3, 4]
+      </pre>
+
+        <p id="size">
+          <b class="header">size</b>
+          <code>fn.size(list)</code>
+          <br /> Return the number of values in the
+          <b>list</b>.
+        </p>
+        <pre>
+      fn.size([1, 2, 3, 4, 5]);
+      =&gt; 5
+      
+      fn.size({one: 1, two: 2, three: 3});
+      =&gt; 3
+      </pre>
+
+        <p id="partition">
+          <b class="header">partition</b>
+          <code>fn.partition(list, predicate)</code>
+          <br /> Split
+          <b>list</b> into two arrays: one whose elements all satisfy
+          <b>predicate</b> and one whose elements all do not satisfy
+          <b>predicate</b>.
+          <b>predicate</b> is transformed through
+          <a href="#iteratee">
+            <b>iteratee</b>
+          </a>
+          to facilitate shorthand syntaxes.
+        </p>
+        <pre>
+      fn.partition([0, 1, 2, 3, 4, 5], isOdd);
+      =&gt; [[1, 3, 5], [0, 2, 4]]
+      </pre>
+
+        <p id="compact">
+          <b class="header">compact</b>
+          <code>fn.compact(list)</code>
+          <br /> Returns a copy of the
+          <b>list</b> with all falsy values removed. In JavaScript,
+          <i>false</i>,
+          <i>null</i>,
+          <i>0</i>,
+          <i>""</i>,
+          <i>undefined</i> and
+          <i>NaN</i> are all falsy.
+        </p>
+        <pre>
+      fn.compact([0, 1, false, 2, '', 3]);
+      =&gt; [1, 2, 3]
+      </pre>
+
+        <h2 id="arrays">Array Functions</h2>
+
+        <p>
+          <i>
+            Note: All array functions will also work on the
+            <b>arguments</b> object. However, funclib.js functions are not designed to work on "sparse" arrays.
+          </i>
+        </p>
+
+        <p id="first">
+          <b class="header">first</b>
+          <code>fn.first(array, [n])</code>
+          <span class="alias">Aliases:
+            <b>head</b>,
+            <b>take</b>
+          </span>
+          <br /> Returns the first element of an
+          <b>array</b>. Passing
+          <b>n</b> will return the first
+          <b>n</b> elements of the array.
+        </p>
+        <pre>
+      fn.first([5, 4, 3, 2, 1]);
+      =&gt; 5
+      </pre>
+
+        <p id="initial">
+          <b class="header">initial</b>
+          <code>fn.initial(array, [n])</code>
+          <br /> Returns everything but the last entry of the array. Especially useful on the arguments object. Pass
+          <b>n</b> to exclude the last
+          <b>n</b> elements from the result.
+        </p>
+        <pre>
+      fn.initial([5, 4, 3, 2, 1]);
+      =&gt; [5, 4, 3, 2]
+      </pre>
+
+        <p id="last">
+          <b class="header">last</b>
+          <code>fn.last(array, [n])</code>
+          <br /> Returns the last element of an
+          <b>array</b>. Passing
+          <b>n</b> will return the last
+          <b>n</b> elements of the array.
+        </p>
+        <pre>
+      fn.last([5, 4, 3, 2, 1]);
+      =&gt; 1
+      </pre>
+
+        <p id="rest">
+          <b class="header">rest</b>
+          <code>fn.rest(array, [index])</code>
+          <span class="alias">Aliases:
+            <b>tail</b>,
+            <b>drop</b>
+          </span>
+          <br /> Returns the
+          <b>rest</b> of the elements in an array. Pass an
+          <b>index</b>
+          to return the values of the array from that index onward.
+        </p>
+        <pre>
+      fn.rest([5, 4, 3, 2, 1]);
+      =&gt; [4, 3, 2, 1]
+      </pre>
+
+        <p id="flatten">
+          <b class="header">flatten</b>
+          <code>fn.flatten(array, [shallow])</code>
+          <br /> Flattens a nested
+          <b>array</b> (the nesting can be to any depth). If you pass
+          <b>shallow</b>, the array will only be flattened a single level.
+        </p>
+        <pre>
+      fn.flatten([1, [2], [3, [[4]]]]);
+      =&gt; [1, 2, 3, 4];
+      
+      fn.flatten([1, [2], [3, [[4]]]], true);
+      =&gt; [1, 2, 3, [[4]]];
+      </pre>
+
+        <p id="without">
+          <b class="header">without</b>
+          <code>fn.without(array, *values)</code>
+          <br /> Returns a copy of the
+          <b>array</b> with all instances of the
+          <b>values</b>
+          removed.
+        </p>
+        <pre>
+      fn.without([1, 2, 1, 0, 3, 1, 4], 0, 1);
+      =&gt; [2, 3, 4]
+      </pre>
+
+        <p id="union">
+          <b class="header">union</b>
+          <code>fn.union(*arrays)</code>
+          <br /> Computes the union of the passed-in
+          <b>arrays</b>: the list of unique items, in order, that are present in one or more of the
+          <b>arrays</b>.
+        </p>
+        <pre>
+      fn.union([1, 2, 3], [101, 2, 1, 10], [2, 1]);
+      =&gt; [1, 2, 3, 101, 10]
+      </pre>
+
+        <p id="intersection">
+          <b class="header">intersection</b>
+          <code>fn.intersection(*arrays)</code>
+          <br /> Computes the list of values that are the intersection of all the
+          <b>arrays</b>. Each value in the result is present in each of the
+          <b>arrays</b>.
+        </p>
+        <pre>
+      fn.intersection([1, 2, 3], [101, 2, 1, 10], [2, 1]);
+      =&gt; [1, 2]
+      </pre>
+
+        <p id="difference">
+          <b class="header">difference</b>
+          <code>fn.difference(array, *others)</code>
+          <br /> Similar to
+          <b>without</b>, but returns the values from
+          <b>array</b> that are not present in the
+          <b>other</b> arrays.
+        </p>
+        <pre>
+      fn.difference([1, 2, 3, 4, 5], [5, 2, 10]);
+      =&gt; [1, 3, 4]
+      </pre>
+
+        <p id="uniq">
+          <b class="header">uniq</b>
+          <code>fn.uniq(array, [isSorted], [iteratee])</code>
+          <span class="alias">Alias:
+            <b>unique</b>
+          </span>
+          <br /> Produces a duplicate-free version of the
+          <b>array</b>, using
+          <i>===</i> to test object equality. In particular only the first occurrence of each value is kept. If you know in
+          advance that the
+          <b>array</b> is sorted, passing
+          <i>true</i> for
+          <b>isSorted</b> will run a much faster algorithm. If you want to compute unique items based on a transformation, pass
+          an
+          <a href="#iteratee">
+            <b>iteratee</b>
+          </a> function.
+        </p>
+        <pre>
+      fn.uniq([1, 2, 1, 4, 1, 3]);
+      =&gt; [1, 2, 4, 3]
+      </pre>
+
+        <p id="zip">
+          <b class="header">zip</b>
+          <code>fn.zip(*arrays)</code>
+          <br /> Merges together the values of each of the
+          <b>arrays</b> with the values at the corresponding position. Useful when you have separate data sources that are coordinated
+          through matching array indexes. Use with
+          <tt>apply</tt> to pass in an array of arrays. If you're working with a matrix of nested arrays, this can be used to
+          transpose the matrix.
+        </p>
+        <pre>
+      fn.zip(['moe', 'larry', 'curly'], [30, 40, 50], [true, false, false]);
+      =&gt; [["moe", 30, true], ["larry", 40, false], ["curly", 50, false]]
+      
+      </pre>
+
+        <p id="unzip">
+          <b class="header">unzip</b>
+          <code>fn.unzip(array)</code>
+          <br> The opposite of
+          <a href="#zip">zip</a>. Given an
+          <b>array</b> of arrays, returns a series of new arrays, the first of which contains all of the first elements in the
+          input arrays, the second of which contains all of the second elements, and so on.
+        </p>
+        <pre>
+      fn.unzip([["moe", 30, true], ["larry", 40, false], ["curly", 50, false]]);
+      =&gt; [['moe', 'larry', 'curly'], [30, 40, 50], [true, false, false]]
+      </pre>
+
+        <p id="object">
+          <b class="header">object</b>
+          <code>fn.object(list, [values])</code>
+          <br /> Converts arrays into objects. Pass either a single list of
+          <tt>[key, value]</tt> pairs, or a list of keys, and a list of values. Passing by pairs is the reverse of
+          <a href="#pairs">pairs</a>. If duplicate keys exist, the last value wins.
+        </p>
+        <pre>
+      fn.object(['moe', 'larry', 'curly'], [30, 40, 50]);
+      =&gt; {moe: 30, larry: 40, curly: 50}
+      
+      fn.object([['moe', 30], ['larry', 40], ['curly', 50]]);
+      =&gt; {moe: 30, larry: 40, curly: 50}
+      </pre>
+
+        <p id="chunk">
+          <b class="header">chunk</b>
+          <code>fn.chunk(array, length)</code>
+          <br /> Chunks an
+          <b>array</b> into multiple arrays, each containing
+          <b>length</b>
+          or fewer items.
+        </p>
+        <pre>
+      var partners = fn.chunk(fn.shuffle(kindergarten), 2);
+      =&gt; [["Tyrone", "Elie"], ["Aidan", "Sam"], ["Katrina", "Billie"], ["Little Timmy"]]
+      </pre>
+
+        <p id="indexOf">
+          <b class="header">indexOf</b>
+          <code>fn.indexOf(array, value, [isSorted])</code>
+          <br /> Returns the index at which
+          <b>value</b> can be found in the
+          <b>array</b>, or
+          <i>-1</i> if value is not present in the
+          <b>array</b>. If you're working with a large array, and you know that the array is already sorted, pass
+          <tt>true</tt>
+          for
+          <b>isSorted</b> to use a faster binary search ... or, pass a number as the third argument in order to look for the
+          first matching value in the array after the given index.
+        </p>
+        <pre>
+      fn.indexOf([1, 2, 3], 2);
+      =&gt; 1
+      </pre>
+
+        <p id="lastIndexOf">
+          <b class="header">lastIndexOf</b>
+          <code>fn.lastIndexOf(array, value, [fromIndex])</code>
+          <br /> Returns the index of the last occurrence of
+          <b>value</b> in the
+          <b>array</b>, or
+          <i>-1</i> if value is not present. Pass
+          <b>fromIndex</b> to start your search at a given index.
+        </p>
+        <pre>
+      fn.lastIndexOf([1, 2, 3, 1, 2, 3], 2);
+      =&gt; 4
+      </pre>
+
+        <p id="sortedIndex">
+          <b class="header">sortedIndex</b>
+          <code>fn.sortedIndex(array, value, [iteratee], [context])</code>
+          <br /> Uses a binary search to determine the index at which the
+          <b>value</b>
+          <i>should</i> be inserted into the
+          <b>array</b> in order to maintain the
+          <b>array</b>'s sorted order. If an
+          <a href="#iteratee">
+            <b>iteratee</b>
+          </a> function is provided, it will be used to compute the sort ranking of each value, including the
+          <b>value</b> you pass. The iteratee may also be the string name of the property to sort by (eg.
+          <tt>length</tt>).
+        </p>
+        <pre>
+      fn.sortedIndex([10, 20, 30, 40, 50], 35);
+      =&gt; 3
+      
+      var stooges = [{name: 'moe', age: 40}, {name: 'curly', age: 60}];
+      fn.sortedIndex(stooges, {name: 'larry', age: 50}, 'age');
+      =&gt; 1
+      </pre>
+
+        <p id="findIndex">
+          <b class="header">findIndex</b>
+          <code>fn.findIndex(array, predicate, [context])</code>
+          <br /> Similar to
+          <a href="#indexOf">
+            <tt>fn.indexOf</tt>
+          </a>, returns the first index where the
+          <strong>predicate</strong> truth test passes; otherwise returns
+          <i>-1</i>.
+        </p>
+        <pre>
+      fn.findIndex([4, 6, 8, 12], isPrime);
+      =&gt; -1 // not found
+      fn.findIndex([4, 6, 7, 12], isPrime);
+      =&gt; 2
+      </pre>
+
+        <p id="findLastIndex">
+          <b class="header">findLastIndex</b>
+          <code>fn.findLastIndex(array, predicate, [context])</code>
+          <br /> Like
+          <a href="#findIndex">
+            <tt>fn.findIndex</tt>
+          </a> but iterates the array in reverse, returning the index closest to the end where the
+          <strong>predicate</strong> truth test passes.
+        </p>
+        <pre>
+      var users = [{'id': 1, 'name': 'Bob', 'last': 'Brown'},
+                   {'id': 2, 'name': 'Ted', 'last': 'White'},
+                   {'id': 3, 'name': 'Frank', 'last': 'James'},
+                   {'id': 4, 'name': 'Ted', 'last': 'Jones'}];
+      fn.findLastIndex(users, {
+        name: 'Ted'
+      });
+      =&gt; 3
+      </pre>
+
+        <p id="range">
+          <b class="header">range</b>
+          <code>fn.range([start], stop, [step])</code>
+          <br /> A function to create flexibly-numbered lists of integers, handy for
+          <tt>each</tt> and
+          <tt>map</tt> loops.
+          <b>start</b>, if omitted, defaults to
+          <i>0</i>;
+          <b>step</b> defaults to
+          <i>1</i>. Returns a list of integers from
+          <b>start</b> (inclusive) to
+          <b>stop</b> (exclusive), incremented (or decremented) by
+          <b>step</b>, exclusive. Note that ranges that
+          <b>stop</b> before they
+          <b>start</b>
+          are considered to be zero-length instead of negative — if you'd like a negative range, use a negative
+          <b>step</b>.
+        </p>
+        <pre>
+      fn.range(10);
+      =&gt; [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+      fn.range(1, 11);
+      =&gt; [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+      fn.range(0, 30, 5);
+      =&gt; [0, 5, 10, 15, 20, 25]
+      fn.range(0, -10, -1);
+      =&gt; [0, -1, -2, -3, -4, -5, -6, -7, -8, -9]
+      fn.range(0);
+      =&gt; []
+      </pre>
+
+        <h2 id="functions">Function (uh, ahem) Functions</h2>
+
+        <p id="bind">
+          <b class="header">bind</b>
+          <code>fn.bind(function, object, *arguments)</code>
+          <br /> Bind a
+          <b>function</b> to an
+          <b>object</b>, meaning that whenever the function is called, the value of
+          <i>this</i> will be the
+          <b>object</b>. Optionally, pass
+          <b>arguments</b> to the
+          <b>function</b> to pre-fill them, also known as
+          <b>partial application</b>. For partial application without context binding, use
+          <a href="#partial">partial</a>.
+        </p>
+        <pre>
+      var func = function(greeting){ return greeting + ': ' + this.name };
+      func = fn.bind(func, {name: 'moe'}, 'hi');
+      func();
+      =&gt; 'hi: moe'
+      </pre>
+
+        <p id="bindAll">
+          <b class="header">bindAll</b>
+          <code>fn.bindAll(object, *methodNames)</code>
+          <br /> Binds a number of methods on the
+          <b>object</b>, specified by
+          <b>methodNames</b>, to be run in the context of that object whenever they are invoked. Very handy for binding functions
+          that are going to be used as event handlers, which would otherwise be invoked with a fairly useless
+          <i>this</i>.
+          <b>methodNames</b> are required.
+        </p>
+        <pre>
+      var buttonView = {
+        label  : 'funclib.js',
+        onClick: function(){ alert('clicked: ' + this.label); },
+        onHover: function(){ console.log('hovering: ' + this.label); }
+      };
+      fn.bindAll(buttonView, 'onClick', 'onHover');
+      // When the button is clicked, this.label will have the correct value.
+      jQuery('#funclib.js_button').on('click', buttonView.onClick);
+      </pre>
+
+        <p id="partial">
+          <b class="header">partial</b>
+          <code>fn.partial(function, *arguments)</code>
+          <br /> Partially apply a function by filling in any number of its
+          <b>arguments</b>,
+          <i>without</i> changing its dynamic
+          <tt>this</tt> value. A close cousin of
+          <a href="#bind">bind</a>. You may pass
+          <tt>_</tt> in your list of
+          <b>arguments</b> to specify an argument that should not be pre-filled, but left open to supply at call-time.
+        </p>
+        <pre>
+      var subtract = function(a, b) { return b - a; };
+      sub5 = fn.partial(subtract, 5);
+      sub5(20);
+      =&gt; 15
+      
+      // Using a placeholder
+      subFrom20 = fn.partial(subtract, _, 20);
+      subFrom20(5);
+      =&gt; 15
+      </pre>
+
+        <p id="memoize">
+          <b class="header">memoize</b>
+          <code>fn.memoize(function, [hashFunction])</code>
+          <br /> Memoizes a given
+          <b>function</b> by caching the computed result. Useful for speeding up slow-running computations. If passed an optional
+          <b>hashFunction</b>, it will be used to compute the hash key for storing the result, based on the arguments to the
+          original function. The default
+          <b>hashFunction</b> just uses the first argument to the memoized function as the key. The cache of memoized values
+          is available as the
+          <tt>cache</tt>
+          property on the returned function.
+        </p>
+        <pre>
+      var fibonacci = fn.memoize(function(n) {
+        return n &lt; 2 ? n: fibonacci(n - 1) + fibonacci(n - 2);
+      });
+      </pre>
+
+        <p id="delay">
+          <b class="header">delay</b>
+          <code>fn.delay(function, wait, *arguments)</code>
+          <br /> Much like
+          <b>setTimeout</b>, invokes
+          <b>function</b> after
+          <b>wait</b>
+          milliseconds. If you pass the optional
+          <b>arguments</b>, they will be forwarded on to the
+          <b>function</b> when it is invoked.
+        </p>
+        <pre>
+      var log = fn.bind(console.log, console);
+      fn.delay(log, 1000, 'logged later');
+      =&gt; 'logged later' // Appears after one second.
+      </pre>
+
+        <p id="defer">
+          <b class="header">defer</b>
+          <code>fn.defer(function, *arguments)</code>
+          <br /> Defers invoking the
+          <b>function</b> until the current call stack has cleared, similar to using
+          <b>setTimeout</b> with a delay of 0. Useful for performing expensive computations or HTML rendering in chunks without
+          blocking the UI thread from updating. If you pass the optional
+          <b>arguments</b>, they will be forwarded on to the
+          <b>function</b> when it is invoked.
+        </p>
+        <pre>
+      fn.defer(function(){ alert('deferred'); });
+      // Returns from the function before the alert runs.
+      </pre>
+
+        <p id="throttle">
+          <b class="header">throttle</b>
+          <code>fn.throttle(function, wait, [options])</code>
+          <br /> Creates and returns a new, throttled version of the passed function, that, when invoked repeatedly, will only
+          actually call the original function at most once per every
+          <b>wait</b>
+          milliseconds. Useful for rate-limiting events that occur faster than you can keep up with.
+        </p>
+        <p>
+          By default,
+          <b>throttle</b> will execute the function as soon as you call it for the first time, and, if you call it again any
+          number of times during the
+          <b>wait</b> period, as soon as that period is over. If you'd like to disable the leading-edge call, pass
+          <tt>{leading: false}</tt>, and if you'd like to disable the execution on the trailing-edge, pass
+          <br />
+          <tt>{trailing: false}</tt>.
+        </p>
+        <pre>
+      var throttled = fn.throttle(updatePosition, 100);
+      $(window).scroll(throttled);
+      </pre>
+        <p>
+          If you need to cancel a scheduled throttle, you can call
+          <tt>.cancel()</tt>
+          on the throttled function.
+        </p>
+
+        <p id="debounce">
+          <b class="header">debounce</b>
+          <code>fn.debounce(function, wait, [immediate])</code>
+          <br /> Creates and returns a new debounced version of the passed function which will postpone its execution until after
+          <b>wait</b> milliseconds have elapsed since the last time it was invoked. Useful for implementing behavior that should
+          only happen
+          <i>after</i> the input has stopped arriving. For example: rendering a preview of a Markdown comment, recalculating
+          a layout after the window has stopped being resized, and so on.
+        </p>
+        <p>
+          At the end of the
+          <b>wait</b> interval, the function will be called with the arguments that were passed
+          <i>most recently</i> to the debounced function.
+        </p>
+        <p>
+          Pass
+          <tt>true</tt> for the
+          <b>immediate</b> argument to cause
+          <b>debounce</b> to trigger the function on the leading instead of the trailing edge of the
+          <b>wait</b> interval. Useful in circumstances like preventing accidental double-clicks on a "submit" button from firing
+          a second time.
+        </p>
+        <pre>
+      var lazyLayout = fn.debounce(calculateLayout, 300);
+      $(window).resize(lazyLayout);
+      </pre>
+        <p>
+          If you need to cancel a scheduled debounce, you can call
+          <tt>.cancel()</tt>
+          on the debounced function.
+        </p>
+
+        <p id="once">
+          <b class="header">once</b>
+          <code>fn.once(function)</code>
+          <br /> Creates a version of the function that can only be called one time. Repeated calls to the modified function will
+          have no effect, returning the value from the original call. Useful for initialization functions, instead of having
+          to set a boolean flag and then check it later.
+        </p>
+        <pre>
+      var initialize = fn.once(createApplication);
+      initialize();
+      initialize();
+      // Application is only created once.
+      </pre>
+
+        <p id="after">
+          <b class="header">after</b>
+          <code>fn.after(count, function)</code>
+          <br /> Creates a version of the function that will only be run after being called
+          <b>count</b> times. Useful for grouping asynchronous responses, where you want to be sure that all the async calls
+          have finished, before proceeding.
+        </p>
+        <pre>
+      var renderNotes = fn.after(notes.length, render);
+      fn.each(notes, function(note) {
+        note.asyncSave({success: renderNotes});
+      });
+      // renderNotes is run once, after all notes have saved.
+      </pre>
+
+        <p id="before">
+          <b class="header">before</b>
+          <code>fn.before(count, function)</code>
+          <br /> Creates a version of the function that can be called no more than
+          <b>count</b> times. The result of the last function call is memoized and returned when
+          <b>count</b> has been reached.
+        </p>
+        <pre>
+      var monthlyMeeting = fn.before(3, askForRaise);
+      monthlyMeeting();
+      monthlyMeeting();
+      monthlyMeeting();
+      // the result of any subsequent calls is the same as the second call
+      </pre>
+
+        <p id="wrap">
+          <b class="header">wrap</b>
+          <code>fn.wrap(function, wrapper)</code>
+          <br /> Wraps the first
+          <b>function</b> inside of the
+          <b>wrapper</b> function, passing it as the first argument. This allows the
+          <b>wrapper</b> to execute code before and after the
+          <b>function</b> runs, adjust the arguments, and execute it conditionally.
+        </p>
+        <pre>
+      var hello = function(name) { return "hello: " + name; };
+      hello = fn.wrap(hello, function(func) {
+        return "before, " + func("moe") + ", after";
+      });
+      hello();
+      =&gt; 'before, hello: moe, after'
+      </pre>
+
+        <p id="negate">
+          <b class="header">negate</b>
+          <code>fn.negate(predicate)</code>
+          <br /> Returns a new negated version of the
+          <a href="#iteratee">
+            <b>predicate</b>
+          </a> function.
+        </p>
+        <pre>
+      var isFalsy = fn.negate(Boolean);
+      fn.find([-2, -1, 0, 1, 2], isFalsy);
+      =&gt; 0
+      </pre>
+
+        <p id="compose">
+          <b class="header">compose</b>
+          <code>fn.compose(*functions)</code>
+          <br /> Returns the composition of a list of
+          <b>functions</b>, where each function consumes the return value of the function that follows. In math terms, composing
+          the functions
+          <i>f()</i>,
+          <i>g()</i>, and
+          <i>h()</i> produces
+          <i>f(g(h()))</i>.
+        </p>
+        <pre>
+      var greet    = function(name){ return "hi: " + name; };
+      var exclaim  = function(statement){ return statement.toUpperCase() + "!"; };
+      var welcome = fn.compose(greet, exclaim);
+      welcome('moe');
+      =&gt; 'hi: MOE!'
+      </pre>
+
+        <p id="restArguments">
+          <b class="header">restArguments</b>
+          <code>fn.restArguments(function, [startIndex])</code>
+          <br /> Returns a version of the
+          <b>function</b> that, when called, receives all arguments from and beyond
+          <b>startIndex</b> collected into a single array. If you don’t pass an explicit
+          <b>startIndex</b>, it will be determined by looking at the number of arguments to the
+          <b>function</b> itself. Similar to ES6’s
+          <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters">rest parameters syntax</a>.
+        </p>
+        <pre>
+      var raceResults = fn.restArguments(function(gold, silver, bronze, everyoneElse) {
+        fn.each(everyoneElse, sendConsolations);
+      });
+      
+      raceResults("Dopey", "Grumpy", "Happy", "Sneezy", "Bashful", "Sleepy", "Doc");
+      </pre>
+
+        <h2 id="objects">Object Functions</h2>
+
+        <p id="keys">
+          <b class="header">keys</b>
+          <code>fn.keys(object)</code>
+          <br /> Retrieve all the names of the
+          <b>object</b>'s own enumerable properties.
+        </p>
+        <pre>
+      fn.keys({one: 1, two: 2, three: 3});
+      =&gt; ["one", "two", "three"]
+      </pre>
+
+        <p id="allKeys">
+          <b class="header">allKeys</b>
+          <code>fn.allKeys(object)</code>
+          <br /> Retrieve
+          <i>all</i> the names of
+          <b>object</b>'s own and inherited properties.
+        </p>
+        <pre>
+      function Stooge(name) {
+        this.name = name;
+      }
+      Stooge.prototype.silly = true;
+      fn.allKeys(new Stooge("Moe"));
+      =&gt; ["name", "silly"]
+      </pre>
+
+        <p id="values">
+          <b class="header">values</b>
+          <code>fn.values(object)</code>
+          <br /> Return all of the values of the
+          <b>object</b>'s own properties.
+        </p>
+        <pre>
+      fn.values({one: 1, two: 2, three: 3});
+      =&gt; [1, 2, 3]
+      </pre>
+
+        <p id="mapObject">
+          <b class="header">mapObject</b>
+          <code>fn.mapObject(object, iteratee, [context])</code>
+          <br /> Like
+          <a href="#map">map</a>, but for objects. Transform the value of each property in turn.
+        </p>
+        <pre>
+      fn.mapObject({start: 5, end: 12}, function(val, key) {
+        return val + 5;
+      });
+      =&gt; {start: 10, end: 17}
+      </pre>
+
+        <p id="pairs">
+          <b class="header">pairs</b>
+          <code>fn.pairs(object)</code>
+          <br /> Convert an object into a list of
+          <tt>[key, value]</tt> pairs. The opposite of
+          <a href="#object">object</a>.
+        </p>
+        <pre>
+      fn.pairs({one: 1, two: 2, three: 3});
+      =&gt; [["one", 1], ["two", 2], ["three", 3]]
+      </pre>
+
+        <p id="invert">
+          <b class="header">invert</b>
+          <code>fn.invert(object)</code>
+          <br /> Returns a copy of the
+          <b>object</b> where the keys have become the values and the values the keys. For this to work, all of your object's
+          values should be unique and string serializable.
+        </p>
+        <pre>
+      fn.invert({Moe: "Moses", Larry: "Louis", Curly: "Jerome"});
+      =&gt; {Moses: "Moe", Louis: "Larry", Jerome: "Curly"};
+      </pre>
+
+        <p id="create">
+          <b class="header">create</b>
+          <code>fn.create(prototype, props)</code>
+          <br /> Creates a new object with the given prototype, optionally attaching
+          <b>props</b> as
+          <i>own</i> properties. Basically,
+          <tt>Object.create</tt>, but without all of the property descriptor jazz.
+        </p>
+        <pre>
+      var moe = fn.create(Stooge.prototype, {name: "Moe"});
+      </pre>
+
+        <p id="object-functions">
+          <b class="header">functions</b>
+          <code>fn.functions(object)</code>
+          <span class="alias">Alias:
+            <b>methods</b>
+          </span>
+          <br /> Returns a sorted list of the names of every method in an object &mdash; that is to say, the name of every function
+          property of the object.
+        </p>
+        <pre>
+      fn.functions(_);
+      =&gt; ["all", "any", "bind", "bindAll", "clone", "compact", "compose" ...
+      </pre>
+
+        <p id="findKey">
+          <b class="header">findKey</b>
+          <code>fn.findKey(object, predicate, [context])</code>
+          <br /> Similar to
+          <a href="#findIndex">
+            <tt>fn.findIndex</tt>
+          </a> but for keys in objects. Returns the
+          <i>key</i> where the
+          <b>predicate</b> truth test passes or
+          <i>undefined</i>.
+          <b>predicate</b> is transformed through
+          <a href="#iteratee">
+            <b>iteratee</b>
+          </a>
+          to facilitate shorthand syntaxes.
+        </p>
+
+        <p id="extend">
+          <b class="header">extend</b>
+          <code>fn.extend(destination, *sources)</code>
+          <br /> Shallowly copy all of the properties
+          <strong>in</strong> the
+          <b>source</b> objects over to the
+          <b>destination</b> object, and return the
+          <b>destination</b> object. Any nested objects or arrays will be copied by reference, not duplicated. It's in-order,
+          so the last source will override properties of the same name in previous arguments.
+        </p>
+        <pre>
+      fn.extend({name: 'moe'}, {age: 50});
+      =&gt; {name: 'moe', age: 50}
+      </pre>
+
+        <p id="extendOwn">
+          <b class="header">extendOwn</b>
+          <code>fn.extendOwn(destination, *sources)</code>
+          <span class="alias">Alias:
+            <b>assign</b>
+          </span>
+          <br /> Like
+          <b>extend</b>, but only copies
+          <i>own</i> properties over to the destination object.
+        </p>
+
+        <p id="pick">
+          <b class="header">pick</b>
+          <code>fn.pick(object, *keys)</code>
+          <br /> Return a copy of the
+          <b>object</b>, filtered to only have values for the whitelisted
+          <b>keys</b> (or array of valid keys). Alternatively accepts a predicate indicating which keys to pick.
+        </p>
+        <pre>
+      fn.pick({name: 'moe', age: 50, userid: 'moe1'}, 'name', 'age');
+      =&gt; {name: 'moe', age: 50}
+      fn.pick({name: 'moe', age: 50, userid: 'moe1'}, function(value, key, object) {
+        return fn.isNumber(value);
+      });
+      =&gt; {age: 50}
+      </pre>
+
+        <p id="omit">
+          <b class="header">omit</b>
+          <code>fn.omit(object, *keys)</code>
+          <br /> Return a copy of the
+          <b>object</b>, filtered to omit the blacklisted
+          <b>keys</b> (or array of keys). Alternatively accepts a predicate indicating which keys to omit.
+        </p>
+        <pre>
+      fn.omit({name: 'moe', age: 50, userid: 'moe1'}, 'userid');
+      =&gt; {name: 'moe', age: 50}
+      fn.omit({name: 'moe', age: 50, userid: 'moe1'}, function(value, key, object) {
+        return fn.isNumber(value);
+      });
+      =&gt; {name: 'moe', userid: 'moe1'}
+      </pre>
+
+        <p id="defaults">
+          <b class="header">defaults</b>
+          <code>fn.defaults(object, *defaults)</code>
+          <br /> Returns
+          <b>object</b> after filling in its
+          <tt>undefined</tt> properties with the first value present in the following list of
+          <b>defaults</b> objects.
+        </p>
+        <pre>
+      var iceCream = {flavor: "chocolate"};
+      fn.defaults(iceCream, {flavor: "vanilla", sprinkles: "lots"});
+      =&gt; {flavor: "chocolate", sprinkles: "lots"}
+      </pre>
+
+        <p id="clone">
+          <b class="header">clone</b>
+          <code>fn.clone(object)</code>
+          <br /> Create a shallow-copied clone of the provided
+          <i>plain</i>
+          <b>object</b>. Any nested objects or arrays will be copied by reference, not duplicated.
+        </p>
+        <pre>
+      fn.clone({name: 'moe'});
+      =&gt; {name: 'moe'};
+      </pre>
+
+        <p id="tap">
+          <b class="header">tap</b>
+          <code>fn.tap(object, interceptor)</code>
+          <br /> Invokes
+          <b>interceptor</b> with the
+          <b>object</b>, and then returns
+          <b>object</b>. The primary purpose of this method is to "tap into" a method chain, in order to perform operations
+          on intermediate results within the chain.
+        </p>
+        <pre>
+      fn.chain([1,2,3,200])
+        .filter(function(num) { return num % 2 == 0; })
+        .tap(alert)
+        .map(function(num) { return num * num })
+        .value();
+      =&gt; // [2, 200] (alerted)
+      =&gt; [4, 40000]
+      </pre>
+
+        <p id="has">
+          <b class="header">has</b>
+          <code>fn.has(object, key)</code>
+          <br /> Does the object contain the given key? Identical to
+          <tt>object.hasOwnProperty(key)</tt>, but uses a safe reference to the
+          <tt>hasOwnProperty</tt> function, in case it's been
+
+          <a href="http://www.pixelstech.net/article/1326986170-An-Object-is-not-a-Hash">overridden accidentally</a>.
+        </p>
+        <pre>
+      fn.has({a: 1, b: 2, c: 3}, "b");
+      =&gt; true
+      </pre>
+
+        <p id="property">
+          <b class="header">property</b>
+          <code>fn.property(path)</code>
+          <br /> Returns a function that will return the specified property of any passed-in object.
+          <tt>path</tt> may be specified as a simple key, or as an array of object keys or array indexes, for deep property fetching.
+        </p>
+        <pre>
+      var stooge = {name: 'moe'};
+      'moe' === fn.property('name')(stooge);
+      =&gt; true
+      
+      var stooges = {moe: {fears: {worst: 'Spiders'}}, curly: {fears: {worst: 'Moe'}}};
+      var curlysWorstFear = fn.property(['curly', 'fears', 'worst']);
+      curlysWorstFear(stooges);
+      =&gt; 'Moe'
+      </pre>
+
+        <p id="propertyOf">
+          <b class="header">propertyOf</b>
+          <code>fn.propertyOf(object)</code>
+          <br /> Inverse of
+          <tt>fn.property</tt>. Takes an object and returns a function which will return the value of a provided property.
+        </p>
+        <pre>
+      var stooge = {name: 'moe'};
+      fn.propertyOf(stooge)('name');
+      =&gt; 'moe'</pre>
+
+        <p id="matcher">
+          <b class="header">matcher</b>
+          <code>fn.matcher(attrs)</code>
+          <span class="alias">Alias:
+            <b>matches</b>
+          </span>
+          <br /> Returns a predicate function that will tell you if a passed in object contains all of the key/value properties
+          present in
+          <b>attrs</b>.
+        </p>
+        <pre>
+      var ready = fn.matcher({selected: true, visible: true});
+      var readyToGoList = fn.filter(list, ready);</pre>
+
+        <p id="isEqual">
+          <b class="header">isEqual</b>
+          <code>fn.isEqual(object, other)</code>
+          <br /> Performs an optimized deep comparison between the two objects, to determine if they should be considered equal.
+        </p>
+        <pre>
+      var stooge = {name: 'moe', luckyNumbers: [13, 27, 34]};
+      var clone  = {name: 'moe', luckyNumbers: [13, 27, 34]};
+      stooge == clone;
+      =&gt; false
+      fn.isEqual(stooge, clone);
+      =&gt; true
+      </pre>
+
+        <p id="isMatch">
+          <b class="header">isMatch</b>
+          <code>fn.isMatch(object, properties)</code>
+          <br /> Tells you if the keys and values in
+          <b>properties</b> are contained in
+          <b>object</b>.
+        </p>
+        <pre>
+      var stooge = {name: 'moe', age: 32};
+      fn.isMatch(stooge, {age: 32});
+      =&gt; true
+      </pre>
+
+        <p id="isEmpty">
+          <b class="header">isEmpty</b>
+          <code>fn.isEmpty(object)</code>
+          <br /> Returns
+          <i>true</i> if an enumerable
+          <b>object</b> contains no values (no enumerable own-properties). For strings and array-like objects
+          <tt>fn.isEmpty</tt> checks if the length property is 0.
+        </p>
+        <pre>
+      fn.isEmpty([1, 2, 3]);
+      =&gt; false
+      fn.isEmpty({});
+      =&gt; true
+      </pre>
+
+        <p id="isElement">
+          <b class="header">isElement</b>
+          <code>fn.isElement(object)</code>
+          <br /> Returns
+          <i>true</i> if
+          <b>object</b> is a DOM element.
+        </p>
+        <pre>
+      fn.isElement(jQuery('body')[0]);
+      =&gt; true
+      </pre>
+
+        <p id="isArray">
+          <b class="header">isArray</b>
+          <code>fn.isArray(object)</code>
+          <br /> Returns
+          <i>true</i> if
+          <b>object</b> is an Array.
+        </p>
+        <pre>
+      (function(){ return fn.isArray(arguments); })();
+      =&gt; false
+      fn.isArray([1,2,3]);
+      =&gt; true
+      </pre>
+
+        <p id="isObject">
+          <b class="header">isObject</b>
+          <code>fn.isObject(value)</code>
+          <br /> Returns
+          <i>true</i> if
+          <b>value</b> is an Object. Note that JavaScript arrays and functions are objects, while (normal) strings and numbers
+          are not.
+        </p>
+        <pre>
+      fn.isObject({});
+      =&gt; true
+      fn.isObject(1);
+      =&gt; false
+      </pre>
+
+        <p id="isArguments">
+          <b class="header">isArguments</b>
+          <code>fn.isArguments(object)</code>
+          <br /> Returns
+          <i>true</i> if
+          <b>object</b> is an Arguments object.
+        </p>
+        <pre>
+      (function(){ return fn.isArguments(arguments); })(1, 2, 3);
+      =&gt; true
+      fn.isArguments([1,2,3]);
+      =&gt; false
+      </pre>
+
+        <p id="isFunction">
+          <b class="header">isFunction</b>
+          <code>fn.isFunction(object)</code>
+          <br /> Returns
+          <i>true</i> if
+          <b>object</b> is a Function.
+        </p>
+        <pre>
+      fn.isFunction(alert);
+      =&gt; true
+      </pre>
+
+        <p id="isString">
+          <b class="header">isString</b>
+          <code>fn.isString(object)</code>
+          <br /> Returns
+          <i>true</i> if
+          <b>object</b> is a String.
+        </p>
+        <pre>
+      fn.isString("moe");
+      =&gt; true
+      </pre>
+
+        <p id="isNumber">
+          <b class="header">isNumber</b>
+          <code>fn.isNumber(object)</code>
+          <br /> Returns
+          <i>true</i> if
+          <b>object</b> is a Number (including
+          <tt>NaN</tt>).
+        </p>
+        <pre>
+      fn.isNumber(8.4 * 5);
+      =&gt; true
+      </pre>
+
+        <p id="isFinite">
+          <b class="header">isFinite</b>
+          <code>fn.isFinite(object)</code>
+          <br /> Returns
+          <i>true</i> if
+          <b>object</b> is a finite Number.
+        </p>
+        <pre>
+      fn.isFinite(-101);
+      =&gt; true
+      
+      fn.isFinite(-Infinity);
+      =&gt; false
+      </pre>
+
+        <p id="isBoolean">
+          <b class="header">isBoolean</b>
+          <code>fn.isBoolean(object)</code>
+          <br /> Returns
+          <i>true</i> if
+          <b>object</b> is either
+          <i>true</i> or
+          <i>false</i>.
+        </p>
+        <pre>
+      fn.isBoolean(null);
+      =&gt; false
+      </pre>
+
+        <p id="isDate">
+          <b class="header">isDate</b>
+          <code>fn.isDate(object)</code>
+          <br /> Returns
+          <i>true</i> if
+          <b>object</b> is a Date.
+        </p>
+        <pre>
+      fn.isDate(new Date());
+      =&gt; true
+      </pre>
+
+        <p id="isRegExp">
+          <b class="header">isRegExp</b>
+          <code>fn.isRegExp(object)</code>
+          <br /> Returns
+          <i>true</i> if
+          <b>object</b> is a RegExp.
+        </p>
+        <pre>
+      fn.isRegExp(/moe/);
+      =&gt; true
+      </pre>
+
+        <p id="isError">
+          <b class="header">isError</b>
+          <code>fn.isError(object)</code>
+          <br /> Returns
+          <i>true</i> if
+          <b>object</b> inherits from an Error.
+        </p>
+        <pre>
+      try {
+        throw new TypeError("Example");
+      } catch (o_O) {
+        fn.isError(o_O);
+      }
+      =&gt; true
+      </pre>
+
+        <p id="isSymbol">
+          <b class="header">isSymbol</b>
+          <code>fn.isSymbol(object)</code>
+          <br /> Returns
+          <i>true</i> if
+          <b>object</b> is a
+          <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol">Symbol</a>.
+        </p>
+        <pre>
+      fn.isSymbol(Symbol());
+      =&gt; true
+      </pre>
+
+        <p id="isMap">
+          <b class="header">isMap</b>
+          <code>fn.isMap(object)</code>
+          <br /> Returns
+          <i>true</i> if
+          <b>object</b> is a
+          <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map">Map</a>.
+        </p>
+        <pre>
+      fn.isMap(new Map());
+      =&gt; true
+      </pre>
+
+        <p id="isWeakMap">
+          <b class="header">isWeakMap</b>
+          <code>fn.isWeakMap(object)</code>
+          <br /> Returns
+          <i>true</i> if
+          <b>object</b> is a
+          <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap">WeakMap</a>.
+        </p>
+        <pre>
+      fn.isWeakMap(new WeakMap());
+      =&gt; true
+      </pre>
+
+        <p id="isSet">
+          <b class="header">isSet</b>
+          <code>fn.isSet(object)</code>
+          <br /> Returns
+          <i>true</i> if
+          <b>object</b> is a
+          <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set">Set</a>.
+        </p>
+        <pre>
+      fn.isSet(new Set());
+      =&gt; true
+      </pre>
+
+        <p id="isWeakSet">
+          <b class="header">isWeakSet</b>
+          <code>fn.isWeakSet(object)</code>
+          <br /> Returns
+          <i>true</i> if
+          <b>object</b> is a
+          <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet">WeakSet</a>.
+        </p>
+        <pre>
+      fn.isWeakSet(WeakSet());
+      =&gt; true
+      </pre>
+
+        <p id="isNaN">
+          <b class="header">isNaN</b>
+          <code>fn.isNaN(object)</code>
+          <br /> Returns
+          <i>true</i> if
+          <b>object</b> is
+          <i>NaN</i>.
+          <br /> Note: this is not the same as the native
+          <b>isNaN</b> function, which will also return true for many other not-number values, such as
+          <tt>undefined</tt>.
+        </p>
+        <pre>
+      fn.isNaN(NaN);
+      =&gt; true
+      isNaN(undefined);
+      =&gt; true
+      fn.isNaN(undefined);
+      =&gt; false
+      </pre>
+
+        <p id="isNull">
+          <b class="header">isNull</b>
+          <code>fn.isNull(object)</code>
+          <br /> Returns
+          <i>true</i> if the value of
+          <b>object</b> is
+          <i>null</i>.
+        </p>
+        <pre>
+      fn.isNull(null);
+      =&gt; true
+      fn.isNull(undefined);
+      =&gt; false
+      </pre>
+
+        <p id="isUndefined">
+          <b class="header">isUndefined</b>
+          <code>fn.isUndefined(value)</code>
+          <br /> Returns
+          <i>true</i> if
+          <b>value</b> is
+          <i>undefined</i>.
+        </p>
+        <pre>
+      fn.isUndefined(window.missingVariable);
+      =&gt; true
+      </pre>
+
+        <h2 id="utility">Utility Functions</h2>
+
+        <p id="noConflict">
+          <b class="header">noConflict</b>
+          <code>fn.noConflict()</code>
+          <br /> Give control of the
+          <tt>_</tt> variable back to its previous owner. Returns a reference to the
+          <b>funclib.js</b> object.
+        </p>
+        <pre>
+      var funclib.js = fn.noConflict();
+      </pre>
+
+        <p id="identity">
+          <b class="header">identity</b>
+          <code>fn.identity(value)</code>
+          <br /> Returns the same value that is used as the argument. In math:
+          <tt>f(x) = x</tt>
+          <br /> This function looks useless, but is used throughout funclib.js as a default iteratee.
+        </p>
+        <pre>
+      var stooge = {name: 'moe'};
+      stooge === fn.identity(stooge);
+      =&gt; true
+      </pre>
+
+        <p id="constant">
+          <b class="header">constant</b>
+          <code>fn.constant(value)</code>
+          <br /> Creates a function that returns the same value that is used as the argument of
+          <tt>fn.constant</tt>.
+        </p>
+        <pre>
+      var stooge = {name: 'moe'};
+      stooge === fn.constant(stooge)();
+      =&gt; true</pre>
+
+        <p id="noop">
+          <b class="header">noop</b>
+          <code>fn.noop()</code>
+          <br /> Returns
+          <tt>undefined</tt> irrespective of the arguments passed to it. Useful as the default for optional callback arguments.
+        </p>
+        <pre>
+      obj.initialize = fn.noop;
+      </pre>
+
+        <p id="times">
+          <b class="header">times</b>
+          <code>fn.times(n, iteratee, [context])</code>
+          <br /> Invokes the given iteratee function
+          <b>n</b> times. Each invocation of
+          <a href="#iteratee">
+            <b>iteratee</b>
+          </a> is called with an
+          <tt>index</tt> argument. Produces an array of the returned values.
+        </p>
+        <pre>
+      fn.times(3, function(n){ genie.grantWishNumber(n); });</pre>
+
+        <p id="random">
+          <b class="header">random</b>
+          <code>fn.random(min, max)</code>
+          <br /> Returns a random integer between
+          <b>min</b> and
+          <b>max</b>, inclusive. If you only pass one argument, it will return a number between
+          <tt>0</tt>
+          and that number.
+        </p>
+        <pre>
+      fn.random(0, 100);
+      =&gt; 42</pre>
+
+        <p id="mixin">
+          <b class="header">mixin</b>
+          <code>fn.mixin(object)</code>
+          <br /> Allows you to extend funclib.js with your own utility functions. Pass a hash of
+          <tt>{name: function}</tt> definitions to have your functions added to the funclib.js object, as well as the OOP wrapper.
+          Returns the funclib.js object to facilitate chaining.</p>
+        <pre>
+      fn.mixin({
+        capitalize: function(string) {
+          return string.charAt(0).toUpperCase() + string.substring(1).toLowerCase();
+        }
+      });
+      _("fabio").capitalize();
+      =&gt; "Fabio"
+      </pre>
+
+        <p id="iteratee">
+          <b class="header">iteratee</b>
+          <code>fn.iteratee(value, [context])</code>
+          <br /> Generates a callback that can be applied to each element in a collection.
+          <tt>fn.iteratee</tt> supports a number of shorthand syntaxes for common callback use cases. Depending upon
+          <tt>value</tt>'s type,
+          <tt>fn.iteratee</tt> will return:
+        </p>
+        <pre>
+      // No value
+      fn.iteratee();
+      => fn.identity()
+      
+      // Function
+      fn.iteratee(function(n) { return n * 2; });
+      => function(n) { return n * 2; }
+      
+      // Object
+      fn.iteratee({firstName: 'Chelsea'});
+      => fn.matcher({firstName: 'Chelsea'});
+      
+      // Anything else
+      fn.iteratee('firstName');
+      => fn.property('firstName');</pre>
+
+        <p>
+          The following funclib.js methods transform their predicates through
+          <tt>fn.iteratee</tt>:
+          <tt>countBy</tt>,
+          <tt>every</tt>,
+          <tt>filter</tt>,
+          <tt>find</tt>,
+          <tt>findIndex</tt>,
+          <tt>findKey</tt>,
+          <tt>findLastIndex</tt>,
+          <tt>groupBy</tt>,
+          <tt>indexBy</tt>,
+          <tt>map</tt>,
+          <tt>mapObject</tt>,
+          <tt>max</tt>,
+          <tt>min</tt>,
+          <tt>partition</tt>,
+          <tt>reject</tt>,
+          <tt>some</tt>,
+          <tt>sortBy</tt>,
+          <tt>sortedIndex</tt>, and
+          <tt>uniq</tt>
+        </p>
+
+        <p>
+          You may overwrite
+          <tt>fn.iteratee</tt> with your own custom function, if you want additional or different shorthand syntaxes:
+        </p>
+        <pre>
+      // Support `RegExp` predicate shorthand.
+      var builtinIteratee = fn.iteratee;
+      fn.iteratee = function(value, context) {
+        if (fn.isRegExp(value)) return function(obj) { return value.test(obj) };
+        return builtinIteratee(value, context);
+      };</pre>
+        <p id="uniqueId">
+          <b class="header">uniqueId</b>
+          <code>fn.uniqueId([prefix])</code>
+          <br /> Generate a globally-unique id for client-side models or DOM elements that need one. If
+          <b>prefix</b> is passed, the id will be appended to it.
+        </p>
+        <pre>
+      fn.uniqueId('contact_');
+      =&gt; 'contact_104'</pre>
+
+        <p id="escape">
+          <b class="header">escape</b>
+          <code>fn.escape(string)</code>
+          <br /> Escapes a string for insertion into HTML, replacing
+          <tt>&amp;</tt>,
+          <tt>&lt;</tt>,
+          <tt>&gt;</tt>,
+          <tt>&quot;</tt>,
+          <tt>&#96;</tt>, and
+          <tt>&#x27;</tt> characters.
+        </p>
+        <pre>
+      fn.escape('Curly, Larry &amp; Moe');
+      =&gt; "Curly, Larry &amp;amp; Moe"</pre>
+
+        <p id="unescape">
+          <b class="header">unescape</b>
+          <code>fn.unescape(string)</code>
+          <br /> The opposite of
+          <a href="#escape">
+            <b>escape</b>
+          </a>, replaces
+          <tt>&amp;amp;</tt>,
+          <tt>&amp;lt;</tt>,
+          <tt>&amp;gt;</tt>,
+          <tt>&amp;quot;</tt>,
+          <tt>&amp;#96;</tt> and
+          <tt>&amp;#x27;</tt>
+          with their unescaped counterparts.
+        </p>
+        <pre>
+      fn.unescape('Curly, Larry &amp;amp; Moe');
+      =&gt; "Curly, Larry &amp; Moe"</pre>
+
+        <p id="result">
+          <b class="header">result</b>
+          <code>fn.result(object, property, [defaultValue])</code>
+          <br /> If the value of the named
+          <b>property</b> is a function then invoke it with the
+          <b>object</b> as context; otherwise, return it. If a default value is provided and the property doesn't exist or is
+          undefined then the default will be returned. If
+          <tt>defaultValue</tt> is a function its result will be returned.
+        </p>
+        <pre>
+      var object = {cheese: 'crumpets', stuff: function(){ return 'nonsense'; }};
+      fn.result(object, 'cheese');
+      =&gt; "crumpets"
+      fn.result(object, 'stuff');
+      =&gt; "nonsense"
+      fn.result(object, 'meat', 'ham');
+      =&gt; "ham"
+      </pre>
+
+        <p id="now">
+          <b class="header">now</b>
+          <code>fn.now()</code>
+          <br /> Returns an integer timestamp for the current time, using the fastest method available in the runtime. Useful for
+          implementing timing/animation functions.
+        </p>
+        <pre>
+      fn.now();
+      =&gt; 1392066795351
+      </pre>
+
+        <p id="template">
+          <b class="header">template</b>
+          <code>fn.template(templateString, [settings])</code>
+          <br /> Compiles JavaScript templates into functions that can be evaluated for rendering. Useful for rendering complicated
+          bits of HTML from JSON data sources. Template functions can both interpolate values, using
+          <tt>&lt;%= &hellip; %&gt;</tt>, as well as execute arbitrary JavaScript code, with
+          <tt>&lt;% &hellip; %&gt;</tt>. If you wish to interpolate a value, and have it be HTML-escaped, use
+          <tt>&lt;%- &hellip; %&gt;</tt>. When you evaluate a template function, pass in a
+          <b>data</b> object that has properties corresponding to the template's free variables. The
+          <b>settings</b> argument should be a hash containing any
+          <tt>fn.templateSettings</tt> that should be overridden.
+        </p>
+
+        <pre>
+      var compiled = fn.template("hello: &lt;%= name %&gt;");
+      compiled({name: 'moe'});
+      =&gt; "hello: moe"
+      
+      var template = fn.template("&lt;b&gt;&lt;%- value %&gt;&lt;/b&gt;");
+      template({value: '&lt;script&gt;'});
+      =&gt; "&lt;b&gt;&amp;lt;script&amp;gt;&lt;/b&gt;"</pre>
+
+        <p>
+          You can also use
+          <tt>print</tt> from within JavaScript code. This is sometimes more convenient than using
+          <tt>&lt;%= ... %&gt;</tt>.
+        </p>
+
+        <pre>
+      var compiled = fn.template("&lt;% print('Hello ' + epithet); %&gt;");
+      compiled({epithet: "stooge"});
+      =&gt; "Hello stooge"</pre>
+
+        <p>
+          If ERB-style delimiters aren't your cup of tea, you can change funclib.js's template settings to use different symbols to
+          set off interpolated code. Define an
+          <b>interpolate</b> regex to match expressions that should be interpolated verbatim, an
+          <b>escape</b> regex to match expressions that should be inserted after being HTML-escaped, and an
+          <b>evaluate</b> regex to match expressions that should be evaluated without insertion into the resulting string. You
+          may define or omit any combination of the three. For example, to perform
+          <a href="https://github.com/janl/mustache.js#readme">Mustache.js</a>-style templating:
+        </p>
+
+        <pre>
+      fn.templateSettings = {
+        interpolate: /\{\{(.+?)\}\}/g
+      };
+      
+      var template = fn.template("Hello {{ name }}!");
+      template({name: "Mustache"});
+      =&gt; "Hello Mustache!"</pre>
+
+        <p>
+          By default,
+          <b>template</b> places the values from your data in the local scope via the
+          <tt>with</tt> statement. However, you can specify a single variable name with the
+          <b>variable</b> setting. This can significantly improve the speed at which a template is able to render.
+        </p>
+
+        <pre>
+      fn.template("Using 'with': <%= data.answer %>", {variable: 'data'})({answer: 'no'});
+      =&gt; "Using 'with': no"</pre>
+
+        <p>
+          Precompiling your templates can be a big help when debugging errors you can't reproduce. This is because precompiled templates
+          can provide line numbers and a stack trace, something that is not possible when compiling templates on the client.
+          The
+          <b>source</b> property is available on the compiled template function for easy precompilation.
+        </p>
+
+        <pre>&lt;script&gt;
+        JST.project = <%= fn.template(jstText).source %>;
+      &lt;/script&gt;</pre>
+
+
+        <h2 id="oop">Object-Oriented Style</h2>
+
+        <p>
+          You can use funclib.js in either an object-oriented or a functional style, depending on your preference. The following two
+          lines of code are identical ways to double a list of numbers.
+        </p>
+
+        <pre>
+      fn.map([1, 2, 3], function(n){ return n * 2; });
+      _([1, 2, 3]).map(function(n){ return n * 2; });</pre>
+
+        <h2 id="chaining">Chaining</h2>
+
+        <p>
+          Calling
+          <tt>chain</tt> will cause all future method calls to return wrapped objects. When you've finished the computation,
+          call
+          <tt>value</tt> to retrieve the final value. Here's an example of chaining together a
+          <b>map/flatten/reduce</b>, in order to get the word count of every word in a song.
+        </p>
+
+        <pre>
+      var lyrics = [
+        {line: 1, words: "I'm a lumberjack and I'm okay"},
+        {line: 2, words: "I sleep all night and I work all day"},
+        {line: 3, words: "He's a lumberjack and he's okay"},
+        {line: 4, words: "He sleeps all night and he works all day"}
+      ];
+      
+      fn.chain(lyrics)
+        .map(function(line) { return line.words.split(' '); })
+        .flatten()
+        .reduce(function(counts, word) {
+          counts[word] = (counts[word] || 0) + 1;
+          return counts;
+        }, {})
+        .value();
+      
+      =&gt; {lumberjack: 2, all: 4, night: 2 ... }</pre>
+
+        <p>
+          In addition, the
+          <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/prototype">Array prototype's methods</a>
+          are proxied through the chained funclib.js object, so you can slip a
+          <tt>reverse</tt> or a
+          <tt>push</tt> into your chain, and continue to modify the array.
+        </p>
+
+        <p id="chain">
+          <b class="header">chain</b>
+          <code>fn.chain(obj)</code>
+          <br /> Returns a wrapped object. Calling methods on this object will continue to return wrapped objects until
+          <tt>value</tt> is called.
+        </p>
+        <pre>
+      var stooges = [{name: 'curly', age: 25}, {name: 'moe', age: 21}, {name: 'larry', age: 23}];
+      var youngest = fn.chain(stooges)
+        .sortBy(function(stooge){ return stooge.age; })
+        .map(function(stooge){ return stooge.name + ' is ' + stooge.age; })
+        .first()
+        .value();
+      =&gt; "moe is 21"
+      </pre>
+
+        <p id="value">
+          <b class="header">value</b>
+          <code>fn.chain(obj).value()</code>
+          <br /> Extracts the value of a wrapped object.
+        </p>
+        <pre>
+      fn.chain([1, 2, 3]).reverse().value();
+      =&gt; [3, 2, 1]
+      </pre>
+
+        <h2 id="links">Links &amp; Suggested Reading</h2>
+
+        <p>
+          <a href="http://mirven.github.io/funclib.js.lua/">funclib.js.lua</a>, a Lua port of the functions that are applicable in both languages. Includes OOP-wrapping and
+          chaining. (
+          <a href="https://github.com/mirven/funclib.js.lua">source</a>)
+        </p>
+
+        <p>
+          <a href="http://www.dollarswift.org/">Dollar.swift</a>, a Swift port of many of the funclib.js.js functions and more. (
+          <a href="https://github.com/ankurp/Dollar.swift">source</a>)
+        </p>
+
+        <p>
+          <a href="http://funclib.jsm.org/">funclib.js.m</a>, an Objective-C port of many of the funclib.js.js functions, using a syntax that encourages chaining.
+          (
+          <a href="https://github.com/robb/funclib.js.m">source</a>)
+        </p>
+
+        <p>
+          <a href="http://kmalakoff.github.io/fn.m/">fn.m</a>, an alternative Objective-C port that tries to stick a little closer to the original funclib.js.js API.
+          (
+          <a href="https://github.com/kmalakoff/fn.m">source</a>)
+        </p>
+
+        <p>
+          <a href="https://github.com/bdelespierre/funclib.js.php">funclib.js.php</a>, a PHP port of the functions that are applicable in both languages. Tailored for PHP 5.4 and
+          made with data-type tolerance in mind. (
+          <a href="https://github.com/bdelespierre/funclib.js.php">source</a>)
+        </p>
+
+        <p>
+          <a href="http://vti.github.io/funclib.js-perl/">funclib.js-perl</a>, a Perl port of many of the funclib.js.js functions, aimed at on Perl hashes and arrays. (
+          <a href="https://github.com/vti/funclib.js-perl">source</a>)
+        </p>
+
+        <p>
+          <a href="http://russplaysguitar.github.io/funclib.jsCF/">funclib.js.cfc</a>, a Coldfusion port of many of the funclib.js.js functions. (
+          <a href="https://github.com/russplaysguitar/funclib.jscf">source</a>)
+        </p>
+
+        <p>
+          <a href="http://epeli.github.io/funclib.js.string/">funclib.js.string</a>, an funclib.js extension that adds functions for string-manipulation:
+          <tt>trim</tt>,
+          <tt>startsWith</tt>,
+          <tt>contains</tt>,
+          <tt>capitalize</tt>,
+          <tt>reverse</tt>,
+          <tt>sprintf</tt>, and more.
+        </p>
+
+        <p>
+          <a href="http://javadev.github.io/funclib.js-java/">funclib.js-java</a>, a java port of the functions that are applicable in both languages. Includes OOP-wrapping
+          and chaining. (
+          <a href="https://github.com/javadev/funclib.js-java">source</a>)
+        </p>
+
+        <p>
+          Ruby's
+          <a href="http://ruby-doc.org/core/classes/Enumerable.html">Enumerable</a> module.
+        </p>
+
+        <p>
+          <a href="http://prototypejs.org/">Prototype.js</a>, which provides JavaScript with collection functions in the manner closest to Ruby's Enumerable.
+        </p>
+
+        <p>
+          Oliver Steele's
+          <a href="http://osteele.com/sources/javascript/functional/">Functional JavaScript</a>, which includes comprehensive higher-order function support as well as string lambdas.
+        </p>
+
+        <p>
+          Michael Aufreiter's
+          <a href="https://github.com/substance/data">Data.js</a>, a data manipulation + persistence library for JavaScript.
+        </p>
+
+        <p>
+          Python's
+          <a href="http://docs.python.org/library/itertools.html">itertools</a>.
+        </p>
+
+        <p>
+          <a href="http://toolz.readthedocs.org/">PyToolz</a>, a Python port that extends itertools and functools to include much of the funclib.js API.
+        </p>
+
+        <p>
+          <a href="https://github.com/Suor/funcy">Funcy</a>, a practical collection of functional helpers for Python, partially inspired by funclib.js.
+        </p>
+
+        <h2 id="changelog">Change Log</h2>
+
+        <p id="1.1.7">
+          <b class="header">1.1.7</b> &mdash;
+          <small>
+            <i>July 13, 2011</i>
+          </small> &mdash;
+          <a href="https://github.com/jashkenas/funclib.js/compare/1.1.6...1.1.7">Diff</a> &mdash;
+          <a href="https://cdn.rawgit.com/jashkenas/funclib.js/1.1.7/index.html">Docs</a>
+          <br /> Added
+          <tt>fn.groupBy</tt>, which aggregates a collection into groups of like items. Added
+          <tt>fn.union</tt> and
+          <tt>fn.difference</tt>, to complement the (re-named)
+          <tt>fn.intersection</tt>. Various improvements for support of sparse arrays.
+          <tt>fn.toArray</tt> now returns a clone, if directly passed an array.
+          <tt>fn.functions</tt> now also returns the names of functions that are present in the prototype chain.
+        </p>
+
+        <p id="1.1.4">
+          <b class="header">1.1.4</b> &mdash;
+          <small>
+            <i>January 9, 2011</i>
+          </small> &mdash;
+          <a href="https://github.com/jashkenas/funclib.js/compare/1.1.3...1.1.4">Diff</a> &mdash;
+          <a href="https://cdn.rawgit.com/jashkenas/funclib.js/1.1.4/index.html">Docs</a>
+          <br /> Improved compliance with ES5's Array methods when passing
+          <tt>null</tt>
+          as a value.
+          <tt>fn.wrap</tt> now correctly sets
+          <tt>this</tt> for the wrapped function.
+          <tt>fn.indexOf</tt> now takes an optional flag for finding the insertion index in an array that is guaranteed to already
+          be sorted. Avoiding the use of
+          <tt>.callee</tt>, to allow
+          <tt>fn.isArray</tt>
+          to work properly in ES5's strict mode.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Include funclib.js, so you can play with it in the console. -->
+  <script type="text/javascript" src="./funclib.min.js"></script>
+  <script type="text/javascript" src="./main.js"></script>
+
+</body>
+</html>
