@@ -23,7 +23,7 @@
       lk.addEventListener('click', function(e) {
         var elId = lk.getAttribute('href');
         var viewEl = document.querySelector(elId);
-        viewEl.scrollIntoView({block: "nearest", behavior: "smooth"});
+        viewEl.scrollIntoView({block: "start", behavior: "smooth"});
         if ( e && e.preventDefault ) {
           e.preventDefault(); 
         } else {

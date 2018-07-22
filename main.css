@@ -178,11 +178,6 @@ table, tr, td {
 td {
     padding: 2px 12px 2px 0;
 }
-table .rule {
-    height: 1px;
-    background: #ccc;
-    margin: 5px 0;
-}
 ul {
     list-style-type: circle;
     padding: 0 0 0 20px;

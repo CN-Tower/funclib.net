@@ -30,233 +30,194 @@
 
       <a class="toc_title" href="#">
         funclib.js
-        <span class="version">(2.1.5)</span>
+        <span class="version">(2.1.13)</span>
       </a>
       <ul class="toc_section">
         <li>&raquo;
-          <a href="https://github.com/CN-Tower/funclib">GitHub Repository</a>
+          <a href="https://travis-ci.org/CN-Tower/funclib.js" target="_blank">Travis-ci Status</a>
+        </li>
+        <li>&raquo;
+          <a href="https://www.npmjs.com/package/funclib" target="_blank"> Npm Package </a>
+        </li>
+        <li>&raquo;
+          <a href="https://github.com/CN-Tower/funclib.js" target="_blank"> GitHub Repository </a>
         </li>
       </ul>
 
       <input id="function_filter" placeholder="Filter" type="text" autofocus />
 
       <div class="searchable_section">
-        <a class="toc_title" href="#introduction">
-          Introduction
-        </a>
+        <a class="toc_title" href="#introduction"> Introduction </a>
       </div>
 
       <div class="searchable_section">
-        <a class="toc_title" href="#collections">
-          Collections
+        <a class="toc_title" href="#Type"> Type </a>
+        <ul class="toc_section">
+          <li data-name="fnistypeof"> <a href="#fnistypeof">fn.isTypeOf</a> </li>
+          <li data-name="fntypevalue"> <a href="#fntypevalue">fn.typeValue</a> </li>
+        </ul>
+      </div>
+      
+      <div class="searchable_section">
+        <a class="toc_title" href="#Array"> Array </a>
+        <ul class="toc_section">
+          <li data-name="fnarray"> <a href="#fnarray">fn.array</a> </li>
+          <li data-name="fntoarray"> <a href="#fntoarray">fn.toArray</a> </li>
+          <li data-name="fnfind"> <a href="#fnfind">fn.find</a> </li>
+          <li data-name="fnfilter"> <a href="#fnfilter">fn.filter</a> </li>
+          <li data-name="fnreject"> <a href="#fnreject">fn.reject</a> </li>
+          <li data-name="fncontains"> <a href="#fncontains">fn.contains</a> </li>
+          <li data-name="fnfindindex"> <a href="#fnfindindex">fn.findIndex</a> </li>
+          <li data-name="fnsortby"> <a href="#fnsortby">fn.sortBy</a> </li>
+        </ul>
+      </div>
+      
+      <div class="searchable_section">
+        <a class="toc_title" href="#Object">
+          Object
         </a>
         <ul class="toc_section">
-          <li data-name="each">
-            <a href="#each">fn.each</a>
-          </li>
-          <li data-name="map">
-            <a href="#map">fn.map</a>
-          </li>
-          <li data-name="reduce">
-            <a href="#reduce">fn.reduce</a>
-          </li>
+          <li data-name="fnlen"> <a href="#fnlen">fn.len</a> </li>
+          <li data-name="fnforin"> <a href="#fnforin">fn.forIn</a> </li>
+          <li data-name="fnisempty"> <a href="#fnisempty">fn.isEmpty</a> </li>
+          <li data-name="fnoverlay"> <a href="#fnoverlay">fn.overlay</a> </li>
+          <li data-name="fndeepcopy"> <a href="#fndeepcopy">fn.deepCopy</a> </li>
+          <li data-name="fnget"> <a href="#fnget">fn.get</a> </li>
         </ul>
       </div>
 
       <div class="searchable_section">
-        <a class="toc_title" href="#arrays">
-          Arrays
-        </a>
+        <a class="toc_title" href="#Math"> Math </a>
         <ul class="toc_section">
-          <li data-name="first">
-            <a href="#first">fn.first</a>
-          </li>
-          <li data-name="initial">
-            <a href="#initial">fn.initial</a>
-          </li>
-          <li data-name="last">
-            <a href="#last">fn.last</a>
-          </li>
-          <li data-name="rest">
-            <a href="#rest">fn.rest</a>
-          </li>
-          <li data-name="compact">
-            <a href="#compact">fn.compact</a>
-          </li>
-          <li data-name="flatten">
-            <a href="#flatten">fn.flatten</a>
-          </li>
-          <li data-name="without">
-            <a href="#without">fn.without</a>
-          </li>
+          <li data-name="fnrandom"> <a href="#fnrandom">fn.random</a> </li>
+          <li data-name="fnrdid"> <a href="#fnrdid">fn.rdid</a> </li>
+          <li data-name="fnrdcolor"> <a href="#fnrdcolor">fn.rdcolor</a> </li>
         </ul>
       </div>
 
       <div class="searchable_section">
-        <a class="toc_title" href="#functions">
-          Functions
-        </a>
+        <a class="toc_title" href="#Time"> Time </a>
         <ul class="toc_section">
-          <li data-name="bind">
-            <a href="#bind">fn.bind</a>
-          </li>
-          <li data-name="bindAll">
-            <a href="#bindAll">fn.bindAll</a>
-          </li>
-          <li data-name="partial">
-            <a href="#partial">fn.partial</a>
-          </li>
-          <li data-name="memoize">
-            <a href="#memoize">fn.memoize</a>
-          </li>
-          <li data-name="delay">
-            <a href="#delay">fn.delay</a>
-          </li>
-          <li data-name="defer">
-            <a href="#defer">fn.defer</a>
-          </li>
-          <li data-name="throttle">
-            <a href="#throttle">fn.throttle</a>
-          </li>
-          <li data-name="debounce">
-            <a href="#debounce">fn.debounce</a>
-          </li>
+          <li data-name="fninterval"> <a href="#fninterval">fn.interval</a> </li>
+          <li data-name="fntimeout"> <a href="#fntimeout">fn.timeout</a> </li>
+          <li data-name="fndefer"> <a href="#fndefer">fn.defer</a> </li>
+          <li data-name="fntime"> <a href="#fntime">fn.time</a> </li>
+          <li data-name="fnfmtdate"> <a href="#fnfmtdate">fn.fmtDate</a> </li>
         </ul>
       </div>
 
       <div class="searchable_section">
-        <a class="toc_title" href="#objects">
-          Objects
-        </a>
+        <a class="toc_title" href="#Time"> String </a>
         <ul class="toc_section">
-          <li data-name="keys">
-            <a href="#keys">fn.keys</a>
-          </li>
-          <li data-name="allKeys">
-            <a href="#allKeys">fn.allKeys</a>
-          </li>
-          <li data-name="values">
-            <a href="#values">fn.values</a>
-          </li>
-          <li data-name="mapObject">
-            <a href="#mapObject">fn.mapObject</a>
-          </li>
-          <li data-name="pairs">
-            <a href="#pairs">fn.pairs</a>
-          </li>
-          <li data-name="invert">
-            <a href="#invert">fn.invert</a>
-          </li>
-          <li data-name="create">
-            <a href="#create">fn.create</a>
-          </li>
-          <li data-name="object-functions">
-            <a href="#object-functions">fn.functions</a>
-          </li>
-          <li data-name="findKey">
-            <a href="#findKey">fn.findKey</a>
-          </li>
-          <li data-name="extend">
-            <a href="#extend">fn.extend</a>
-          </li>
-          <li data-name="extendOwn">
-            <a href="#extendOwn">fn.extendOwn</a>
-          </li>
+          <li data-name="fnencodehtml"> <a href="#fnencodehtml">fn.encodeHtml</a> </li>
+          <li data-name="fndecodehtml"> <a href="#fndecodehtml">fn.decodeHtml</a> </li>
+          <li data-name="fnfmtcurrency"> <a href="#fnfmtcurrency">fn.fmtCurrency</a> </li>
+          <li data-name="fncutstring"> <a href="#cutString">fn.time</a> </li>
         </ul>
       </div>
 
       <div class="searchable_section">
-        <a class="toc_title" href="#utility">
-          Utility
-        </a>
+        <a class="toc_title" href="#Time"> RegExp </a>
         <ul class="toc_section">
-          <li data-name="noConflict">
-            <a href="#noConflict">fn.noConflict</a>
-          </li>
-          <li data-name="identity">
-            <a href="#identity">fn.identity</a>
-          </li>
-          <li data-name="constant">
-            <a href="#constant">fn.constant</a>
-          </li>
-          <li data-name="noop">
-            <a href="#noop">fn.noop</a>
-          </li>
-          <li data-name="times">
-            <a href="#times">fn.times</a>
-          </li>
-          <li data-name="random">
-            <a href="#random">fn.random</a>
-          </li>
+          <li data-name="fngetpattern"> <a href="#fngetpattern">fn.getPattern</a> </li>
+          <li data-name="fnmatchpattern"> <a href="#fnmatchpattern">fn.matchPattern</a> </li>
         </ul>
       </div>
 
       <div class="searchable_section">
-        <a class="toc_title" href="#links">
-          Links
-        </a>
+        <a class="toc_title" href="#Time"> Function </a>
+        <ul class="toc_section">
+          <li data-name="fnthrottle"> <a href="#fnthrottle">fn.throttle</a> </li>
+          <li data-name="fndebounce"> <a href="#fndebounce">fn.debounce</a> </li>
+        </ul>
       </div>
 
       <div class="searchable_section">
-        <a class="toc_title" href="#changelog">
-          Change Log
-        </a>
+        <a class="toc_title" href="#Time"> Url </a>
+        <ul class="toc_section">
+          <li data-name="fnparsequerystring"> <a href="#fnparsequerystring">fn.parseQueryString</a> </li>
+          <li data-name="fnstringfyquerystring"> <a href="#fnstringfyquerystring">fn.stringfyQueryString</a> </li>
+        </ul>
+      </div>
+
+      <div class="searchable_section">
+        <a class="toc_title" href="#Time"> Dom </a>
+        <ul class="toc_section">
+          <li data-name="fnfullscreen"> <a href="#fnfullscreen">fn.fullScreen</a> </li>
+          <li data-name="fnexitfullscreen"> <a href="#fnexitfullscreen">fn.exitFullScreen</a> </li>
+          <li data-name="fnisFullScreen"> <a href="#fnisFullScreen">fn.isFullScreen</a> </li>
+          <li data-name="fullscreenchange"> <a href="#fullscreenchange">fn.fullScreenChange</a> </li>
+          <li data-name="fnpollingel"> <a href="#fnpollingel">fn.pollingEl</a> </li>
+          <li data-name="fnnoautocomplete"> <a href="#fnnoautocomplete">fn.noAutoComplete</a> </li>
+        </ul>
+      </div>
+
+      <div class="searchable_section">
+        <a class="toc_title" href="#Time"> Cookie </a>
+        <ul class="toc_section">
+          <li data-name="fnsetcookie"> <a href="#fnsetcookie">fn.setCookie</a> </li>
+          <li data-name="fngetcookie"> <a href="#fngetcookie">fn.getCookie</a> </li>
+          <li data-name="fnremovecookie"> <a href="#fnremovecookie">fn.removeCookie</a> </li>
+        </ul>
+      </div>
+      
+      <div class="searchable_section">
+        <a class="toc_title" href="#Time"> Tricks </a>
+        <ul class="toc_section">
+          <li data-name="fncopytext"> <a href="#fncopytext">fn.copyText</a> </li>
+          <li data-name="fnextendjquery"> <a href="#fnextendjquery">fn.extendJquery</a> </li>
+        </ul>
+      </div>
+      
+      <div class="searchable_section">
+        <a class="toc_title" href="#Version"> Version </a>
+        <ul class="toc_section">
+          <li data-name="fnversion"> <a href="#fnversion">fn.version</a> </li>
+        </ul>
+      </div>
+
+      <div class="searchable_section">
+        <a class="toc_title" href="#links"> Links </a>
+      </div>
+
+      <div class="searchable_section">
+        <a class="toc_title" href="#changelog"> Change Log </a>
       </div>
 
     </div>
 
     <div class="container">
 
-      <h2 id="introduction">
-        funclib.js
-      </h2>
+      <h2 id="introduction"> funclib.js </h2>
 
       <p>
         <a href="http://github.com/CN-Tower/funclib.js/">funclib.js</a>
-        is a JavaScript library that provides a whole mess of useful functional programming helpers without extending any built-in
-        objects. It&rsquo;s the answer to the question: &ldquo;If I sit down in front of a blank HTML page, and want to start
-        being productive immediately, what do I need?&rdquo; &hellip; and the tie to go along with
-        <a href="http://jquery.com">jQuery</a>'s tux and
-        <a href="http://backbonejs.org">Backbone</a>'s suspenders.
+        是一个简单、易用、贴进业务逻辑的JavaScript UMD函数库，类似于
+        <a href="https://underscorejs.org/">underscore</a> 和 <a href="https://lodash.com/">lodash</a>。
+        跟它们对比，funclib.js省去了很多js自带的或者不常用的方法。
       </p>
 
       <p>
-        funclib.js provides over 100 functions that support both your favorite workaday functional helpers:
-        <b>map</b>,
-        <b>filter</b>,
-        <b>invoke</b> &mdash; as well as more specialized goodies: function binding, javascript templating, creating quick indexes,
-        deep equality testing, and so on.
+        funclib.js还根据一些实际业务的逻辑的规律封装了很多前后端都实用的新方法，
+        让你提高代码质量和交付效率的同时，享受编程的乐趣!
       </p>
 
       <p>
-        A complete
-        <a href="test/">Test Suite</a>
-        is included for your perusal.
+        funclib.js使用<a href="http://www.typescriptlang.org/" target="_blank">TypeScript</a>进行开发，使用
+        <a href="http://webpack.github.io/" target="_blank">WebPack</a>进行打包编译，使用
+        <a href="http://karma-runner.github.io/2.0/index.html" target="_blank">Karma</a> / <a href="https://mochajs.org/" target="_blank">Mocha</a>进行单元测试，
+        使用<a href="https://travis-ci.org/CN-Tower/funclib.js" target="_blank">Trivas-CI</a>进行持续集成。
       </p>
 
-      <p>
-        You may also read through the
-        <a href="docs/funclib.js.html">annotated source code</a>.
-      </p>
+      <a href="https://www.npmjs.com/package/funclib" target="_blank"><img src="https://img.shields.io/npm/v/funclib.svg" alt="npm"></a>
+      <a href="https://www.npmjs.com/package/funclib" target="_blank"><img src="https://img.shields.io/npm/l/funclib.svg" alt="LICENSE MIT"></a>
+      <a href="https://coveralls.io/github/CN-Tower/funclib.js" target="_blank"><img src="https://coveralls.io/repos/github/CN-Tower/funclib.js/badge.svg" alt="Coverage Status"></a>
+      <a href="https://travis-ci.org/CN-Tower/funclib.js" target="_blank"><img src="https://travis-ci.org/CN-Tower/funclib.js.svg?branch=master" alt="Build Status"></a>
 
       <p>
-        Enjoying funclib.js, and want to
-        <i>turn it up to 11?</i> Try
-        <a href="http://documentcloud.github.io/funclib.js-contrib/">funclib.js-contrib</a>.
-      </p>
-
-      <p>
-        The project is
-        <a href="https://github.com/jashkenas/funclib.js">hosted on GitHub</a>. You can report bugs and discuss features on the
-        <a href="https://github.com/jashkenas/funclib.js/issues">issues page</a>
-        or chat in the
-        <a href="https://gitter.im/jashkenas/funclib.js">Gitter</a>
-        channel.
-      </p>
-
-      <p>
-        <i>funclib.js is an open-source component of
-          <a href="http://documentcloud.org/">DocumentCloud</a>.</i>
+        如果你喜欢funclib.js，就到GitHub上去Star或Fork吧：
+        <a href="http://github.com/CN-Tower/funclib.js" target="_blank">http://github.com/CN-Tower/funclib.js</a>
+        欢迎一起来玩！
       </p>
 
       <h2>Downloads
@@ -266,35 +227,18 @@
       <table>
         <tr>
           <td>
-            <a href="funclib.js.js">Development Version (1.9.1)</a>
+            <a href="./assets/funclib.js">Development Version (2.1.13)</a>
           </td>
           <td>
-            <i>60kb, Uncompressed with Plentiful Comments</i>
+            <i>71kb, Uncompressed (funclib.js)</i>
           </td>
         </tr>
         <tr>
           <td>
-            <a href="funclib.js-min.js">Production Version (1.9.1)</a>
+            <a href="./assets/funclib.min.js">Production Version (2.1.13)</a>
           </td>
           <td>
-            <i>6.5kb, Minified and Gzipped</i>
-            &nbsp;
-            <small>(
-              <a href="funclib.js-min.js.map">Source Map</a>)</small>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="2">
-            <div class="rule"></div>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <a href="https://raw.github.com/jashkenas/funclib.js/master/funclib.js.js">Edge Version</a>
-          </td>
-          <td>
-            <i>Unreleased, current
-              <tt>master</tt>, use by your own judgement and at your own risk</i>
+            <i>27.8kb, Minified (funclib.min.js)</i>
           </td>
         </tr>
       </table>
@@ -307,20 +251,8 @@
           <tt>npm install funclib.js</tt>
         </li>
         <li>
-          <b>Meteor.js</b>
-          <tt>meteor add funclib.js</tt>
-        </li>
-        <li>
-          <b>Require.js</b>
-          <tt>require(["funclib.js"], ...</tt>
-        </li>
-        <li>
           <b>Bower</b>
           <tt>bower install funclib.js</tt>
-        </li>
-        <li>
-          <b>Component</b>
-          <tt>component install jashkenas/funclib.js</tt>
         </li>
       </ul>
 
@@ -2536,7 +2468,7 @@
   </section>
 
   <!-- Include funclib.js, so you can play with it in the console. -->
-  <script type="text/javascript" src="./funclib.min.js"></script>
+  <script type="text/javascript" src="./assets/funclib.min.js"></script>
   <script type="text/javascript" src="./main.js"></script>
 
 </body>

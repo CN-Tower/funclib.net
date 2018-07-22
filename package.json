@@ -1,5 +1,5 @@
 {
-  "name": "funclib",
+  "name": "funclib.net",
   "author": "CN-Tower",
   "version": "1.0.0",
   "description": "> 通用、实用、易用、好用，提高开发效率、提高代码质量、提高交付能力！",
@@ -9,12 +9,18 @@
     "gulp": "gulp",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "dependencies": {
-    "funclib": "^2.1.5"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CN-Tower/funclib.git"
   },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CN-Tower/funclib/issues"
+  },
+  "homepage": "https://github.com/CN-Tower/funclib#readme",
   "devDependencies": {
     "browser-sync": "^2.24.5",
+    "funclib": "^2.1.12",
     "gulp": "^3.9.1"
-  },
-  "license": "ISC"
+  }
 }
