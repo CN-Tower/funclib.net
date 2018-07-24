@@ -23,7 +23,7 @@
       lk.addEventListener('click', function(e) {
         var elId = lk.getAttribute('href');
         var viewEl = document.querySelector(elId);
-        viewEl.scrollIntoView({block: "start", behavior: "smooth"});
+        viewEl.scrollIntoView({block: "start"});
         if ( e && e.preventDefault ) {
           e.preventDefault(); 
         } else {
@@ -33,20 +33,12 @@
     });
   
     function searchValue() {
-      return searchInput.value.trim().replace(/^_\.?/, '');
-    }
-  
-    function strIn(a, b) {
-      a = a.toLowerCase();
-      b = b.toLowerCase();
-      return b.indexOf(a) >= 0;
+      return searchInput.value.trim().replace(/\./, '');
     }
   
     function doesMatch(element) {
       var name = element.getAttribute('data-name');
-      var aliases = element.getAttribute('data-aliases') || '';
-      var value = searchValue();
-      return strIn(value, name) || strIn(value, aliases);
+      return fn.contains(name.toLowerCase(), searchValue().toLowerCase());
     }
   
     function filterElement(element) {
@@ -61,8 +53,12 @@
       // Hide the titles of empty sections
       sections.forEach(function(section) {
         var sectionFunctions = section.querySelectorAll('[data-name]');
-        var showSection = emptySearch || sectionFunctions.some(doesMatch);
-        section.style.display = showSection ? '' : 'none';
+        let secsArr = [];
+        for (var i = 0; i < sectionFunctions.length; i ++) {
+          secsArr.push(sectionFunctions[i]);
+        }
+        var showSection = emptySearch || secsArr.some(doesMatch);
+        section.style.display = showSection ? 'block' : 'none';
       });
     }
   
