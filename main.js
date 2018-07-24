@@ -19,7 +19,7 @@
       docWrap.style.height = (winHeight - 48 || 760) + 'px';
     }
 
-    [].slice.call(methodLinks).forEach(function(lk) {
+    fn.forEach(methodLinks, function(lk) {
       lk.addEventListener('click', function(e) {
         var elId = lk.getAttribute('href');
         var viewEl = document.querySelector(elId);
@@ -46,17 +46,14 @@
     }
   
     function filterToc() {
-      functions.forEach(filterElement);
+      fn.forEach(functions, filterElement);
   
       var emptySearch = searchValue() === '';
   
       // Hide the titles of empty sections
-      sections.forEach(function(section) {
+      fn.forEach(sections, function(section) {
         var sectionFunctions = section.querySelectorAll('[data-name]');
-        let secsArr = [];
-        for (var i = 0; i < sectionFunctions.length; i ++) {
-          secsArr.push(sectionFunctions[i]);
-        }
+        var secsArr = [].slice.call(sectionFunctions);
         var showSection = emptySearch || secsArr.some(doesMatch);
         section.style.display = showSection ? 'block' : 'none';
       });
