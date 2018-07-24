@@ -17,6 +17,9 @@ body {
     -moz-user-select: none;
     -ms-user-select: none;
 }
+.not-allowed {
+    cursor: not-allowed !important;
+}
 header {
     background-color: #fff;
     box-shadow: 0 0 2.25rem #9da5ab;
