@@ -34,7 +34,7 @@
 
       <a class="toc_title" href="#">
         funclib.js
-        <span class="version">(2.1.14)</span>
+        <span class="version">(2.1.15)</span>
       </a>
       <ul class="toc_section">
         <li>&raquo;
@@ -89,6 +89,9 @@
           </li>
           <li data-name="fnfindindex">
             <a href="#fnfindindex">fn.findIndex</a>
+          </li>
+          <li data-name="fnforeach">
+            <a href="#fnforeach">fn.forEach</a>
           </li>
           <li data-name="fnsortby">
             <a href="#fnsortby">fn.sortBy</a>
@@ -375,7 +378,7 @@
       <table>
         <tr>
           <td>
-            <a href="./assets/funclib.js">Development Version (2.1.14)</a>
+            <a href="./assets/funclib.js">Development Version (2.1.15)</a>
           </td>
           <td>
             <i>71kb, Uncompressed (funclib.js)</i>
@@ -383,7 +386,7 @@
         </tr>
         <tr>
           <td>
-            <a href="./assets/funclib.min.js">Production Version (2.1.14)</a>
+            <a href="./assets/funclib.min.js">Production Version (2.1.15)</a>
           </td>
           <td>
             <i>27.8kb, Minified (funclib.min.js)</i>
@@ -596,6 +599,24 @@ fn.findIndex(persons, {name: 'LiLi'});             // -1
 fn.findIndex(persons, {name: 'Tom'});              // 1
 fn.findIndex(persons, ps => ps.name === 'Tom');    // 1
 fn.findIndex(['Tom', 'Jerry', 'Marry'], 'Marry');  // 2</pre>
+
+        <p id="fnforeach">
+          <b class="header">fn.forEach</b>
+          <br>遍历数组或类数组
+          <br>
+          <code>
+            fn.forEach(arrayLike: any, iteratee: any): any;
+          </code>
+          <br>
+          <b>@param arrayLike [any]</b>
+          <br>传入的数组或类数组
+          <br>
+          <b>@param iteratee [function]</b>
+          <br>项处理函数
+        </p>
+        <pre>
+const divs = document.querySelectorAll('div');
+fn.forEach(divs, function(div) { // Do something... }); // name \n age</pre>
 
         <p id="fnsortby">
           <b class="header">fn.sortBy</b>
@@ -1332,7 +1353,7 @@ console.log(fn.chalk('test', 'cyan'));</pre>
           </p>
           <pre>
 fn.log([{name: 'tom', age: 22}], false);
->: [15:27:16] ( funclib(v2.1.14) ): [
+>: [15:27:16] ( funclib(v2.1.15) ): [
   {
     "name": "tom",
     "age": 22
@@ -1466,12 +1487,13 @@ fn.mk('C: test-dir');</pre>
               fn.start(options: any): void;
             </code>
             <br>
-            <b>@param options [string|object]</b>
+            <b>@param options [object]</b>
             <br>如果是string，则为旋转头进度，如果是object则为进度条
-            <br>进度条参数：{title: string, width: number = 40}
+            <br>进度条参数：{title: string, width: number = 40, type: 'bar'|'spi' = 'bar'}
+            <br>如果type为'spi'，则为旋转头进度，如果是'bar'，如果是object则为进度条，默认为'bar';
           </p>
           <pre>
-fn.progress.start('Test');
+fn.progress.start({title: 'Test', type: 'spi'});
 / Test
 fn.progress.start({title: 'Test'});
 Test [================                        ] 40%</pre>
@@ -1504,8 +1526,8 @@ fn.progress.stop(() => { // Do something... });</pre>
 fn.version;  //2.1.15 </pre>
 
           <h2 id="changelog">Change Log</h2>
-          <p id="2.1.13">
-            <b class="header">2.1.13</b> &mdash;
+          <p id="2.1.14">
+            <b class="header">2.1.14</b> &mdash;
             <small>
               <i>January 9, 2011</i>
             </small> &mdash;
