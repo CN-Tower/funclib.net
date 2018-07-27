@@ -22,10 +22,10 @@
     </div>
     <ul class="nav">
       <li class="active">
-        <a href="http://funclib.net">funclib.js</a>
+        <a href="./index.html">funclib.js</a>
       </li>
       <li>
-        <a class="not-allowed" href="javascript:;">funclib.py</a>
+        <a href="./funclib.py.html">funclib.py</a>
       </li>
     </ul>
   </header>
@@ -378,34 +378,31 @@
       <table>
         <tr>
           <td>
-            <a href="./assets/funclib.js">Development Version (2.1.15)</a>
+            <a href="./assets/funclib.js" target="_blank">funclib.js</a>
           </td>
           <td>
-            <i>71kb, Uncompressed (funclib.js)</i>
+            <i>Development Version (2.1.15), Uncompressed</i>
           </td>
         </tr>
         <tr>
           <td>
-            <a href="./assets/funclib.min.js">Production Version (2.1.15)</a>
+            <a href="./assets/funclib.min.js" target="_blank">funclib.min.js</a>
           </td>
           <td>
-            <i>27.8kb, Minified (funclib.min.js)</i>
+            <i>Production Version (2.1.15), Minified</i>
           </td>
         </tr>
       </table>
 
       <h2>Installation</h2>
+      <pre>
+# Install funclib.js
+$ npm install funclib
 
-      <ul>
-        <li>
-          <b>Node.js</b>
-          <tt>npm install funclib.js</tt>
-        </li>
-        <li>
-          <b>Bower</b>
-          <tt>bower install funclib.js</tt>
-        </li>
-      </ul>
+# Use funclib
+$ node
+> var fn = require('funclib');
+> fn.log(fn.rdid(), '#fn.rdid')</pre>
 
       <div id="documentation">
 
@@ -608,7 +605,7 @@ fn.findIndex(['Tom', 'Jerry', 'Marry'], 'Marry');  // 2</pre>
             fn.forEach(arrayLike: any, iteratee: any): any;
           </code>
           <br>
-          <b>@param arrayLike [any]</b>
+          <b>@param obj [any]</b>
           <br>传入的数组或类数组
           <br>
           <b>@param iteratee [function]</b>
