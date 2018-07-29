@@ -34,7 +34,7 @@
 
       <a class="toc_title" href="#">
         funclib.js
-        <span class="version">(2.1.15)</span>
+        <span class="version">(2.2.4)</span>
       </a>
       <ul class="toc_section">
         <li>&raquo;
@@ -60,8 +60,8 @@
           <li data-name="fntypeof">
             <a href="#fntypeof">fn.typeOf</a>
           </li>
-          <li data-name="fntypevalue">
-            <a href="#fntypevalue">fn.typeValue</a>
+          <li data-name="fntypeval">
+            <a href="#fntypeval">fn.typeVal</a>
           </li>
         </ul>
       </div>
@@ -87,8 +87,20 @@
           <li data-name="fncontains">
             <a href="#fncontains">fn.contains</a>
           </li>
-          <li data-name="fnfindindex">
-            <a href="#fnfindindex">fn.findIndex</a>
+          <li data-name="fndrop">
+            <a href="#fndrop">fn.drop</a>
+          </li>
+          <li data-name="fnflatten">
+            <a href="#fnflatten">fn.flatten</a>
+          </li>
+          <li data-name="fnpluck">
+            <a href="#fnpluck">fn.pluck</a>
+          </li>
+          <li data-name="fnuniq">
+            <a href="#fnuniq">fn.uniq</a>
+          </li>
+          <li data-name="fnindexof">
+            <a href="#fnindexof">fn.indexOf</a>
           </li>
           <li data-name="fnforeach">
             <a href="#fnforeach">fn.forEach</a>
@@ -115,6 +127,9 @@
           </li>
           <li data-name="fndeepcopy">
             <a href="#fndeepcopy">fn.deepCopy</a>
+          </li>
+          <li data-name="fnisdeepequal">
+            <a href="#fnisdeepequal">fn.isDeepEqual</a>
           </li>
           <li data-name="fnget">
             <a href="#fnget">fn.get</a>
@@ -297,6 +312,15 @@
       </div>
 
       <div class="searchable_section">
+        <a class="toc_title" href="#OOP"> OOP </a>
+        <ul class="toc_section">
+          <li data-name="fnmethod">
+            <a href="#fnmethod">fn().method</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="searchable_section">
         <a class="toc_title" href="#Progress"> Progress </a>
         <ul class="toc_section">
           <li data-name="fnprogressstart">
@@ -381,7 +405,7 @@
             <a href="./assets/funclib.js" target="_blank">funclib.js</a>
           </td>
           <td>
-            <i>Development Version (2.1.15), Uncompressed</i>
+            <i>Development Version (2.2.4), Uncompressed(51.2 kb)</i>
           </td>
         </tr>
         <tr>
@@ -389,7 +413,7 @@
             <a href="./assets/funclib.min.js" target="_blank">funclib.min.js</a>
           </td>
           <td>
-            <i>Production Version (2.1.15), Minified</i>
+            <i>Production Version (2.2.4), Minified(20.5 kb)</i>
           </td>
         </tr>
       </table>
@@ -434,12 +458,12 @@ fn.typeOf(null, 'obj');       // false
 fn.typeOf(null, 'object');    // true
 fn.typeOf(undefined, ['str', 'udf']); // true</pre>
 
-        <p id="fntypevalue">
-          <b class="header">fn.typeValue</b>
+        <p id="fntypeval">
+          <b class="header">fn.typeVal</b>
           <br>先检查值的类型，如果是true则返回该值，否则返回false
           <br>
           <code>
-            fn.typeValue(value: any, type: 'arr' | 'obj' | 'fun' | string | string[]): any;
+            fn.typeVal(value: any, type: 'arr' | 'obj' | 'fun' | string | string[]): any;
           </code>
           <br>
           <b>@param value [any]</b>
@@ -449,10 +473,10 @@ fn.typeOf(undefined, ['str', 'udf']); // true</pre>
           <br>接收一个类型字符串,可以是类型简写（如："udf" 对应 "undefined"），也可以是js标准类型的 全称（如："string"），或者类型的数组（如：['str, arr']）
         </p>
         <pre>
-fn.typeValue('test', 'str');       // test
-fn.typeValue(true, 'bol');         // true
-fn.typeValue([], 'obj');           // false
-fn.typeValue([], ['str', 'arr']);  // []</pre>
+fn.typeVal('test', 'str');       // test
+fn.typeVal(true, 'bol');         // true
+fn.typeVal([], 'obj');           // false
+fn.typeVal([], ['str', 'arr']);  // []</pre>
 
         <h2 id="Array">Array</h2>
 
@@ -482,10 +506,10 @@ fn.array(5, () => x += 2); // [2, 4, 6, 8, 10]</pre>
           <br>值数组化
           <br>
           <code>
-            fn.toArray(src: any): any[];
+            fn.toArray(value: any): any[];
           </code>
           <br>
-          <b>@param src [any[]]</b>
+          <b>@param value [any[]]</b>
           <br>传入的值
         </p>
         <pre>
@@ -498,10 +522,10 @@ fn.toArray(['test']); // ['test']</pre>
           <br>根据条件寻找值
           <br>
           <code>
-            fn.find(src: any[], predicate: any): any;
+            fn.find(srcArr: any[], predicate: any): any;
           </code>
           <br>
-          <b>@param src [any[]]</b>
+          <b>@param srcArr [any[]]</b>
           <br>传入的值
           <br>
           <b>@param predicate [object|function]</b>
@@ -518,10 +542,10 @@ fn.find(persons, ps => ps.name === 'Tom');  // {name:'Tom', age: 22}</pre>
           <br>根据条件取过滤值
           <br>
           <code>
-            fn.filter(src: any[], predicate: any): any;
+            fn.filter(srcArr: any[], predicate: any): any;
           </code>
           <br>
-          <b>@param src [any[]]</b>
+          <b>@param srcArr [any[]]</b>
           <br>传入的数组
           <br>
           <b>@param predicate [object|function]</b>
@@ -538,10 +562,10 @@ fn.filter(persons, ps => ps.name === 'Tom');   // [{name:'Tom', age: 22}]</pre>
           <br>根据条件过滤值
           <br>
           <code>
-            fn.reject(src: any[], predicate: any): any;
+            fn.reject(srcArr: any[], predicate: any): any;
           </code>
           <br>
-          <b>@param src [any[]]</b>
+          <b>@param srcArr [any[]]</b>
           <br>传入的数组
           <br>
           <b>@param predicate [object|function]</b>
@@ -558,10 +582,10 @@ fn.reject(persons, ps => ps.name === 'Tom');   // [{name:'Jerry', age: 18}]</pre
           <br>判断数组是否包含符合条件的值
           <br>
           <code>
-            fn.contains(src: any[], predicate: any): boolean;
+            fn.contains(srcArr: any[], predicate: any): boolean;
           </code>
           <br>
-          <b>@param src [any[]]</b>
+          <b>@param srcArr [any[]]</b>
           <br>传入的数组
           <br>
           <b>@param predicate [any|object|function]</b>
@@ -575,15 +599,97 @@ fn.contains(persons, {name: 'Tom'});               // true
 fn.contains(persons, ps => ps.name === 'Tom');     // true
 fn.contains(['Tom', 'Jerry', 'Marry'], 'Marry');   // true</pre>
 
-        <p id="fnfindindex">
-          <b class="header">fn.findIndex</b>
+        <p id="fndrop">
+          <b class="header">fn.drop</b>
+          <br>去掉Boolean()后为false和空数组或对象的值
+          <br>
+          <code>
+            fn.drop(srcArr: any[], isDrop0?: boolean): any[];
+          </code>
+          <br>
+          <b>@param srcArr [any[]]</b>
+          <br>传入的数组
+          <br>
+          <b>@param isDrop0=false [boolean] (可选)</b>
+          <br>是否去掉0，默认不去掉
+        </p>
+        <pre>
+const arr = [null, undefined, false, {}, [], 0, 'test'];
+fn.drop(arr)          // [0, 'test']
+fn.drop(arr, true)    // ['test']</pre>
+
+        <p id="fnflatten">
+          <b class="header">fn.flatten</b>
+          <br>把有结构的数组打散，减少层数
+          <br>
+          <code>
+            fn.flatten(srcArr: any[], isDeep?: boolean): any[];
+          </code>
+          <br>
+          <b>@param srcArr [any[]]</b>
+          <br>传入的数组
+          <br>
+          <b>@param isDeep=false [boolean] (可选)</b>
+          <br>是否全部打散
+        </p>
+        <pre>
+const arr = [1, [2, 3, [4, [5]], 6], 7];
+fn.flatten(arr)          // [1, 2, 3, [4, [5]], 6, 7]
+fn.flatten(arr, true)    // [1, 2, 3, 4, 5, 6, 7]</pre>
+
+        <p id="fnpluck">
+          <b class="header">fn.pluck</b>
+          <br>把结构中的字段取出合并到一个数组中
+          <br>
+          <code>
+            fn.pluck(srcArr: any, path: string): any[];
+          </code>
+          <br>
+          <b>@param srcArr [any[]]</b>
+          <br>传入的数组
+          <br>
+          <b>@param path [string]</b>
+          <br>内部对象字段所在的路径
+        </p>
+        <pre>
+const persons = [{name:'Tom', age: 22}, {name:'Jerry', age: 18}];
+fn.pluck(persons, '/name')    // ['Tom', 'Jerry']</pre>
+
+        <p id="fnuniq">
+          <b class="header">fn.uniq</b>
+          <br>去重或根据字段去重
+          <br>
+          <code>
+            fn.uniq(srcArr: any[], path?: string, isDeep?: boolean): any[];
+          </code>
+          <br>
+          <b>@param srcArr [any[]]</b>
+          <br>传入的数组
+          <br>
+          <b>@param path [string] (可选)</b>
+          <br>去重字段
+          <br>
+          <b>@param isDeep=true [boolean] (可选)</b>
+          <br>是否对比数组和对象
+        </p>
+        <pre>
+const arr1 = [0, {}, 0, false, null, false, [], [], {}, 'test', 'test']
+const persons = [{name:'Tom', age: 22}, {name:'Jerry', age: 22}];
+
+fn.uniq(arr1)              // [0, {}, false, null, [], 'test']
+fn.uniq(arr1, false)       // [0, {}, false, null, [], [], {}, 'test']
+fn.uniq(persons, '/name')  // [Tom, Jerry]
+fn.uniq(persons, '/age')   // [Tom]</pre>
+
+        <p id="fnindexof">
+          <b class="header">fn.indexOf</b>
           <br>寻找值在数组中的索引
           <br>
           <code>
-            findIndex(src: any[], predicate: any): number;
+            fn.indexOf(srcArr: any[], predicate: any): number;
           </code>
           <br>
-          <b>@param src [any[]]</b>
+          <b>@param srcArr [any[]]</b>
           <br>传入的数组
           <br>
           <b>@param predicate [any|object|function]</b>
@@ -592,17 +698,18 @@ fn.contains(['Tom', 'Jerry', 'Marry'], 'Marry');   // true</pre>
         </p>
         <pre>
 const persons = [{name:'Tom', age: 22}, {name:'Jerry', age: 18}];
-fn.findIndex(persons, {name: 'LiLi'});             // -1
-fn.findIndex(persons, {name: 'Tom'});              // 1
-fn.findIndex(persons, ps => ps.name === 'Tom');    // 1
-fn.findIndex(['Tom', 'Jerry', 'Marry'], 'Marry');  // 2</pre>
+
+fn.indexOf(persons, {name: 'LiLi'});             // -1
+fn.indexOf(persons, {name: 'Tom'});              // 1
+fn.indexOf(persons, ps => ps.name === 'Tom');    // 1
+fn.indexOf(['Tom', 'Jerry', 'Marry'], 'Marry');  // 2</pre>
 
         <p id="fnforeach">
           <b class="header">fn.forEach</b>
           <br>遍历数组或类数组
           <br>
           <code>
-            fn.forEach(arrayLike: any, iteratee: any): any;
+            fn.forEach(obj: any, iteratee: any): any;
           </code>
           <br>
           <b>@param obj [any]</b>
@@ -620,10 +727,10 @@ fn.forEach(divs, function(div) { // Do something... }); // name \n age</pre>
           <br>返回对象数组根据字段排序后的副本
           <br>
           <code>
-            fn.sortBy(tableData: any, field: string, isDesc?: boolean): any;
+            fn.sortBy(srcArr: any, field: string, isDesc?: boolean): any;
           </code>
           <br>
-          <b>@param tableData [any[]]</b>
+          <b>@param srcArr [any[]]</b>
           <br>传入的需要排序的数组
           <br>
           <b>@param field [string]</b>
@@ -636,6 +743,7 @@ fn.forEach(divs, function(div) { // Do something... }); // name \n age</pre>
         <pre>
 const persons = [{name:'Tom', age: 22, indexes: {height: 180, weight: 68}},
                  {name:'Jerry', age: 18, indexes: {height: 175, weight: 70}}];
+
 fn.sortBy(persons, 'age');              // [Jerry, Tom]
 fn.sortBy(persons, 'age', false);       // [Tom, Jerry]
 fn.sortBy(persons, '/indexes/height');  // [Jerry, Tom]
@@ -719,6 +827,25 @@ const _tom = fn.deepCopy(tom);
 tom.age = 28;
 console.log(_tom.name);   // 22</pre>
 
+        <p id="fnisdeepequal">
+          <b class="header">fn.isDeepEqual</b>
+          <br>判断数组或对象是否相等
+          <br>
+          <code>
+            fn.isDeepEqual(obj1: any, obj2: any): boolean;
+          </code>
+          <br>
+          <b>@param obj1 [object|array]</b>
+          <br>对象1
+          <br>
+          <b>@param obj2 [object|array]</b>
+          <br>对象2
+        </p>
+        <pre>
+fn.isDeepEqual([], {})                                              // false
+fn.isDeepEqual([{name: 'Tom', age: 21}], [{name: 'Tom', age: 22}])  // false
+fn.isDeepEqual([{name: 'Tom', age: 22}], [{name: 'Tom', age: 22}])  // true</pre>
+
         <p id="fnget">
           <b class="header">fn.get</b>
           <br>返回对象或子孙对象的属性，可判断类型
@@ -740,6 +867,7 @@ console.log(_tom.name);   // 22</pre>
 const obj1 = {name: 'Obj', metadata: {subObj: {name: 'Tom'}}};
 const obj2 = {name: 'Obj', metadata: null};
 const Arr1 = [{name: 'Tom'}];
+
 fn.get(obj1, 'metadata/subObj/name');         // Tom
 fn.get(obj2, 'metadata/subObj/name', 'bol');  // false
 fn.get({}, 'metadata/subObj/name');           // undefined
@@ -893,6 +1021,7 @@ fn.time(new Date('2018-06-06 12:30')); // 1528259400000</pre>
         </p>
         <pre>
 const date = new Date('2018-06-06 12:30');
+
 fn.fmtDate('yy-MM-dd hh:mm:ss');                // 18-06-06 22:31:16
 fn.fmtDate('yyyy-MM-dd hh:mm', 1528259400000);  // 2018-06-06 12:30
 fn.fmtDate('yy-MM-dd hh:mm', date);             // 18-06-06 12:30</pre>
@@ -1031,7 +1160,7 @@ fn.cutString('test测试aaaaaaa！', 4); // test...</pre>
           <br>是否不加首尾限制(^和$)，默认为false
         </p>
         <pre>
-fn.getPattern('cnChar'); // /^[\u4e00-\u9fa5]+$/
+fn.getPattern('cnChar');       // /^[\u4e00-\u9fa5]+$/
 fn.getPattern('cnChar', true); // /[\u4e00-\u9fa5]+/</pre>
 
         <p id="fnmatchpattern">
@@ -1350,7 +1479,7 @@ console.log(fn.chalk('test', 'cyan'));</pre>
           </p>
           <pre>
 fn.log([{name: 'tom', age: 22}], false);
->: [15:27:16] ( funclib(v2.1.15) ): [
+>: [15:27:16] ( funclib(v2.2.4) ): [
   {
     "name": "tom",
     "age": 22
@@ -1474,6 +1603,27 @@ fn.rm('C: test.txt');</pre>
           <pre>
 fn.mk('C: test-dir');</pre>
 
+          <h2 id="OOP">OOP</h2>
+
+          <p id="fnmethod">
+            <b class="header">fn().method</b>
+            <br>可把第一个参数传入fn()，剩余的参数传入method中，实现OOP形式的调用
+            <br>
+            <code>
+              fn(data: any).method(...args: any[]): any;
+            </code>
+            <br>
+            <b>@param data [any]</b>
+            <br>method方法的第一个参数
+            <br>
+            <b>@param args [any[]]</b>
+            <br>method方法除去第一个参数后的剩余参数
+          </p>
+          <pre>
+const persons = [{name:'Tom', age: 22}, {name:'Jerry', age: 18}];
+fn(persons).find({name: 'Tom'});            // {name:'Tom', age: 22}
+fn(persons).find(ps => ps.name === 'Tom');  // {name:'Tom', age: 22}</pre>
+
           <h2 id="Progress">Progress</h2>
 
           <p id="fnprogressstart">
@@ -1520,7 +1670,7 @@ fn.progress.stop(() => { // Do something... });</pre>
             </code>
           </p>
           <pre>
-fn.version;  //2.1.15 </pre>
+fn.version;  //2.2.4 </pre>
 
           <h2 id="changelog">Change Log</h2>
           <p id="2.1.14">

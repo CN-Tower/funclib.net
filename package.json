@@ -20,7 +20,7 @@
   "homepage": "https://github.com/CN-Tower/funclib#readme",
   "devDependencies": {
     "browser-sync": "^2.24.5",
-    "funclib": "^2.1.12",
+    "funclib": "^2.2.4",
     "gulp": "^3.9.1"
   }
 }
