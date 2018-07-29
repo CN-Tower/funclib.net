@@ -352,10 +352,10 @@
       <h2 id="introduction"> funclib.js </h2>
 
       <p>
-        <a href="http://github.com/CN-Tower/funclib.js/">funclib.js</a>
+        <a href="http://github.com/CN-Tower/funclib.js/" target="_blank">funclib.js</a>
         是一个简单、易用、贴进业务逻辑的JavaScript UMD函数库，类似于
-        <a href="https://underscorejs.org/">underscore</a> 和
-        <a href="https://lodash.com/">lodash</a>。 跟它们对比，funclib.js省去了很多js自带的或者不常用的方法。
+        <a href="https://underscorejs.org/" target="_blank">underscore</a> 和
+        <a href="https://lodash.com/" target="_blank">lodash</a>。 跟它们对比，funclib.js省去了很多js自带的或者不常用的方法。
       </p>
 
       <p>
@@ -869,6 +869,7 @@ const obj2 = {name: 'Obj', metadata: null};
 const Arr1 = [{name: 'Tom'}];
 
 fn.get(obj1, '/metadata/subObj/name');         // Tom
+fn.get(obj1, '/metadata/subObj/name', 'str');  // Tom
 fn.get(obj2, '/metadata/subObj/name', 'bol');  // false
 fn.get({}, '/metadata/subObj/name');           // undefined
 fn.get(obj2, '/metadata/subObj/name');         // undefined
