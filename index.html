@@ -868,11 +868,11 @@ const obj1 = {name: 'Obj', metadata: {subObj: {name: 'Tom'}}};
 const obj2 = {name: 'Obj', metadata: null};
 const Arr1 = [{name: 'Tom'}];
 
-fn.get(obj1, 'metadata/subObj/name');         // Tom
-fn.get(obj2, 'metadata/subObj/name', 'bol');  // false
-fn.get({}, 'metadata/subObj/name');           // undefined
-fn.get(obj2, 'metadata/subObj/name');         // undefined
-fn.get(Arr1, '/0/name');                      // Tom</pre>
+fn.get(obj1, '/metadata/subObj/name');         // Tom
+fn.get(obj2, '/metadata/subObj/name', 'bol');  // false
+fn.get({}, '/metadata/subObj/name');           // undefined
+fn.get(obj2, '/metadata/subObj/name');         // undefined
+fn.get(Arr1, '/0/name');                       // Tom</pre>
 
         <h2 id="Math">Math</h2>
 
