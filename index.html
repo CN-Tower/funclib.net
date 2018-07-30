@@ -34,7 +34,7 @@
 
       <a class="toc_title" href="#">
         funclib.js
-        <span class="version">(2.2.4)</span>
+        <span class="version">(2.2.5)</span>
       </a>
       <ul class="toc_section">
         <li>&raquo;
@@ -405,7 +405,7 @@
             <a href="./assets/funclib.js" target="_blank">funclib.js</a>
           </td>
           <td>
-            <i>Development Version (2.2.4), Uncompressed(51.2 kb)</i>
+            <i>Development Version (2.2.5), Uncompressed(51.2 kb)</i>
           </td>
         </tr>
         <tr>
@@ -413,7 +413,7 @@
             <a href="./assets/funclib.min.js" target="_blank">funclib.min.js</a>
           </td>
           <td>
-            <i>Production Version (2.2.4), Minified(20.5 kb)</i>
+            <i>Production Version (2.2.5), Minified(20.5 kb)</i>
           </td>
         </tr>
       </table>
@@ -495,7 +495,7 @@ fn.typeVal([], ['str', 'arr']);  // []</pre>
           <br>默认值，不传默认返回一个指定长度的range；如果是该参数为函数，则取函数的返回值为默认值
         </p>
         <pre>
-let x = 0;
+var x = 0;
 fn.array(5);               // [0, 1, 2, 3, 4, 5]
 fn.array(5, 0);            // [0, 0, 0, 0, 0]
 fn.array(5, 'test');       // ['test', 'test', 'test', 'test', 'test']
@@ -533,7 +533,7 @@ fn.toArray(['test']); // ['test']</pre>
           <br>如果是对象，则判断是否为数组元素的子对象；如果是数组，则以数组元素为参数判断返回值的真假。
         </p>
         <pre>
-const persons = [{name:'Tom', age: 22}, {name:'Jerry', age: 18}];
+var persons = [{name:'Tom', age: 22}, {name:'Jerry', age: 18}];
 fn.find(persons, {name: 'Tom'});            // {name:'Tom', age: 22}
 fn.find(persons, ps => ps.name === 'Tom');  // {name:'Tom', age: 22}</pre>
 
@@ -553,7 +553,7 @@ fn.find(persons, ps => ps.name === 'Tom');  // {name:'Tom', age: 22}</pre>
           <br>如果是对象，则判断是否为数组元素的子对象；如果是数组，则以数组元素为参数判断返回值的真假。
         </p>
         <pre>
-const persons = [{name:'Tom', age: 22}, {name:'Jerry', age: 18}];
+var persons = [{name:'Tom', age: 22}, {name:'Jerry', age: 18}];
 fn.filter(persons, {name: 'Tom'});             // [{name:'Tom', age: 22}]
 fn.filter(persons, ps => ps.name === 'Tom');   // [{name:'Tom', age: 22}]</pre>
 
@@ -573,7 +573,7 @@ fn.filter(persons, ps => ps.name === 'Tom');   // [{name:'Tom', age: 22}]</pre>
           <br>如果是对象，则判断是否为数组元素的子对象；如果是数组，则以数组元素为参数判断返回值的真假。
         </p>
         <pre>
-const persons = [{name:'Tom', age: 22}, {name:'Jerry', age: 18}];
+var persons = [{name:'Tom', age: 22}, {name:'Jerry', age: 18}];
 fn.reject(persons, {name: 'Tom'});             // [{name:'Jerry', age: 18}]
 fn.reject(persons, ps => ps.name === 'Tom');   // [{name:'Jerry', age: 18}]</pre>
 
@@ -593,7 +593,7 @@ fn.reject(persons, ps => ps.name === 'Tom');   // [{name:'Jerry', age: 18}]</pre
           <br>如果是对象，则判断是否为数组元素的子对象；如果是数组，则以数组元素为参数判断返回值的真假。
         </p>
         <pre>
-const persons = [{name:'Tom', age: 22}, {name:'Jerry', age: 18}];
+var persons = [{name:'Tom', age: 22}, {name:'Jerry', age: 18}];
 fn.contains(persons, {name: 'LiLi'});              // false
 fn.contains(persons, {name: 'Tom'});               // true
 fn.contains(persons, ps => ps.name === 'Tom');     // true
@@ -614,7 +614,7 @@ fn.contains(['Tom', 'Jerry', 'Marry'], 'Marry');   // true</pre>
           <br>是否去掉0，默认不去掉
         </p>
         <pre>
-const arr = [null, undefined, false, {}, [], 0, 'test'];
+var arr = [null, undefined, false, {}, [], 0, 'test'];
 fn.drop(arr)          // [0, 'test']
 fn.drop(arr, true)    // ['test']</pre>
 
@@ -633,7 +633,7 @@ fn.drop(arr, true)    // ['test']</pre>
           <br>是否全部打散
         </p>
         <pre>
-const arr = [1, [2, 3, [4, [5]], 6], 7];
+var arr = [1, [2, 3, [4, [5]], 6], 7];
 fn.flatten(arr)          // [1, 2, 3, [4, [5]], 6, 7]
 fn.flatten(arr, true)    // [1, 2, 3, 4, 5, 6, 7]</pre>
 
@@ -652,7 +652,7 @@ fn.flatten(arr, true)    // [1, 2, 3, 4, 5, 6, 7]</pre>
           <br>内部对象字段所在的路径
         </p>
         <pre>
-const persons = [{name:'Tom', age: 22}, {name:'Jerry', age: 18}];
+var persons = [{name:'Tom', age: 22}, {name:'Jerry', age: 18}];
 fn.pluck(persons, '/name')    // ['Tom', 'Jerry']</pre>
 
         <p id="fnuniq">
@@ -673,8 +673,8 @@ fn.pluck(persons, '/name')    // ['Tom', 'Jerry']</pre>
           <br>是否对比数组和对象
         </p>
         <pre>
-const arr1 = [0, {}, 0, false, null, false, [], [], {}, 'test', 'test']
-const persons = [{name:'Tom', age: 22}, {name:'Jerry', age: 22}];
+var arr1 = [0, {}, 0, false, null, false, [], [], {}, 'test', 'test']
+var persons = [{name:'Tom', age: 22}, {name:'Jerry', age: 22}];
 
 fn.uniq(arr1)              // [0, {}, false, null, [], 'test']
 fn.uniq(arr1, false)       // [0, {}, false, null, [], [], {}, 'test']
@@ -697,7 +697,7 @@ fn.uniq(persons, '/age')   // [Tom]</pre>
           <br>如果是对象，则判断是否为数组元素的子对象；如果是数组，则以数组元素为参数判断返回值的真假。
         </p>
         <pre>
-const persons = [{name:'Tom', age: 22}, {name:'Jerry', age: 18}];
+var persons = [{name:'Tom', age: 22}, {name:'Jerry', age: 18}];
 
 fn.indexOf(persons, {name: 'LiLi'});             // -1
 fn.indexOf(persons, {name: 'Tom'});              // 1
@@ -719,7 +719,7 @@ fn.indexOf(['Tom', 'Jerry', 'Marry'], 'Marry');  // 2</pre>
           <br>项处理函数
         </p>
         <pre>
-const divs = document.querySelectorAll('div');
+var divs = document.querySelectorAll('div');
 fn.forEach(divs, function(div) { // Do something... }); // name \n age</pre>
 
         <p id="fnsortby">
@@ -741,7 +741,7 @@ fn.forEach(divs, function(div) { // Do something... }); // name \n age</pre>
           <br>是否降序，默认false
         </p>
         <pre>
-const persons = [{name:'Tom', age: 22, indexes: {height: 180, weight: 68}},
+var persons = [{name:'Tom', age: 22, indexes: {height: 180, weight: 68}},
                  {name:'Jerry', age: 18, indexes: {height: 175, weight: 70}}];
 
 fn.sortBy(persons, 'age');              // [Jerry, Tom]
@@ -784,7 +784,7 @@ fn.len(x => console.log(s)); // 1</pre>
           <br>项处理函数
         </p>
         <pre>
-const tom = {name: 'Tom', age: 28};
+var tom = {name: 'Tom', age: 28};
 fn.forIn(tom, prop => console.log(prop)); // name \n age</pre>
 
         <p id="fnoverlay">
@@ -805,8 +805,8 @@ fn.forIn(tom, prop => console.log(prop)); // name \n age</pre>
           <br>需要赋值的属性，不传默认为src的全部属性
         </p>
         <pre>
-const tom = {name: 'Tom'};
-const jerry = {name: 'Jerry', age: 28, sex: 'm'};
+var tom = {name: 'Tom'};
+var jerry = {name: 'Jerry', age: 28, sex: 'm'};
 fn.overlay(tom, jerry, ['age', 'sex']);
 console.log(tom);   // {name: 'Tom', age: 28, sex: 'm'}</pre>
 
@@ -822,8 +822,8 @@ console.log(tom);   // {name: 'Tom', age: 28, sex: 'm'}</pre>
           <br>目标对象
         </p>
         <pre>
-const tom = {name: 'Tom', age: 22};
-const _tom = fn.deepCopy(tom);
+var tom = {name: 'Tom', age: 22};
+var _tom = fn.deepCopy(tom);
 tom.age = 28;
 console.log(_tom.name);   // 22</pre>
 
@@ -864,9 +864,9 @@ fn.isDeepEqual([{name: 'Tom', age: 22}], [{name: 'Tom', age: 22}])  // true</pre
           <br>指定获取值的类型范围，如果不符合类型，返回false
         </p>
         <pre>
-const obj1 = {name: 'Obj', metadata: {subObj: {name: 'Tom'}}};
-const obj2 = {name: 'Obj', metadata: null};
-const Arr1 = [{name: 'Tom'}];
+var obj1 = {name: 'Obj', metadata: {subObj: {name: 'Tom'}}};
+var obj2 = {name: 'Obj', metadata: null};
+var Arr1 = [{name: 'Tom'}];
 
 fn.get(obj1, '/metadata/subObj/name');         // Tom
 fn.get(obj1, '/metadata/subObj/name', 'str');  // Tom
@@ -1021,7 +1021,7 @@ fn.time(new Date('2018-06-06 12:30')); // 1528259400000</pre>
           <br>传入时间，不传默认为当前时间
         </p>
         <pre>
-const date = new Date('2018-06-06 12:30');
+var date = new Date('2018-06-06 12:30');
 
 fn.fmtDate('yy-MM-dd hh:mm:ss');                // 18-06-06 22:31:16
 fn.fmtDate('yyyy-MM-dd hh:mm', 1528259400000);  // 2018-06-06 12:30
@@ -1205,8 +1205,8 @@ fn.matchPattern('cntower@yahoo.com', 'email');    // true</pre>
           <br>leading: 开始时是否立即调用; trailing: 结束时是否调用
         </p>
         <pre>
-let i = 0, duration = 500;
-const log = fn.throttle(() => fn.log(i, 'throttle'), 2000);
+var i = 0, duration = 500;
+var log = fn.throttle(() => fn.log(i, 'throttle'), 2000);
 doLog();
 function doLog() {
   fn.timeout(duration, () => {
@@ -1235,8 +1235,8 @@ function doLog() {
           <br>开始时是否立即调用
         </p>
         <pre>
-let i = 0, duration = 500;
-const log = fn.debounce(() => fn.log(i, 'debounce'), 2000, true);
+var i = 0, duration = 500;
+var log = fn.debounce(() => fn.log(i, 'debounce'), 2000, true);
 doLog();
 function doLog() {
   fn.timeout(duration, () => {
@@ -1262,7 +1262,7 @@ function doLog() {
             <br>需要解析的URL字符串
           </p>
           <pre>
-const url = 'https://www.baidu.com/s?wd=%E7%99%BE%E5%BA%A6&rsv_spt=10';
+var url = 'https://www.baidu.com/s?wd=%E7%99%BE%E5%BA%A6&rsv_spt=10';
 fn.log(fn.parseQueryString(url));  // {"wd": "百度", "rsv_spt": "10"}</pre>
 
           <p id="fnstringfyquerystring">
@@ -1277,7 +1277,7 @@ fn.log(fn.parseQueryString(url));  // {"wd": "百度", "rsv_spt": "10"}</pre>
             <br>需要编译的对象
           </p>
           <pre>
-const params = {name: 'Tom', age: 28};
+var params = {name: 'Tom', age: 28};
 fn.log(fn.stringfyQueryString(params)); // ?name=Tom&age=28</pre>
 
           <h2 id="Dom">Dom</h2>
@@ -1461,21 +1461,20 @@ console.log(fn.chalk('test', 'cyan'));</pre>
             <br>强大的打印函数（服务端还可带颜色）
             <br>
             <code>
-              fn.log(value: string, configs?: Object, isPretty?): void;
+              fn.log(value: string, configs?: any, isFmt?: boolean): void;
             </code>
             <br>
             <b>@param value [any]</b>
             <br>需要打印的值
             <br>
-            <b>@param configs [object]</b>
-            <br>title: string,
-            <br>width: number [20-100]
-            <br>part: 'pre'|'end'
-            <br>isFmt: boolean
+            <b>@param configs? [object]</b>
+            <br>{title: string, width: number [20-100]
+            <br>pre: boolean = false, end: boolean false,
+            <br>isFmt: boolean = false
             <br>color: 'grey'|'blue'|'cyan'|'green'|'magenta'|'red'|'yellow'
             <br>ttColor: 'grey'|'blue'|'cyan'|'green'|'magenta'|'red'|'yellow'}
             <br>
-            <b>@param isPretty [boolean]</b>
+            <b>@param isFmt=true [boolean]</b>
             <br>是否带分隔线，默认为true
           </p>
           <pre>
@@ -1621,7 +1620,7 @@ fn.mk('C: test-dir');</pre>
             <br>method方法除去第一个参数后的剩余参数
           </p>
           <pre>
-const persons = [{name:'Tom', age: 22}, {name:'Jerry', age: 18}];
+var persons = [{name:'Tom', age: 22}, {name:'Jerry', age: 18}];
 fn(persons).find({name: 'Tom'});            // {name:'Tom', age: 22}
 fn(persons).find(ps => ps.name === 'Tom');  // {name:'Tom', age: 22}</pre>
 
@@ -1671,7 +1670,7 @@ fn.progress.stop(() => { // Do something... });</pre>
             </code>
           </p>
           <pre>
-fn.version;  //2.2.4 </pre>
+fn.version;  //2.2.5 </pre>
 
           <h2 id="changelog">Change Log</h2>
           <p id="2.1.14">
