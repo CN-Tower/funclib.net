@@ -34,7 +34,7 @@
 
       <a class="toc_title" href="#">
         funclib.js
-        <span class="version">(2.2.5)</span>
+        <span class="version">(2.2.6)</span>
       </a>
       <ul class="toc_section">
         <li>&raquo;
@@ -119,6 +119,9 @@
           <li data-name="fnlen">
             <a href="#fnlen">fn.len</a>
           </li>
+          <li data-name="fnhas">
+            <a href="#fnhas">fn.has</a>
+          </li>
           <li data-name="fnforin">
             <a href="#fnforin">fn.forIn</a>
           </li>
@@ -181,6 +184,9 @@
           </li>
           <li data-name="fndecodehtml">
             <a href="#fndecodehtml">fn.decodeHtml</a>
+          </li>
+          <li data-name="fncapitalize">
+            <a href="#fncapitalize">fn.capitalize</a>
           </li>
           <li data-name="fnfmtcurrency">
             <a href="#fnfmtcurrency">fn.fmtCurrency</a>
@@ -405,7 +411,7 @@
             <a href="./assets/funclib.js" target="_blank">funclib.js</a>
           </td>
           <td>
-            <i>Development Version (2.2.5), Uncompressed(51.8 kb)</i>
+            <i>Development Version (2.2.6), Uncompressed(52.3 kb)</i>
           </td>
         </tr>
         <tr>
@@ -413,7 +419,7 @@
             <a href="./assets/funclib.min.js" target="_blank">funclib.min.js</a>
           </td>
           <td>
-            <i>Production Version (2.2.5), Minified(20.8 kb)</i>
+            <i>Production Version (2.2.6), Minified(21 kb)</i>
           </td>
         </tr>
         <tr>
@@ -421,7 +427,7 @@
             <a href="./assets/index.js" target="_blank">index.js</a>
           </td>
           <td>
-            <i>Server Side Version (2.2.5), Uncompressed(54.5 kb)</i>
+            <i>Server Side Version (2.2.6), Uncompressed(55 kb)</i>
           </td>
         </tr>
         <tr>
@@ -429,7 +435,7 @@
             <a href="./assets/index.d.ts" target="_blank">index.d.ts</a>
           </td>
           <td>
-            <i>TypeScript Definition File (2.2.5)</i>
+            <i>TypeScript Definition File (2.2.6)</i>
           </td>
         </tr>
       </table>
@@ -453,7 +459,7 @@ $ node
           <br>检查值的类型，返回布尔值
           <br>
           <code>
-            fn.typeOf(value: any, type: 'arr' | 'obj' | 'fun' | string | string[]): boolean;
+            fn.typeOf(value, type);
           </code>
           <br>
           <b>@param value [any]</b>
@@ -479,7 +485,7 @@ fn.typeOf(undefined, ['str', 'udf']); // true</pre>
           <br>先检查值的类型，如果是true则返回该值，否则返回false
           <br>
           <code>
-            fn.typeVal(value: any, type: 'arr' | 'obj' | 'fun' | string | string[]): any;
+            fn.typeVal(value, type);
           </code>
           <br>
           <b>@param value [any]</b>
@@ -501,7 +507,7 @@ fn.typeVal([], ['str', 'arr']);  // []</pre>
           <br>返回一个指定长度和默认值的数组
           <br>
           <code>
-            fn.array(length: number, value?: any): any[];
+            fn.array(length, value);
           </code>
           <br>
           <b>@param length [number]</b>
@@ -522,7 +528,7 @@ fn.array(5, () => x += 2); // [2, 4, 6, 8, 10]</pre>
           <br>值数组化
           <br>
           <code>
-            fn.toArray(value: any): any[];
+            fn.toArray(value);
           </code>
           <br>
           <b>@param value [any[]]</b>
@@ -538,7 +544,7 @@ fn.toArray(['test']); // ['test']</pre>
           <br>根据条件寻找值
           <br>
           <code>
-            fn.find(srcArr: any[], predicate: any): any;
+            fn.find(srcArr, predicate);
           </code>
           <br>
           <b>@param srcArr [any[]]</b>
@@ -558,7 +564,7 @@ fn.find(persons, ps => ps.name === 'Tom');  // {name:'Tom', age: 22}</pre>
           <br>根据条件取过滤值
           <br>
           <code>
-            fn.filter(srcArr: any[], predicate: any): any;
+            fn.filter(srcArr, predicate);
           </code>
           <br>
           <b>@param srcArr [any[]]</b>
@@ -578,7 +584,7 @@ fn.filter(persons, ps => ps.name === 'Tom');   // [{name:'Tom', age: 22}]</pre>
           <br>根据条件过滤值
           <br>
           <code>
-            fn.reject(srcArr: any[], predicate: any): any;
+            fn.reject(srcArr, predicate);
           </code>
           <br>
           <b>@param srcArr [any[]]</b>
@@ -598,7 +604,7 @@ fn.reject(persons, ps => ps.name === 'Tom');   // [{name:'Jerry', age: 18}]</pre
           <br>判断数组是否包含符合条件的值
           <br>
           <code>
-            fn.contains(srcArr: any[], predicate: any): boolean;
+            fn.contains(srcArr, predicate);
           </code>
           <br>
           <b>@param srcArr [any[]]</b>
@@ -620,7 +626,7 @@ fn.contains(['Tom', 'Jerry', 'Marry'], 'Marry');   // true</pre>
           <br>去掉Boolean()后为false和空数组或对象的值
           <br>
           <code>
-            fn.drop(srcArr: any[], isDrop0?: boolean): any[];
+            fn.drop(srcArr:, isDrop0?);
           </code>
           <br>
           <b>@param srcArr [any[]]</b>
@@ -639,7 +645,7 @@ fn.drop(arr, true)    // ['test']</pre>
           <br>把有结构的数组打散，减少层数
           <br>
           <code>
-            fn.flatten(srcArr: any[], isDeep?: boolean): any[];
+            fn.flatten(srcArr, isDeep?);
           </code>
           <br>
           <b>@param srcArr [any[]]</b>
@@ -658,7 +664,7 @@ fn.flatten(arr, true)    // [1, 2, 3, 4, 5, 6, 7]</pre>
           <br>把结构中的字段取出合并到一个数组中
           <br>
           <code>
-            fn.pluck(srcArr: any, path: string): any[];
+            fn.pluck(srcArr, path);
           </code>
           <br>
           <b>@param srcArr [any[]]</b>
@@ -676,7 +682,7 @@ fn.pluck(persons, '/name')    // ['Tom', 'Jerry']</pre>
           <br>去重或根据字段去重
           <br>
           <code>
-            fn.uniq(srcArr: any[], path?: string, isDeep?: boolean): any[];
+            fn.uniq(srcArr, path, isDeep?);
           </code>
           <br>
           <b>@param srcArr [any[]]</b>
@@ -702,7 +708,7 @@ fn.uniq(persons, '/age')   // [Tom]</pre>
           <br>寻找值在数组中的索引
           <br>
           <code>
-            fn.indexOf(srcArr: any[], predicate: any): number;
+            fn.indexOf(srcArr, predicate);
           </code>
           <br>
           <b>@param srcArr [any[]]</b>
@@ -725,7 +731,7 @@ fn.indexOf(['Tom', 'Jerry', 'Marry'], 'Marry');  // 2</pre>
           <br>遍历数组或类数组
           <br>
           <code>
-            fn.forEach(obj: any, iteratee: any): any;
+            fn.forEach(obj, iteratee);
           </code>
           <br>
           <b>@param obj [any]</b>
@@ -743,7 +749,7 @@ fn.forEach(divs, function(div) { // Do something... }); // name \n age</pre>
           <br>返回对象数组根据字段排序后的副本
           <br>
           <code>
-            fn.sortBy(srcArr: any, field: string, isDesc?: boolean): any;
+            fn.sortBy(srcArr, field, isDesc?);
           </code>
           <br>
           <b>@param srcArr [any[]]</b>
@@ -772,7 +778,7 @@ fn.sortBy(persons, '/indexes/weight');  // [Tom, Jerry]</pre>
           <br>获取对象的元素、自有属性或参数的个数
           <br>
           <code>
-            fn.len(obj: any): number;
+            fn.len(obj);
           </code>
           <br>
           <b>@param obj [any]</b>
@@ -785,12 +791,33 @@ fn.len({name: 'Tom'});       // 1
 fn.len(['x']);               // 1
 fn.len(x => console.log(s)); // 1</pre>
 
+
+        <p id="fnhas">
+          <b class="header">fn.has</b>
+          <br>判断对象是否存在某自有属性
+          <br>
+          <code>
+            fn.has(obj, property);
+          </code>
+          <br>
+          <b>@param obj [any]</b>
+          <br>传入的对象
+          <br>
+          <b>@param property [string]</b>
+          <br>判断是否存在的属性
+        </p>
+        <pre>
+const tom = {name: 'Tom', age: 28};
+fn.has(tom, 'name');   // true
+fn.has(tom, 'sex');    // false
+fn.has(null, 'name');  // false</pre>
+
         <p id="fnforin">
           <b class="header">fn.forIn</b>
           <br>遍历对象的可数自有属性
           <br>
           <code>
-            fn.forIn(obj: Object, iteratee: Function): void;
+            fn.forIn(obj, iteratee);
           </code>
           <br>
           <b>@param obj [object]</b>
@@ -808,7 +835,7 @@ fn.forIn(tom, prop => console.log(prop)); // name \n age</pre>
           <br>给目标对象赋值
           <br>
           <code>
-              fn.overlay(tar: Object, src: Object, propList?: string[]): void;
+              fn.overlay(tar, src, propList?);
           </code>
           <br>
           <b>@param tar [object]</b>
@@ -831,7 +858,7 @@ console.log(tom);   // {name: 'Tom', age: 28, sex: 'm'}</pre>
           <br>深拷贝对象或数组
           <br>
           <code>
-            fn.deepCopy(data: any): any;
+            fn.deepCopy(data);
           </code>
           <br>
           <b>@param tar [object]</b>
@@ -848,7 +875,7 @@ console.log(_tom.name);   // 22</pre>
           <br>判断数组或对象是否相等
           <br>
           <code>
-            fn.isDeepEqual(obj1: any, obj2: any): boolean;
+            fn.isDeepEqual(obj1, obj2);
           </code>
           <br>
           <b>@param obj1 [object|array]</b>
@@ -867,7 +894,7 @@ fn.isDeepEqual([{name: 'Tom', age: 22}], [{name: 'Tom', age: 22}])  // true</pre
           <br>返回对象或子孙对象的属性，可判断类型
           <br>
           <code>
-            fn.get(obj: Object, path: string, type?: string|string[]): any;
+            fn.get(obj, path, type?);
           </code>
           <br>
           <b>@param obj [object]</b>
@@ -898,7 +925,7 @@ fn.get(Arr1, '/0/name');                       // Tom</pre>
           <br>返回一个指定范围的随机数
           <br>
           <code>
-            fn.random(sta: number, end?: number): number;
+            fn.random(sta, end?);
           </code>
           <br>
           <b>@param sta [number]</b>
@@ -918,7 +945,7 @@ fn.random(5, 10); // 9</pre>
           <br>返回一个指定长度(最小4位，默认12位)的随机ID
           <br>
           <code>
-            fn.rdid(len?: number): string;
+            fn.rdid(len?);
           </code>
           <br>
           <b>@param len [number]</b>
@@ -935,7 +962,7 @@ fn.random(5, 10); // 9</pre>
           <br>返回一个随机色值
           <br>
           <code>
-            fn.rdcolor(): string;
+            fn.rdcolor();
           </code>
         </p>
         <pre>
@@ -949,7 +976,7 @@ fn.rdcolor(); // #d0b1ab</pre>
           <br>循环定时器
           <br>
           <code>
-            fn.interval(timerId: string, duration: number | boolean, callback?): any;
+            fn.interval(timerId?, duration, callback);
           </code>
           <br>
           <b>@param timerId? [string]</b>
@@ -972,7 +999,7 @@ fn.interval('test', false);</pre>
           <br>延时定时器
           <br>
           <code>
-            fn.timeout(timerId: string, duration: number | boolean, callback?): any;
+            fn.timeout(timerId?: string, duration, callback);
           </code>
           <br>
           <b>@param timerId? [string]</b>
@@ -997,7 +1024,7 @@ fn.timeout('test', false);</pre>
           <br>延迟执行函数
           <br>
           <code>
-            fn.defer(func: Function): void;
+            fn.defer(func);
           </code>
           <br>
           <b>@param func [function]</b>
@@ -1012,7 +1039,7 @@ setTimeout(func, 0);</pre>
           <br>返回一个时间戳
           <br>
           <code>
-            fn.time(time: Date | string | number): number;
+            fn.time(time);
           </code>
           <br>
           <b>@param time? [Date|string|number] (可选)</b>
@@ -1027,7 +1054,7 @@ fn.time(new Date('2018-06-06 12:30')); // 1528259400000</pre>
           <br>获取格式化的时间字符串
           <br>
           <code>
-      fn.fmtDate(fmtStr: string, time?: Date | string | number): string;
+      fn.fmtDate(fmtStr, time?);
     </code>
           <br>
           <b>@param fmtStr [string]</b>
@@ -1050,7 +1077,7 @@ fn.fmtDate('yy-MM-dd hh:mm', date);             // 18-06-06 12:30</pre>
           <br>编码HTML字符串
           <br>
           <code>
-            fn.encodeHtml(html: string): string;
+            fn.encodeHtml(html);
           </code>
           <br>
           <b>@param html [string]</b>
@@ -1064,7 +1091,7 @@ fn.encodeHtml('&lt;div&gt;&lt;/div&gt;');  // &<i></i>lt;div&<i></i>gt;&<i></i>l
           <br>解码HTML字符串
           <br>
           <code>
-            fn.decodeHtml(html: string): string;
+            fn.decodeHtml(html);
           </code>
           <br>
           <b>@param html [string]</b>
@@ -1073,12 +1100,27 @@ fn.encodeHtml('&lt;div&gt;&lt;/div&gt;');  // &<i></i>lt;div&<i></i>gt;&<i></i>l
         <pre>
 fn.encodeHtml('&<i></i>lt;div&<i></i>gt;&<i></i>lt;/div&<i></i>gt;');  // &lt;div&gt;&lt;/div&gt;</pre>
 
+        <p id="fncapitalize">
+          <b class="header">fn.capitalize</b>
+          <br>使字符串首字母大写
+          <br>
+          <code>
+            fn.capitalize(str);
+          </code>
+          <br>
+          <b>@param str [string]</b>
+          <br>需要首字母大写的字符串
+        </p>
+        <pre>
+fn.capitalize('aaa');  // Aaa
+fn.capitalize(true);   // true</pre>
+
         <p id="fnfmtcurrency">
           <b class="header">fn.fmtCurrency</b>
           <br>格式化显示货币
           <br>
           <code>
-            fn.fmtCurrency(number: number, digit?: number): any;
+            fn.fmtCurrency(number, digit?);
           </code>
           <br>
           <b>@param number [number]</b>
@@ -1096,7 +1138,7 @@ fn.encodeHtml('&<i></i>lt;div&<i></i>gt;&<i></i>lt;/div&<i></i>gt;');  // &lt;di
           <br>裁切字符串到指定长度
           <br>
           <code>
-            fn.cutString(str: number, len: number): string;
+            fn.cutString(str, len);
           </code>
           <br>
           <b>@param str [number]</b>
@@ -1116,7 +1158,7 @@ fn.cutString('test测试aaaaaaa！', 4); // test...</pre>
           <br>获取一个通用的正则表达式
           <br>
           <code>
-            fn.getPattern(type: string, isNoLimit?: boolean): any;
+            fn.getPattern(type, isNoLimit?);
           </code>
           <br>
           <b>@param type [string]</b>
@@ -1185,7 +1227,7 @@ fn.getPattern('cnChar', true); // /[\u4e00-\u9fa5]+/</pre>
           <br>与一个或几个通用正则匹配
           <br>
           <code>
-            fn.matchPattern(src: string, type: string | string[], isNoLimit?): boolean;
+            fn.matchPattern(src, type, isNoLimit?);
           </code>
           <br>
           <b>@param str [number]</b>
@@ -1208,7 +1250,7 @@ fn.matchPattern('cntower@yahoo.com', 'email');    // true</pre>
           <br>节流函数，适用于限制resize和scroll等函数的调用频率
           <br>
           <code>
-            fn.throttle(func: Function, wait: number, options?): Function;
+            fn.throttle(func, wait, options?);
           </code>
           <br>
           <b>@param func [function]</b>
@@ -1238,7 +1280,7 @@ function doLog() {
           <br>防抖函数, 适用于获取用户输入
           <br>
           <code>
-            fn.debounce(func: Function, wait: number, immediate?): Function;
+            fn.debounce(func, wait, immediate?);
           </code>
           <br>
           <b>@param func [function]</b>
@@ -1271,7 +1313,7 @@ function doLog() {
             <br>解析Url参数成对象
             <br>
             <code>
-            parseQueryString(url?: string): Object;
+            parseQueryString(url?);
           </code>
             <br>
             <b>@param url [string]</b>
@@ -1286,7 +1328,7 @@ fn.log(fn.parseQueryString(url));  // {"wd": "百度", "rsv_spt": "10"}</pre>
             <br>把对象编译成Url参数
             <br>
             <code>
-            stringfyQueryString(obj: Object): string;
+            stringfyQueryString(obj);
           </code>
             <br>
             <b>@param obj [object]</b>
@@ -1303,7 +1345,7 @@ fn.log(fn.stringfyQueryString(params)); // ?name=Tom&age=28</pre>
             <br>全屏显示HTML元素
             <br>
             <code>
-              fn.fullScreen(el: any): void;
+              fn.fullScreen(el);
             </code>
             <br>
             <b>@param el [HtmlElement]</b>
@@ -1318,7 +1360,7 @@ fn.fullScreen(document.querySelector('html'));</pre>
             <br>退出全屏显示
             <br>
             <code>
-              fn.exitFullScreen(): void;
+              fn.exitFullScreen();
             </code>
           </p>
           <pre>
@@ -1330,7 +1372,7 @@ fn.exitFullScreen();</pre>
             <br>检测是否全屏状态
             <br>
             <code>
-              fn.isFullScreen(): boolean;
+              fn.isFullScreen();
             </code>
           </p>
           <pre>
@@ -1341,7 +1383,7 @@ fn.isFullScreen();  // false</pre>
             <br>全屏显示变化事件
             <br>
             <code>
-              fullScreenChange(callback?: boolean|any): void;
+              fullScreenChange(callback?);
             </code>
             <br>
             <b>@param callback [boolean|function]</b>
@@ -1356,7 +1398,7 @@ fn.fullScreenChange(() => fullsScreenHandler);</pre>
             <br>轮询获取异步出现的HTML元素
             <br>
             <code>
-              pollingEl(selector, timeout, options, callback?): void;
+              pollingEl(selector, timeout, options, callback?);
             </code>
             <br>
             <b>@param selector [string|string[]]</b>
@@ -1379,7 +1421,7 @@ fn.pollingEl('div.myDiv', 5000, function (el) { var myDiv = el[0]; });</pre>
             <br>防止输入框(input)用户名或密码自动填充
             <br>
             <code>
-              fn.noAutoComplete(input: any, type: 'username'|'password'): void;
+              fn.noAutoComplete(input, type);
             </code>
             <br>
             <b>@param input [htmlElement]</b>
@@ -1399,7 +1441,7 @@ fn.noAutoComplete(document.querySelector('input.password', 'password'));</pre>
             <br>设置Cookie
             <br>
             <code>
-              fn.setCookie(name: string, value: string, days?: number): void;
+              fn.setCookie(name, value, days?);
             </code>
             <br>
             <b>@param name [string]</b>
@@ -1419,7 +1461,7 @@ fn.setCookie('name', 'Tom');</pre>
             <br>根据name读取cookie
             <br>
             <code>
-              fn.getCookie(name: string): string;
+              fn.getCookie(name);
             </code>
             <br>
             <b>@param name [string]</b>
@@ -1433,7 +1475,7 @@ fn.getCookie('name');  // Tom</pre>
             <br>根据name删除cookie
             <br>
             <code>
-              fn.removeCookie(name: string): void;
+              fn.removeCookie(name);
             </code>
             <br>
             <b>@param name [string]</b>
@@ -1449,7 +1491,7 @@ fn.removeCookie('name');</pre>
             <br>复制文本到粘贴板
             <br>
             <code>
-              copyText(text: string): void;
+              copyText(text);
             </code>
           </p>
 
@@ -1460,7 +1502,7 @@ fn.removeCookie('name');</pre>
             <br>返回带颜色的字符串
             <br>
             <code>
-                fn.chalk(value: string, color?): string;
+                fn.chalk(value, color?);
             </code>
             <br>
             <b>@param value [string]</b>
@@ -1477,7 +1519,7 @@ console.log(fn.chalk('test', 'cyan'));</pre>
             <br>强大的打印函数（服务端还可带颜色）
             <br>
             <code>
-              fn.log(value: string, configs?: any, isFmt?: boolean): void;
+              fn.log(value, configs?, isPretty?);
             </code>
             <br>
             <b>@param value [any]</b>
@@ -1495,7 +1537,7 @@ console.log(fn.chalk('test', 'cyan'));</pre>
           </p>
           <pre>
 fn.log([{name: 'tom', age: 22}], false);
->: [15:27:16] ( funclib(v2.2.4) ): [
+>: [15:27:16] ( funclib(v2.2.6) ): [
   {
     "name": "tom",
     "age": 22
@@ -1528,7 +1570,7 @@ fn.log(() => {console.log(111)}, 'Function');</pre>
             <br>读文件
             <br>
             <code>
-              fn.rd(file: string): string;
+              fn.rd(file);
             </code>
             <br>
             <b>@param file [string]</b>
@@ -1542,7 +1584,7 @@ fn.rd('C: test.txt');</pre>
             <br>写文件
             <br>
             <code>
-              fn.wt(file: string, text: string, flag?: 'w' | 'a'): void;
+              fn.wt(file, text, flag?);
             </code>
             <br>
             <b>@param file [string]</b>
@@ -1562,7 +1604,7 @@ fn.wt('C: test.txt', 'Test file');</pre>
             <br>复制文件或文件夹
             <br>
             <code>
-              fn.cp(src: string, dist: string): void;
+              fn.cp(src, dist);
             </code>
             <br>
             <b>@param src [string]</b>
@@ -1579,7 +1621,7 @@ fn.cp('C: test.txt', 'D:');</pre>
             <br>移动文件或文件夹
             <br>
             <code>
-              fn.mv(src: string, dist: string): void;
+              fn.mv(src, dist);
             </code>
             <br>
             <b>@param src [string]</b>
@@ -1596,7 +1638,7 @@ fn.mv('C: test.txt', 'D: text-file\');</pre>
             <br>删除文件或文件夹
             <br>
             <code>
-              fn.rm(src: string): void;
+              fn.rm(src);
             </code>
             <br>
             <b>@param src [string]</b>
@@ -1610,7 +1652,7 @@ fn.rm('C: test.txt');</pre>
             <br>创建文件夹（注：创建文件使用fn.wt）
             <br>
             <code>
-              fn.mk(dist: string): void;
+              fn.mk(dist);
             </code>
             <br>
             <b>@param src [string]</b>
@@ -1626,7 +1668,7 @@ fn.mk('C: test-dir');</pre>
             <br>可把第一个参数传入fn()，剩余的参数传入method中，实现OOP风格的调用
             <br>
             <code>
-              fn(data: any).method(...args: any[]): any;
+              fn(data).method(...args);
             </code>
             <br>
             <b>@param data [any]</b>
@@ -1647,7 +1689,7 @@ fn(persons).find(ps => ps.name === 'Tom');  // {name:'Tom', age: 22}</pre>
             <br>开启进度，并传入参数
             <br>
             <code>
-              fn.start(options: any): void;
+              fn.start(options);
             </code>
             <br>
             <b>@param options [object]</b>
@@ -1666,7 +1708,7 @@ Test [================                        ] 40%</pre>
             <br>结束进度，结束后触发回调
             <br>
             <code>
-              fn.stop(onStopped?: Function): void;
+              fn.stop(onStopped?);
             </code>
             <br>
             <b>@param onStopped [function] (可选)</b>
@@ -1686,11 +1728,12 @@ fn.progress.stop(() => { // Do something... });</pre>
             </code>
           </p>
           <pre>
-fn.version;  //2.2.5 </pre>
+fn.version;  //2.2.6 </pre>
 
           <h2 id="changelog">Change Log</h2>
-          <p id="2.1.14">
-            <b class="header">2.1.14</b> &mdash;
+
+          <p id="2.2.6">
+            <b class="header">2.2.6</b> &mdash;
             <small>
               <i>January 9, 2011</i>
             </small> &mdash;
