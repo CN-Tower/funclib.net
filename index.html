@@ -34,7 +34,7 @@
 
       <a class="toc_title" href="#">
         funclib.js
-        <span class="version">(2.2.6)</span>
+        <span class="version">(2.2.7)</span>
       </a>
       <ul class="toc_section">
         <li>&raquo;
@@ -137,6 +137,9 @@
           <li data-name="fnget">
             <a href="#fnget">fn.get</a>
           </li>
+          <li data-name="fnpick">
+            <a href="#fnpick">fn.pick</a>
+          </li>
         </ul>
       </div>
 
@@ -179,11 +182,23 @@
       <div class="searchable_section">
         <a class="toc_title" href="#String"> String </a>
         <ul class="toc_section">
+          <li data-name="fnmatch">
+            <a href="#fnmatch">fn.match</a>
+          </li>
+          <li data-name="fnpretty">
+            <a href="#fnpretty">fn.pretty</a>
+          </li>
           <li data-name="fnencodehtml">
             <a href="#fnencodehtml">fn.encodeHtml</a>
           </li>
           <li data-name="fndecodehtml">
             <a href="#fndecodehtml">fn.decodeHtml</a>
+          </li>
+          <li data-name="fnescape">
+            <a href="#fnescape">fn.escape</a>
+          </li>
+          <li data-name="fnunescape">
+            <a href="#fnunescape">fn.unescape</a>
           </li>
           <li data-name="fncapitalize">
             <a href="#fncapitalize">fn.capitalize</a>
@@ -193,6 +208,12 @@
           </li>
           <li data-name="fncutstring">
             <a href="#fncutstring">fn.cutString</a>
+          </li>
+          <li data-name="fnparsequerystr">
+            <a href="#fnparsequerystr">fn.parseQueryStr</a>
+          </li>
+          <li data-name="fnstringfyquerystr">
+            <a href="#fnstringfyquerystr">fn.stringfyQueryStr</a>
           </li>
         </ul>
       </div>
@@ -217,18 +238,6 @@
           </li>
           <li data-name="fndebounce">
             <a href="#fndebounce">fn.debounce</a>
-          </li>
-        </ul>
-      </div>
-
-      <div class="searchable_section">
-        <a class="toc_title" href="#Url"> Url </a>
-        <ul class="toc_section">
-          <li data-name="fnparsequerystring">
-            <a href="#fnparsequerystring">fn.parseQueryString</a>
-          </li>
-          <li data-name="fnstringfyquerystring">
-            <a href="#fnstringfyquerystring">fn.stringfyQueryString</a>
           </li>
         </ul>
       </div>
@@ -411,7 +420,7 @@
             <a href="./assets/funclib.js" target="_blank">funclib.js</a>
           </td>
           <td>
-            <i>Development Version (2.2.6), Uncompressed(52.3 kb)</i>
+            <i>Development Version (2.2.7), Uncompressed</i>
           </td>
         </tr>
         <tr>
@@ -419,7 +428,7 @@
             <a href="./assets/funclib.min.js" target="_blank">funclib.min.js</a>
           </td>
           <td>
-            <i>Production Version (2.2.6), Minified(21 kb)</i>
+            <i>Production Version (2.2.7), Minified</i>
           </td>
         </tr>
         <tr>
@@ -427,7 +436,7 @@
             <a href="./assets/index.js" target="_blank">index.js</a>
           </td>
           <td>
-            <i>Server Side Version (2.2.6), Uncompressed(55 kb)</i>
+            <i>Server Side Version (2.2.7), Uncompressed</i>
           </td>
         </tr>
         <tr>
@@ -435,7 +444,7 @@
             <a href="./assets/index.d.ts" target="_blank">index.d.ts</a>
           </td>
           <td>
-            <i>TypeScript Definition File (2.2.6)</i>
+            <i>TypeScript Definition File (2.2.7)</i>
           </td>
         </tr>
       </table>
@@ -883,11 +892,15 @@ console.log(_tom.name);   // 22</pre>
           <br>
           <b>@param obj2 [object|array]</b>
           <br>对象2
+          <br>
+          <b>@param isStrict = false [boolean]</b>
+          <br>是否严格相等，默认false
         </p>
         <pre>
-fn.isDeepEqual([], {})                                              // false
-fn.isDeepEqual([{name: 'Tom', age: 21}], [{name: 'Tom', age: 22}])  // false
-fn.isDeepEqual([{name: 'Tom', age: 22}], [{name: 'Tom', age: 22}])  // true</pre>
+fn.isDeepEqual([], {})                                                    // false
+fn.isDeepEqual([{name: 'Tom', age: 21}], [{name: 'Tom', age: 22}])        // false
+fn.isDeepEqual([{name: 'Tom', age: 21}], [{age: 21, name: 'Tom'}])        // true
+fn.isDeepEqual([{name: 'Tom', age: 21}], [{age: 21, name: 'Tom'}], true)  // false</pre>
 
         <p id="fnget">
           <b class="header">fn.get</b>
@@ -917,6 +930,25 @@ fn.get(obj2, '/metadata/subObj/name', 'bol');  // false
 fn.get({}, '/metadata/subObj/name');           // undefined
 fn.get(obj2, '/metadata/subObj/name');         // undefined
 fn.get(Arr1, '/0/name');                       // Tom</pre>
+
+        <p id="fnpick">
+          <b class="header">fn.pick</b>
+          <br>获取对象的部分属性
+          <br>
+          <code>
+            fn.get(obj, predicate);
+          </code>
+          <br>
+          <b>@param obj [object]</b>
+          <br>目标对象
+          <br>
+          <b>@param predicate [string|string[]|function]</b>
+          <br>需要获取的属性或属性需满足的条件
+        </p>
+        <pre>
+fn.pick({name: 'Tom', age: 28}, 'name');                  // {name: 'Tom'}
+fn.pick({name: 'Tom', age: 28}, ['name', 'age', 'sex']);  // {name: 'Tom', age: 28}
+fn.pick({name: 'Tom', age: 28}, (k, v) => v === 28);      // {age: 28}</pre>
 
         <h2 id="Math">Math</h2>
 
@@ -1072,6 +1104,53 @@ fn.fmtDate('yy-MM-dd hh:mm', date);             // 18-06-06 12:30</pre>
 
         <h2 id="String">String</h2>
 
+        <p id="fnmatch">
+          <b class="header">fn.match</b>
+          <br>类型匹配，默认情况还可以写表达式
+          <br>
+          <code>
+            fn.match(source, cases, isExec);
+          </code>
+          <br>
+          <b>@param source [string]</b>
+          <br>用来匹配的字符串
+          <br>
+          <b>@param cases [object]</b>
+          <br>匹配对象，可以包含'@default'项
+          <br>
+          <b>@param isExec = true [boolean]</b>
+          <br>匹配对象的值为函数时，是否调用该函数，默认true
+        </p>
+        <pre>
+fn.match('b', {'a': 'aaa', 'b': 'bbb'});         // 'bbb'
+fn.match('c', { 'a': 'aaa', 'b': () => 'bbb' }); // undefine
+fn.match('c', {'a': 'aaa', '@default': 'ddd'});  // 'ddd'
+assert(fn.match('c', {
+  'a': 'aaa', '@default': s => {
+    if (s === 'c') return 'ccc';
+  }
+}); // 'ccc'</pre>
+
+        <p id="fnpretty">
+          <b class="header">fn.pretty</b>
+          <br>转换成格式化字符串
+          <br>
+          <code>
+            fn.pretty(obj);
+          </code>
+          <br>
+          <b>@param obj [any]</b>
+          <br>需要格式化的值
+        </p>
+        <pre>
+fn.pretty([{name: 'tom', age: 22}]);  // =>
+[
+  {
+    "name": "tom",
+    "age": 22
+  }
+]</pre>
+
         <p id="fnencodehtml">
           <b class="header">fn.encodeHtml</b>
           <br>编码HTML字符串
@@ -1099,6 +1178,18 @@ fn.encodeHtml('&lt;div&gt;&lt;/div&gt;');  // &<i></i>lt;div&<i></i>gt;&<i></i>l
         </p>
         <pre>
 fn.encodeHtml('&<i></i>lt;div&<i></i>gt;&<i></i>lt;/div&<i></i>gt;');  // &lt;div&gt;&lt;/div&gt;</pre>
+
+        <p id="fnescape">
+          <b class="header">fn.escape</b>
+          <br>
+          <b>同fn.fnencodehtml()</b>
+        </p>
+
+        <p id="fnunescape">
+          <b class="header">fn.unescape</b>
+          <br>
+          <b>同fn.fndecodehtml()</b>
+        </p>
 
         <p id="fncapitalize">
           <b class="header">fn.capitalize</b>
@@ -1151,118 +1242,150 @@ fn.capitalize(true);   // true</pre>
 fn.cutString('test测试aaaaaaa！', 6); // test测...
 fn.cutString('test测试aaaaaaa！', 4); // test...</pre>
 
-        <h2 id="RegExp">RegExp</h2>
+        <p id="fnparsequerystr">
+          <b class="header">fn.parseQueryStr</b>
+          <p id="fnstringfyquerystr">
+            <b class="header">fn.stringfyQueryStr</b>
+            <br>解析Url参数成对象
+            <br>
+            <code>
+              fn.parseQueryStr(url);
+            </code>
+            <br>
+            <b>@param url [string]</b>
+            <br>需要解析的URL字符串
+          </p>
+          <pre>
+var url = 'https://www.baidu.com/s?wd=%E7%99%BE%E5%BA%A6&rsv_spt=10';
+fn.log(fn.parseQueryStr(url));  // {"wd": "百度", "rsv_spt": "10"}</pre>
 
-        <p id="fngetpattern">
-          <b class="header">fn.getPattern</b>
-          <br>获取一个通用的正则表达式
-          <br>
-          <code>
+          <p id="fnstringfyquerystr">
+            <b class="header">fn.stringfyQueryStr</b>
+            <br>把对象编译成Url参数
+            <br>
+            <code>
+            fn.stringfyQueryStr(obj);
+          </code>
+            <br>
+            <b>@param obj [object]</b>
+            <br>需要编译的对象
+          </p>
+          <pre>
+var params = {name: 'Tom', age: 28};
+fn.log(fn.stringfyQueryStr(params)); // ?name=Tom&age=28</pre>
+
+          <h2 id="RegExp">RegExp</h2>
+
+          <p id="fngetpattern">
+            <b class="header">fn.getPattern</b>
+            <br>获取一个通用的正则表达式
+            <br>
+            <code>
             fn.getPattern(type, isNoLimit?);
           </code>
-          <br>
-          <b>@param type [string]</b>
-          <br>传入正则名称
-          <br>正则名称主要有：
-          <br>
-          <b>cnChar</b>: 汉字
-          <br>
-          <b>dblBitChar</b>: 双字节字符
-          <br>
-          <b>mobPhone</b>: 中国大陆电话号码
-          <br>
-          <b>telPhone</b> 中国大陆手机号码
-          <br>
-          <b>email</b>: Email
-          <br>
-          <b>idCard</b>: 中国大陆身份证
-          <br>
-          <b>base64Code</b>: Base64编码格式
-          <br>
-          <b>mac</b>: Mac地址
-          <br>
-          <b>domain</b>: 域名
-          <br>
-          <b>port</b>: 端口号
-          <br>
-          <b>ip</b>: IP地址
-          <br>
-          <b>ipv4</b>: IPv4地址
-          <br>
-          <b>ipv6</b>: IPv6地址
-          <br>
-          <b>ipv4IpRange</b>: IPv4范围
-          <br>
-          <b>ipv6IpRange</b>: IPv6范围
-          <br>
-          <b>ipv4Cidr</b>: IPv4 cidr
-          <br>
-          <b>ipv6Cidr</b>: IPv6 cidr
-          <br>
-          <b>ipv4Url</b>: IPv4 Url
-          <br>
-          <b>ipv6Url</b>: IPv6 Url
-          <br>
-          <b>domainUrl</b>: 域Url
-          <br>
-          <b>url</b>: Url
-          <br>
-          <b>ipv4WithPortUrl</b>: 带端口的 IPv4 Url
-          <br>
-          <b>ipv6WithPortUrl</b>: 带端口的 IPv6 Url
-          <br>
-          <b>domainWithPortUrl</b>: 带端口的 域Url
-          <br>
-          <b>withPortUrl</b>: 带端口的 Url
-          <br>
-          <b>@param isNoLimit? [boolean] (可选)</b>
-          <br>是否不加首尾限制(^和$)，默认为false
-        </p>
-        <pre>
+            <br>
+            <b>@param type [string]</b>
+            <br>传入正则名称
+            <br>正则名称主要有：
+            <br>
+            <b>cnChar</b>: 汉字
+            <br>
+            <b>dblBitChar</b>: 双字节字符
+            <br>
+            <b>mobPhone</b>: 中国大陆电话号码
+            <br>
+            <b>telPhone</b> 中国大陆手机号码
+            <br>
+            <b>email</b>: Email
+            <br>
+            <b>idCard</b>: 中国大陆身份证
+            <br>
+            <b>base64Code</b>: Base64编码格式
+            <br>
+            <b>mac</b>: Mac地址
+            <br>
+            <b>domain</b>: 域名
+            <br>
+            <b>port</b>: 端口号
+            <br>
+            <b>ip</b>: IP地址
+            <br>
+            <b>ipv4</b>: IPv4地址
+            <br>
+            <b>ipv6</b>: IPv6地址
+            <br>
+            <b>ipv4IpRange</b>: IPv4范围
+            <br>
+            <b>ipv6IpRange</b>: IPv6范围
+            <br>
+            <b>ipv4Cidr</b>: IPv4 cidr
+            <br>
+            <b>ipv6Cidr</b>: IPv6 cidr
+            <br>
+            <b>ipv4Url</b>: IPv4 Url
+            <br>
+            <b>ipv6Url</b>: IPv6 Url
+            <br>
+            <b>domainUrl</b>: 域Url
+            <br>
+            <b>url</b>: Url
+            <br>
+            <b>ipv4WithPortUrl</b>: 带端口的 IPv4 Url
+            <br>
+            <b>ipv6WithPortUrl</b>: 带端口的 IPv6 Url
+            <br>
+            <b>domainWithPortUrl</b>: 带端口的 域Url
+            <br>
+            <b>withPortUrl</b>: 带端口的 Url
+            <br>
+            <b>@param isNoLimit? [boolean] (可选)</b>
+            <br>是否不加首尾限制(^和$)，默认为false
+          </p>
+          <pre>
 fn.getPattern('cnChar');       // /^[\u4e00-\u9fa5]+$/
 fn.getPattern('cnChar', true); // /[\u4e00-\u9fa5]+/</pre>
 
-        <p id="fnmatchpattern">
-          <b class="header">fn.matchPattern</b>
-          <br>与一个或几个通用正则匹配
-          <br>
-          <code>
+          <p id="fnmatchpattern">
+            <b class="header">fn.matchPattern</b>
+            <br>与一个或几个通用正则匹配
+            <br>
+            <code>
             fn.matchPattern(src, type, isNoLimit?);
           </code>
-          <br>
-          <b>@param str [number]</b>
-          <br>传入需要匹配的字符串
-          <br>
-          <b>@param type [string|string[]]</b>
-          <br>正则名称，可以是一个名称或多个名称组成的数组
-          <br>
-          <b>@param isNoLimit? [boolean] (可选)</b>
-          <br>是否不加首尾限制(^和$)，默认为false
-        </p>
-        <pre>
+            <br>
+            <b>@param str [number]</b>
+            <br>传入需要匹配的字符串
+            <br>
+            <b>@param type [string|string[]]</b>
+            <br>正则名称，可以是一个名称或多个名称组成的数组
+            <br>
+            <b>@param isNoLimit? [boolean] (可选)</b>
+            <br>是否不加首尾限制(^和$)，默认为false
+          </p>
+          <pre>
 fn.matchPattern('cntower@yahoo.com', 'mobPhone'); // false
 fn.matchPattern('cntower@yahoo.com', 'email');    // true</pre>
 
-        <h2 id="Function">Function</h2>
+          <h2 id="Function">Function</h2>
 
-        <p id="fnthrottle">
-          <b class="header">fn.throttle</b>
-          <br>节流函数，适用于限制resize和scroll等函数的调用频率
-          <br>
-          <code>
+          <p id="fnthrottle">
+            <b class="header">fn.throttle</b>
+            <br>节流函数，适用于限制resize和scroll等函数的调用频率
+            <br>
+            <code>
             fn.throttle(func, wait, options?);
           </code>
-          <br>
-          <b>@param func [function]</b>
-          <br>需要节流的函数
-          <br>
-          <b>@param wait [number]</b>
-          <br>节流时间
-          <br>
-          <b>@param options? [{ leading?: boolean, trailing?: boolean }] (可选)</b>
-          <br>leading: 开始时是否立即调用; trailing: 结束时是否调用
-        </p>
-        <pre>
+            <br>
+            <b>@param func [function]</b>
+            <br>需要节流的函数
+            <br>
+            <b>@param wait [number]</b>
+            <br>节流时间
+            <br>
+            <b>@param options? [{ leading?: boolean, trailing?: boolean }] (可选)</b>
+            <br>leading: 开始时是否立即调用; trailing: 结束时是否调用
+          </p>
+          <pre>
 var i = 0, duration = 500;
 var log = fn.throttle(() => fn.log(i, 'throttle'), 2000);
 doLog();
@@ -1275,24 +1398,24 @@ function doLog() {
   });
 }</pre>
 
-        <p id="fndebounce">
-          <b class="header">fn.debounce</b>
-          <br>防抖函数, 适用于获取用户输入
-          <br>
-          <code>
+          <p id="fndebounce">
+            <b class="header">fn.debounce</b>
+            <br>防抖函数, 适用于获取用户输入
+            <br>
+            <code>
             fn.debounce(func, wait, immediate?);
           </code>
-          <br>
-          <b>@param func [function]</b>
-          <br>需要防抖的函数
-          <br>
-          <b>@param wait [number]</b>
-          <br>节流时间
-          <br>
-          <b>@param immediate? [boolean] (可选)</b>
-          <br>开始时是否立即调用
-        </p>
-        <pre>
+            <br>
+            <b>@param func [function]</b>
+            <br>需要防抖的函数
+            <br>
+            <b>@param wait [number]</b>
+            <br>节流时间
+            <br>
+            <b>@param immediate? [boolean] (可选)</b>
+            <br>开始时是否立即调用
+          </p>
+          <pre>
 var i = 0, duration = 500;
 var log = fn.debounce(() => fn.log(i, 'debounce'), 2000, true);
 doLog();
@@ -1304,39 +1427,6 @@ function doLog() {
     doLog();
   });
 }</pre>
-
-        <h2 id="Url">Url</h2>
-        <p id="fnparsequerystring">
-          <b class="header">fn.parseQueryString</b>
-          <p id="fnstringfyquerystring">
-            <b class="header">fn.stringfyQueryString</b>
-            <br>解析Url参数成对象
-            <br>
-            <code>
-            parseQueryString(url?);
-          </code>
-            <br>
-            <b>@param url [string]</b>
-            <br>需要解析的URL字符串
-          </p>
-          <pre>
-var url = 'https://www.baidu.com/s?wd=%E7%99%BE%E5%BA%A6&rsv_spt=10';
-fn.log(fn.parseQueryString(url));  // {"wd": "百度", "rsv_spt": "10"}</pre>
-
-          <p id="fnstringfyquerystring">
-            <b class="header">fn.stringfyQueryString</b>
-            <br>把对象编译成Url参数
-            <br>
-            <code>
-            stringfyQueryString(obj);
-          </code>
-            <br>
-            <b>@param obj [object]</b>
-            <br>需要编译的对象
-          </p>
-          <pre>
-var params = {name: 'Tom', age: 28};
-fn.log(fn.stringfyQueryString(params)); // ?name=Tom&age=28</pre>
 
           <h2 id="Dom">Dom</h2>
 
@@ -1537,7 +1627,8 @@ console.log(fn.chalk('test', 'cyan'));</pre>
           </p>
           <pre>
 fn.log([{name: 'tom', age: 22}], false);
->: [15:27:16] ( funclib(v2.2.6) ): [
+>: [15:27:16] ( funclib(v2.2.7) ):
+[
   {
     "name": "tom",
     "age": 22
@@ -1728,18 +1819,42 @@ fn.progress.stop(() => { // Do something... });</pre>
             </code>
           </p>
           <pre>
-fn.version;  //2.2.6 </pre>
+fn.version;  //2.2.7 </pre>
 
           <h2 id="changelog">Change Log</h2>
 
-          <p id="2.2.6">
+          <p>
             <b class="header">2.2.6</b> &mdash;
             <small>
-              <i>January 9, 2011</i>
-            </small> &mdash;
-            <a href="#">Diff</a> &mdash;
-            <a href="#">Docs</a>
+              <i>2018-07</i>
+            </small>
           </p>
+
+          <p>
+            <b class="header">2.2.7</b> &mdash;
+            <small>
+              <i>2018-08-31</i>
+            </small>
+            <br>增加的方法:
+            <br>
+            <b>fn.match</b>
+            <br>
+            <b>fn.pretty</b>
+            <br>
+            <b>fn.pick</b>
+            <br>
+            <b>fn.escape</b> [同fn.encodeHtml]
+            <br>
+            <b>fn.unescape</b> [同fn.decodeHtml]
+            <br>修改的方法：
+            <br>
+            <b>fn.parseQueryStr</b> [修改于: fn.parseQueryString]
+            <br>
+            <b>fn.stringifyQueryStr</b> [修改于: fn.stringifyQueryString]
+            <br>
+            <b>fn.isDeepEqual</b> [增加isStrict参数]
+          </p>
+
       </div>
     </div>
   </section>
