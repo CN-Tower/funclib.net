@@ -1125,7 +1125,7 @@ fn.fmtDate('yy-MM-dd hh:mm', date);             // 18-06-06 12:30</pre>
 fn.match('b', {'a': 'aaa', 'b': 'bbb'});         // 'bbb'
 fn.match('c', { 'a': 'aaa', 'b': () => 'bbb' }); // undefine
 fn.match('c', {'a': 'aaa', '@default': 'ddd'});  // 'ddd'
-assert(fn.match('c', {
+fn.match('c', {
   'a': 'aaa', '@default': s => {
     if (s === 'c') return 'ccc';
   }
