@@ -121,23 +121,26 @@
           <li data-name="fnhas">
             <a href="#fnhas">fn.has</a>
           </li>
-          <li data-name="fnforin">
-            <a href="#fnforin">fn.forIn</a>
-          </li>
-          <li data-name="fnoverlay">
-            <a href="#fnoverlay">fn.overlay</a>
-          </li>
-          <li data-name="fndeepcopy">
-            <a href="#fndeepcopy">fn.deepCopy</a>
-          </li>
-          <li data-name="fnisdeepequal">
-            <a href="#fnisdeepequal">fn.isDeepEqual</a>
-          </li>
           <li data-name="fnget">
             <a href="#fnget">fn.get</a>
           </li>
           <li data-name="fnpick">
             <a href="#fnpick">fn.pick</a>
+          </li>
+          <li data-name="fnextend">
+            <a href="#fnextend">fn.extend</a>
+          </li>
+          <li data-name="fnforin">
+            <a href="#fnforin">fn.forIn</a>
+          </li>
+          <li data-name="fndeepcopy">
+            <a href="#fndeepcopy">fn.deepCopy</a>
+          </li>
+          <li data-name="fnisempty">
+            <a href="#fnisempty">fn.isEmpty</a>
+          </li>
+          <li data-name="fnisdeepequal">
+            <a href="#fnisdeepequal">fn.isDeepEqual</a>
           </li>
         </ul>
       </div>
@@ -467,13 +470,13 @@ $ node
           <br>检查值的类型，返回布尔值
           <br>
           <code>
-            fn.typeOf(value, type);
+            fn.typeOf(value, type_);
           </code>
           <br>
           <b>@param value [any]</b>
           <br>接收一个任意类型的值
           <br>
-          <b>@param type ['arr'|'obj'|'fun'|'str'|'num'|'udf'|string|string[]]</b>
+          <b>@param type_ ['arr'|'obj'|'fun'|'str'|'num'|'udf'|string|string[]]</b>
           <br>接收一个类型字符串,可以是类型简写（如："udf" 对应 "undefined"），也可以是js标准类型的 全称（如："string"），或者类型的数组（如：['str, arr']）
         </p>
         <pre>
@@ -486,6 +489,7 @@ fn.typeOf([], 'obj');         // false
 fn.typeOf([], 'object');      // true
 fn.typeOf(null, 'obj');       // false
 fn.typeOf(null, 'object');    // true
+fn.typeOf(undefined, 'str', 'udf');   // true
 fn.typeOf(undefined, ['str', 'udf']); // true</pre>
 
         <p id="fntypeval">
@@ -493,19 +497,20 @@ fn.typeOf(undefined, ['str', 'udf']); // true</pre>
           <br>先检查值的类型，如果是true则返回该值，否则返回false
           <br>
           <code>
-            fn.typeVal(value, type);
+            fn.typeVal(value, type_);
           </code>
           <br>
           <b>@param value [any]</b>
           <br>接收一个任意类型的值
           <br>
-          <b>@param type ['arr'|'obj'|'fun'|'str'|'num'|'udf'|string|string[]]</b>
+          <b>@param type_ ['arr'|'obj'|'fun'|'str'|'num'|'udf'|string|string[]]</b>
           <br>接收一个类型字符串,可以是类型简写（如："udf" 对应 "undefined"），也可以是js标准类型的 全称（如："string"），或者类型的数组（如：['str, arr']）
         </p>
         <pre>
 fn.typeVal('test', 'str');       // test
 fn.typeVal(true, 'bol');         // true
 fn.typeVal([], 'obj');           // false
+fn.typeVal([], 'str', 'arr');    // []
 fn.typeVal([], ['str', 'arr']);  // []</pre>
 
         <h2 id="Array">Array</h2>
@@ -799,7 +804,6 @@ fn.len({name: 'Tom'});       // 1
 fn.len(['x']);               // 1
 fn.len(x => console.log(s)); // 1</pre>
 
-
         <p id="fnhas">
           <b class="header">fn.has</b>
           <br>判断对象是否存在某自有属性
@@ -819,87 +823,6 @@ var tom = {name: 'Tom', age: 28};
 fn.has(tom, 'name');   // true
 fn.has(tom, 'sex');    // false
 fn.has(null, 'name');  // false</pre>
-
-        <p id="fnforin">
-          <b class="header">fn.forIn</b>
-          <br>遍历对象的可数自有属性
-          <br>
-          <code>
-            fn.forIn(obj, iteratee);
-          </code>
-          <br>
-          <b>@param obj [object]</b>
-          <br>传入的对象
-          <br>
-          <b>@param iteratee [function]</b>
-          <br>项处理函数
-        </p>
-        <pre>
-var tom = {name: 'Tom', age: 28};
-fn.forIn(tom, prop => console.log(prop)); // name \n age</pre>
-
-        <p id="fnoverlay">
-          <b class="header">fn.overlay</b>
-          <br>给目标对象赋值
-          <br>
-          <code>
-              fn.overlay(tar, src, propList?);
-          </code>
-          <br>
-          <b>@param tar [object]</b>
-          <br>目标对象
-          <br>
-          <b>@param src [object]</b>
-          <br>源对象
-          <br>
-          <b>propList?: string[] (可选)</b>
-          <br>需要赋值的属性，不传默认为src的全部属性
-        </p>
-        <pre>
-var tom = {name: 'Tom'};
-var jerry = {name: 'Jerry', age: 28, sex: 'm'};
-fn.overlay(tom, jerry, ['age', 'sex']);
-console.log(tom);   // {name: 'Tom', age: 28, sex: 'm'}</pre>
-
-        <p id="fndeepcopy">
-          <b class="header">fn.deepCopy</b>
-          <br>深拷贝对象或数组
-          <br>
-          <code>
-            fn.deepCopy(data);
-          </code>
-          <br>
-          <b>@param data [object]</b>
-          <br>目标对象
-        </p>
-        <pre>
-var tom = {name: 'Tom', age: 22};
-var _tom = fn.deepCopy(tom);
-tom.age = 28;
-console.log(_tom.name);   // 22</pre>
-
-        <p id="fnisdeepequal">
-          <b class="header">fn.isDeepEqual</b>
-          <br>判断数组或对象是否相等
-          <br>
-          <code>
-            fn.isDeepEqual(obj1, obj2);
-          </code>
-          <br>
-          <b>@param obj1 [object|array]</b>
-          <br>对象1
-          <br>
-          <b>@param obj2 [object|array]</b>
-          <br>对象2
-          <br>
-          <b>@param isStrict = false [boolean]</b>
-          <br>是否严格相等，默认false
-        </p>
-        <pre>
-fn.isDeepEqual([], {})                                                    // false
-fn.isDeepEqual([{name: 'Tom', age: 21}], [{name: 'Tom', age: 22}])        // false
-fn.isDeepEqual([{name: 'Tom', age: 21}], [{age: 21, name: 'Tom'}])        // true
-fn.isDeepEqual([{name: 'Tom', age: 21}], [{age: 21, name: 'Tom'}], true)  // false</pre>
 
         <p id="fnget">
           <b class="header">fn.get</b>
@@ -946,8 +869,107 @@ fn.get(Arr1, '/0/name');                       // Tom</pre>
         </p>
         <pre>
 fn.pick({name: 'Tom', age: 28}, 'name');                  // {name: 'Tom'}
+fn.pick({name: 'Tom', age: 28}, 'name', 'age');           // {name: 'Tom', age: 28}
 fn.pick({name: 'Tom', age: 28}, ['name', 'age', 'sex']);  // {name: 'Tom', age: 28}
 fn.pick({name: 'Tom', age: 28}, (k, v) => v === 28);      // {age: 28}</pre>
+
+        <p id="fnforin">
+          <b class="header">fn.forIn</b>
+          <br>遍历对象的可数自有属性
+          <br>
+          <code>
+            fn.forIn(obj, iteratee);
+          </code>
+          <br>
+          <b>@param obj [object]</b>
+          <br>传入的对象
+          <br>
+          <b>@param iteratee [function]</b>
+          <br>项处理函数
+        </p>
+        <pre>
+var tom = {name: 'Tom', age: 28};
+fn.forIn(tom, prop => console.log(prop)); // name \n age</pre>
+
+        <p id="fnextend">
+          <b class="header">fn.extend</b>
+          <br>给目标对象赋值
+          <br>
+          <code>
+              fn.extend(tar, src, propList?);
+          </code>
+          <br>
+          <b>@param tar [object]</b>
+          <br>目标对象
+          <br>
+          <b>@param src [object]</b>
+          <br>源对象
+          <br>
+          <b>propList?: string|string[] (可选)</b>
+          <br>需要赋值的属性，不传默认为src的全部属性
+        </p>
+        <pre>
+var tom = {name: 'Tom'};
+var jerry = {name: 'Jerry', age: 28, sex: 'm'};
+fn.extend(tom, jerry, ['age', 'sex']);
+console.log(tom);   // {name: 'Tom', age: 28, sex: 'm'}</pre>
+
+        <p id="fnisempty">
+          <b class="header">fn.isEmpty</b>
+          <br>判断对象是否为空
+          <br>
+          <code>
+            fn.isEmpty(obj);
+          </code>
+          <br>
+          <b>@param obj [object]</b>
+          <br>目标对象
+        </p>
+        <pre>
+fn.isEmpty({});            // true
+fn.isEmpty([]);            // true
+fn.isEmpty({name: 'Tom'}); // false
+fn.isEmpty(null);          // false</pre>
+
+        <p id="fndeepcopy">
+          <b class="header">fn.deepCopy</b>
+          <br>深拷贝对象或数组
+          <br>
+          <code>
+            fn.deepCopy(data);
+          </code>
+          <br>
+          <b>@param data [object]</b>
+          <br>目标对象
+        </p>
+        <pre>
+var tom = {name: 'Tom', age: 22};
+var _tom = fn.deepCopy(tom);
+tom.age = 28;
+console.log(_tom.name);   // 22</pre>
+
+        <p id="fnisdeepequal">
+          <b class="header">fn.isDeepEqual</b>
+          <br>判断数组或对象是否相等
+          <br>
+          <code>
+            fn.isDeepEqual(obj1, obj2);
+          </code>
+          <br>
+          <b>@param obj1 [object|array]</b>
+          <br>对象1
+          <br>
+          <b>@param obj2 [object|array]</b>
+          <br>对象2
+          <br>
+          <b>@param isStrict = false [boolean]</b>
+          <br>是否严格相等，默认false
+        </p>
+        <pre>
+fn.isDeepEqual([], {})                                                    // false
+fn.isDeepEqual([{name: 'Tom', age: 21}], [{name: 'Tom', age: 22}])        // false
+fn.isDeepEqual([{name: 'Tom', age: 21}], [{age: 21, name: 'Tom'}])        // true
+fn.isDeepEqual([{name: 'Tom', age: 21}], [{age: 21, name: 'Tom'}], true)  // false</pre>
 
         <h2 id="Math">Math</h2>
 
