@@ -19,9 +19,11 @@
     "url": "https://github.com/CN-Tower/funclib/issues"
   },
   "homepage": "https://github.com/CN-Tower/funclib#readme",
+  "dependencies": {
+    "funclib": "^2.2.10"
+  },
   "devDependencies": {
     "browser-sync": "^2.24.5",
-    "funclib": "^2.2.9",
     "gulp": "^3.9.1"
   }
 }
