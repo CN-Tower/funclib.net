@@ -33,7 +33,7 @@
 
       <a class="toc_title" href="#">
         funclib.js
-        <span class="version">(2.2.9)</span>
+        <span class="version">(2.2.10)</span>
       </a>
       <ul class="toc_section">
         <li>&raquo;
@@ -71,8 +71,14 @@
           <li data-name="fnarray">
             <a href="#fnarray">fn.array</a>
           </li>
+          <li data-name="fntoarr">
+            <a href="#fntoarr">fn.toArr</a>
+          </li>
           <li data-name="fntoarray">
             <a href="#fntoarray">fn.toArray</a>
+          </li>
+          <li data-name="fnindexof">
+            <a href="#fnindexof">fn.indexOf</a>
           </li>
           <li data-name="fnfind">
             <a href="#fnfind">fn.find</a>
@@ -97,9 +103,6 @@
           </li>
           <li data-name="fnuniq">
             <a href="#fnuniq">fn.uniq</a>
-          </li>
-          <li data-name="fnindexof">
-            <a href="#fnindexof">fn.indexOf</a>
           </li>
           <li data-name="fnforeach">
             <a href="#fnforeach">fn.forEach</a>
@@ -422,7 +425,7 @@
             <a href="./assets/lib/funclib.js" target="_blank">funclib.js</a>
           </td>
           <td>
-            <i>Development Version (2.2.9), Uncompressed</i>
+            <i>Development Version (2.2.10), Uncompressed</i>
           </td>
         </tr>
         <tr>
@@ -430,7 +433,7 @@
             <a href="./assets/lib/funclib.min.js" target="_blank">funclib.min.js</a>
           </td>
           <td>
-            <i>Production Version (2.2.9), Minified</i>
+            <i>Production Version (2.2.10), Minified</i>
           </td>
         </tr>
         <tr>
@@ -438,7 +441,7 @@
             <a href="./assets/lib/index.js" target="_blank">index.js</a>
           </td>
           <td>
-            <i>Server Side Version (2.2.9), Uncompressed</i>
+            <i>Server Side Version (2.2.10), Uncompressed</i>
           </td>
         </tr>
         <tr>
@@ -446,7 +449,7 @@
             <a href="./assets/lib/index.d.ts" target="_blank">index.d.ts</a>
           </td>
           <td>
-            <i>TypeScript Definition File (2.2.9)</i>
+            <i>TypeScript Definition File (2.2.10)</i>
           </td>
         </tr>
       </table>
@@ -530,11 +533,16 @@ fn.typeVal([], ['str', 'arr']);  // []</pre>
           <br>默认值，不传默认返回一个指定长度的range；如果是该参数为函数，则取函数的返回值为默认值
         </p>
         <pre>
-var x = 0;
 fn.array(5);               // [0, 1, 2, 3, 4, 5]
 fn.array(5, 0);            // [0, 0, 0, 0, 0]
 fn.array(5, 'test');       // ['test', 'test', 'test', 'test', 'test']
-fn.array(5, () => x += 2); // [2, 4, 6, 8, 10]</pre>
+fn.array(5, i => 2 * i);   // [0, 2, 4, 6, 8]</pre>
+
+        <p id="fntoarr">
+          <b class="header">fn.toArr</b>
+          <br>同：fn.toArray
+          <br>
+        </p>
 
         <p id="fntoarray">
           <b class="header">fn.toArray</b>
@@ -551,6 +559,29 @@ fn.array(5, () => x += 2); // [2, 4, 6, 8, 10]</pre>
 fn.toArray();         // [undefined]
 fn.toArray('test');   // ['test']
 fn.toArray(['test']); // ['test']</pre>
+
+        <p id="fnindexof">
+          <b class="header">fn.indexOf</b>
+          <br>寻找值在数组中的索引
+          <br>
+          <code>
+            fn.indexOf(srcArr, predicate);
+          </code>
+          <br>
+          <b>@param srcArr [any[]]</b>
+          <br>传入的数组
+          <br>
+          <b>@param predicate [any|object|function]</b>
+          <br>过滤条件，可以是一个任意类型的值，也可以是一个对象，或者是一个函数。
+          <br>如果是对象，则判断是否为数组元素的子对象；如果是数组，则以数组元素为参数判断返回值的真假。
+        </p>
+        <pre>
+var persons = [{name:'Tom', age: 22}, {name:'Jerry', age: 18}];
+
+fn.indexOf(persons, {name: 'LiLi'});             // -1
+fn.indexOf(persons, {name: 'Tom'});              // 1
+fn.indexOf(persons, ps => ps.name === 'Tom');    // 1
+fn.indexOf(['Tom', 'Jerry', 'Marry'], 'Marry');  // 2</pre>
 
         <p id="fnfind">
           <b class="header">fn.find</b>
@@ -716,29 +747,6 @@ fn.uniq(arr1, false)       // [0, {}, false, null, [], [], {}, 'test']
 fn.uniq(persons, '/name')  // [Tom, Jerry]
 fn.uniq(persons, '/age')   // [Tom]</pre>
 
-        <p id="fnindexof">
-          <b class="header">fn.indexOf</b>
-          <br>寻找值在数组中的索引
-          <br>
-          <code>
-            fn.indexOf(srcArr, predicate);
-          </code>
-          <br>
-          <b>@param srcArr [any[]]</b>
-          <br>传入的数组
-          <br>
-          <b>@param predicate [any|object|function]</b>
-          <br>过滤条件，可以是一个任意类型的值，也可以是一个对象，或者是一个函数。
-          <br>如果是对象，则判断是否为数组元素的子对象；如果是数组，则以数组元素为参数判断返回值的真假。
-        </p>
-        <pre>
-var persons = [{name:'Tom', age: 22}, {name:'Jerry', age: 18}];
-
-fn.indexOf(persons, {name: 'LiLi'});             // -1
-fn.indexOf(persons, {name: 'Tom'});              // 1
-fn.indexOf(persons, ps => ps.name === 'Tom');    // 1
-fn.indexOf(['Tom', 'Jerry', 'Marry'], 'Marry');  // 2</pre>
-
         <p id="fnforeach">
           <b class="header">fn.forEach</b>
           <br>遍历数组或类数组
@@ -776,13 +784,16 @@ fn.forEach(divs, function(div) { // Do something... }); // name \n age</pre>
           <br>是否降序，默认false
         </p>
         <pre>
-var persons = [{name:'Tom', age: 22, indexes: {height: 180, weight: 68}},
-                 {name:'Jerry', age: 18, indexes: {height: 175, weight: 70}}];
+var persons = [
+  {name:'Tom', age: 22, indexes: {height: 185, weight: 68}},
+  {name:'Bob', age: 22, indexes: {height: 180, weight: 75}},
+  {name:'Jerry', age: 18, indexes: {height: 175, weight: 70}}
+];
 
-fn.sortBy(persons, 'age');              // [Jerry, Tom]
-fn.sortBy(persons, 'age', false);       // [Tom, Jerry]
-fn.sortBy(persons, '/indexes/height');  // [Jerry, Tom]
-fn.sortBy(persons, '/indexes/weight');  // [Tom, Jerry]</pre>
+fn.sortBy(persons, 'age');              // [Bob, Jerry, Tom]
+fn.sortBy(persons, 'age', false);       // [Tom, Jerry, Bob]
+fn.sortBy(persons, '/indexes/height');  // [Jerry, Bob, Tom]
+fn.sortBy(persons, '/indexes/weight');  // [Tom, Bob, Jerry]</pre>
 
         <h2 id="Object">Object</h2>
 
@@ -836,7 +847,7 @@ fn.has(null, 'name');  // false</pre>
           <br>目标对象
           <br>
           <b>@param path [string]</b>
-          <br>属性的路径
+          <br>属性的路径（可以以“.”分隔，也可以以“/”分隔。）
           <br>
           <b>@param type ['arr'|'obj'|'fun'|'str'|'num'|'udf'|string|string[]] (可选)</b>
           <br>指定获取值的类型范围，如果不符合类型，返回false
@@ -846,6 +857,7 @@ var obj1 = {name: 'Obj', metadata: {subObj: {name: 'Tom'}}};
 var obj2 = {name: 'Obj', metadata: null};
 var Arr1 = [{name: 'Tom'}];
 
+fn.get(obj1, '.metadata.subObj.name');         // Tom
 fn.get(obj1, '/metadata/subObj/name');         // Tom
 fn.get(obj1, '/metadata/subObj/name', 'str');  // Tom
 fn.get(obj2, '/metadata/subObj/name', 'bol');  // false
@@ -1029,48 +1041,68 @@ fn.rdcolor(); // #d0b1ab</pre>
           <br>循环定时器
           <br>
           <code>
-            fn.interval(timerId?, duration, callback);
+            fn.interval(callback, duration?, timerId? );
           </code>
           <br>
-          <b>@param timerId? [string]</b>
-          <br>ID的长度，最小4位，默认12位
-          <br>
-          <b>@param duration [number|boolean]</b>
-          <br>ID的长度，最小4位，默认12位
-          <br>
           <b>@param callback [function]</b>
-          <br>ID的长度，最小4位，默认12位
+          <br>定时触发的函数
+          <br>
+          <b>@param duration？ [number]</b>
+          <br>间隔时间，默认为0
+          <br>
+          <b>@param timerId? [string]</b>
+          <br>定时器名称
+          <br><i>当fn.interval()正常传值时，返回定时器ID</i>
+          <br><i>当fn.interval()不传参数时，返回一个带stop方法（参数为定时器名称）的对象</i>
+          <br><i>当fn.interval()传入定时器名称时，返回带stop方法的对象</i>
+          <br><i>当fn.interval()传入false时，直接停止定时器</i>
         </p>
         <pre>
-// 设置Id为test的循环定时器
-fn.interval('test', 1000, () => console.log(111));
-// 清除Id为test的循环定时器
-fn.interval('test', false);</pre>
+// 设置延循环时器
+var timerId = fn.interval(() => console.log(111), 1000);
+// 清除延循环时器
+clearInterval(timerId);
+
+// 设置名称为my-timer的循环定时器
+fn.interval(() => console.log(111), 1000, 'my-timer');
+// 清除名称为my-timer的循环定时器
+fn.interval('my-timer', false);
+/* or: */ fn.interval('my-timer').stop();
+/* or: */ fn.interval().stop('my-timer');</pre>
 
         <p id="fntimeout">
           <b class="header">fn.timeout</b>
           <br>延时定时器
           <br>
           <code>
-            fn.timeout(timerId?: string, duration, callback);
+            fn.timeout(callback, duration?, timerId? );
           </code>
           <br>
-          <b>@param timerId? [string]</b>
-          <br>ID的长度，最小4位，默认12位
-          <br>
-          <b>@param duration? [number|boolean]</b>
-          <br>ID的长度，最小4位，默认12位
-          <br>
           <b>@param callback [function]</b>
-          <br>ID的长度，最小4位，默认12位
+          <br>定时触发的函数
+          <br>
+          <b>@param duration？ [number]</b>
+          <br>间隔时间，默认为0
+          <br>
+          <b>@param timerId? [string]</b>
+          <br>定时器名称
+          <br><i>正常传值时，fn.timeout()返回定时器ID</i>
+          <br><i>不传参数时，fn.timeout()返回一个带stop方法（参数为定时器名称）的对象</i>
+          <br><i>传入定时器名称时，fn.timeout()返回带stop方法的对象</i>
+          <br><i>传入false时，fn.timeout()直接停止定时器</i>
         </p>
         <pre>
 // 设置延时定时器
-fn.timeout(1000, () => console.log(111));
-// 设置Id为test的延时定时器
-fn.timeout('test', 1000, () => console.log(222));
-// 清除Id为test的延时定时器
-fn.timeout('test', false);</pre>
+var timerId = fn.timeout(() => console.log(111), 1000);
+// 清除延时定时器
+clearTimeout(timerId);
+
+// 设置名称为my-timer的延时定时器
+fn.timeout(() => console.log(222), 1000, 'my-timer');
+// 清除名称为my-timer的延时定时器
+fn.timeout('my-timer', false);
+/* or: */ fn.timeout('my-timer').stop();
+/* or: */ fn.timeout().stop('my-timer');</pre>
 
         <p id="fndefer">
           <b class="header">fn.defer</b>
@@ -1137,20 +1169,22 @@ fn.fmtDate('yy-MM-dd hh:mm', date);             // 18-06-06 12:30</pre>
           <br>用来匹配的字符串
           <br>
           <b>@param cases [object]</b>
-          <br>匹配对象，可以包含'@default'项
+          <br>匹配对象，可以包含'@dft'或'@default'项为默认匹配项
+          <br>匹配项，可以包含'@pass'值，当包含该值时，匹配结果同其下一项相同
           <br>
           <b>@param isExec = true [boolean]</b>
           <br>匹配对象的值为函数时，是否调用该函数，默认true
         </p>
         <pre>
-fn.match('b', {'a': 'aaa', 'b': 'bbb'});         // 'bbb'
-fn.match('c', { 'a': 'aaa', 'b': () => 'bbb' }); // undefine
-fn.match('c', {'a': 'aaa', '@default': 'ddd'});  // 'ddd'
-fn.match('c', {
-  'a': 'aaa', '@default': s => {
-    if (s === 'c') return 'ccc';
-  }
-}); // 'ccc'</pre>
+fn.match('b', {'a': 'aaa', 'b': 'bbb', c: 'ccc'});         // 'bbb'
+fn.match('b', {'a': 'aaa', 'b': '@pass', c: 'ccc'});       // 'ccc'
+fn.match('c', {'a': 'aaa', 'b': () => 'bbb', c: 'ccc'});  // undefine
+fn.match('c', {'a': 'aaa', b: 'bbb', '@dft': 'ddd'});      // 'ddd'
+fn.match('c', {'a': 'aaa', b: 'bbb', '@default': 'ddd'});  // 'ddd'
+fn.match('c', {                                            // 'ccc'
+  'a': 'aaa',
+  '@default': s => s === 'c' ? 'ccc' : 'ddd'
+});</pre>
 
         <p id="fnpretty">
           <b class="header">fn.pretty</b>
@@ -1630,25 +1664,25 @@ console.log(fn.chalk('test', 'cyan'));</pre>
             <br>强大的打印函数（服务端还可带颜色）
             <br>
             <code>
-              fn.log(value, configs?, isPretty?);
+              fn.log(value, title?, configs?);
             </code>
             <br>
             <b>@param value [any]</b>
             <br>需要打印的值
             <br>
-            <b>@param configs? [object]</b>
-            <br>{title: string, width: number [20-100]
-            <br>pre: boolean = false, end: boolean false,
-            <br>isFmt: boolean = false
-            <br>color: 'grey'|'blue'|'cyan'|'green'|'magenta'|'red'|'yellow'
-            <br>ttColor: 'grey'|'blue'|'cyan'|'green'|'magenta'|'red'|'yellow'}
+            <b>@param title?|isFmt? [string|boolean]</b>
+            <br>文章标题或是否带格式线（可选）
             <br>
-            <b>@param isFmt=true [boolean]</b>
-            <br>是否带分隔线，默认为true
+            <b>@param options? [object]</b>
+            <br><b>title</b>: string, width: number [20-100]
+            <br><b>pre</b>: boolean = false, end: boolean false,
+            <br><b>isFmt</b>: boolean = false
+            <br><b>color</b>: 'grey'|'blue'|'cyan'|'green'|'magenta'|'red'|'yellow'
+            <br><b>ttColor</b>: 'grey'|'blue'|'cyan'|'green'|'magenta'|'red'|'yellow'
           </p>
           <pre>
 fn.log([{name: 'tom', age: 22}], false);
->: [15:27:16] ( funclib(v2.2.9) ):
+>: [15:27:16] ( funclib(v2.2.10) ):
 [
   {
     "name": "tom",
@@ -1840,7 +1874,7 @@ fn.progress.stop(() => { // Do something... });</pre>
             </code>
           </p>
           <pre>
-fn.version;  //2.2.9 </pre>
+fn.version;  //2.2.10 </pre>
 
           <h2 id="changelog">Change Log</h2>
 
@@ -1856,7 +1890,8 @@ fn.version;  //2.2.9 </pre>
             <small>
               <i>2018-08-31</i>
             </small>
-            <br>增加的方法:
+            <br>
+            <strong>【增加的方法】:</strong>
             <br>
             <b>fn.match</b>
             <br>
@@ -1864,16 +1899,22 @@ fn.version;  //2.2.9 </pre>
             <br>
             <b>fn.pick</b>
             <br>
-            <b>fn.escape</b> [同fn.encodeHtml]
+            <b>fn.escape</b>
+            <br>用法同fn.encodeHtml
             <br>
-            <b>fn.unescape</b> [同fn.decodeHtml]
-            <br>修改的方法：
+            <b>fn.unescape</b>
+            <br>用法同fn.decodeHtml
             <br>
-            <b>fn.parseQueryStr</b> [修改于: fn.parseQueryString]
+            <strong>【修改的方法】：</strong>
             <br>
-            <b>fn.stringifyQueryStr</b> [修改于: fn.stringifyQueryString]
+            <b>fn.parseQueryStr</b>
+            <br>修改于: fn.parseQueryString
             <br>
-            <b>fn.isDeepEqual</b> [增加isStrict参数]
+            <b>fn.stringifyQueryStr</b>
+            <br>修改于: fn.stringifyQueryString
+            <br>
+            <b>fn.isDeepEqual</b>
+            <br>增加isStrict参数
           </p>
 
           <p>
@@ -1881,12 +1922,50 @@ fn.version;  //2.2.9 </pre>
             <small>
               <i>2018-08-31</i>
             </small>
-            <br>增加的方法:
+            <br>
+            <strong>【增加的方法】:</strong>
             <br>
             <b>fn.isEmpty</b>
-            <br>修改的方法：
             <br>
-            <b>fn.extend</b> [修改于: fn.overlay]
+            <strong>【修改的方法】：</strong>
+            <br>
+            <b>fn.extend</b>
+            <br>修改于: fn.overlay
+          </p>
+
+          <p>
+            <b class="header">2.2.10</b> &mdash;
+            <small>
+              <i>2018-11-09</i>
+            </small>
+            <br>
+            <strong>【增加的方法】:</strong>
+            <br>
+            <b>fn.toArr</b>
+            <br>用法同fn.toArray
+            <br>
+            <strong>【修改的方法】：</strong>
+            <br>
+            <b>fn.match</b>
+            <br>功能升级
+            <br><i>- 增加“@dft”匹配项</i>
+            <br><i>- 增加“@pass”值匹配项</i>
+            <br>
+            <b>fn.sortBy</b>
+            <br>修复值为null、undefined、''等空值无法排序的问题
+            <br>
+            <b>fn.interval</b>
+            <br>用法改造
+            <br><i>- 调换参数位置</i>
+            <br><i>- 增加停止定时器的方法</i>
+            <br>
+            <b>fn.timeout</b>
+            <br>用法改造
+            <br><i>- 调换参数位置</i>
+            <br><i>- 增加停止定时器的方法</i>
+            <br>
+            <b>fn.log</b>
+            <br>主要是参数位置的更换
           </p>
       </div>
     </div>
