@@ -6,9 +6,9 @@
 
 ## Brief Intro
 JavaScript通用型UMD函数库!
-> 目的：高效率完成前端业务代码！
+> 目的：高效率完成业务代码！
 
-### Documents:&nbsp;&nbsp;http://funclib.net
+### Documents:&nbsp;&nbsp;https://www.funclib.net
 
 ## Quick start
 ```bash
@@ -18,7 +18,23 @@ $ npm install funclib
 # Use funclib
 $ node
 > var fn = require('funclib');
-> console.log(fn.gid()) // => 8GH9IYO60MXQ
+> var ps = [{name: 'Tom', age: 18}, {name: 'Bob', age: 22}];
+> fn.log(ps, '#fn.gid');
+// =>
+==================================================================
+                       [10:33:55] #fn.gid
+------------------------------------------------------------------
+[
+  {
+    "name": "Tom",
+    "age": 18
+  },
+  {
+    "name": "Bob",
+    "age": 22
+  }
+]
+==================================================================
 ```
 
 ## Clone Repo

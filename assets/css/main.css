@@ -120,6 +120,13 @@ a.toc_title:hover {
     font-weight: normal;
 }
 
+#sidebar .tag-desc {
+  font-size: 11px;
+  line-height: 14px;
+  font-family: Lucida Grande;
+  margin: 10px 0;
+}
+
 ul.toc_section {
     font-size: 11px;
     line-height: 14px;
