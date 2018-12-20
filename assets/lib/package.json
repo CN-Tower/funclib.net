@@ -1,28 +1,28 @@
 {
-  "_from": "funclib",
-  "_id": "funclib@2.2.10",
+  "_from": "funclib@^3.1.0",
+  "_id": "funclib@3.1.1",
   "_inBundle": false,
-  "_integrity": "sha1-ZEGPbUVpFWhX/6C8PS/kV1OT3+I=",
+  "_integrity": "sha512-eeAdiMabm9l0uCGlFGZZZr6Z0f8AFvZfdpbiuAx/5mCvzsJvdACRuYOgLIr55wibIZ0qH7H2hTYlm+7NfjpK9A==",
   "_location": "/funclib",
   "_phantomChildren": {},
   "_requested": {
-    "type": "tag",
+    "type": "range",
     "registry": true,
-    "raw": "funclib",
+    "raw": "funclib@^3.1.0",
     "name": "funclib",
     "escapedName": "funclib",
-    "rawSpec": "",
+    "rawSpec": "^3.1.0",
     "saveSpec": null,
-    "fetchSpec": "latest"
+    "fetchSpec": "^3.1.0"
   },
   "_requiredBy": [
     "#USER",
     "/"
   ],
-  "_resolved": "https://artnj.zte.com.cn:443/artifactory/api/npm/public-npm-remote/funclib/-/funclib-2.2.10.tgz",
-  "_shasum": "64418f6d4569156857ffa0bc3d2fe4575393dfe2",
-  "_spec": "funclib",
-  "_where": "C:\\Users\\router11-st\\Desktop\\code\\funclib",
+  "_resolved": "https://registry.npmjs.org/funclib/-/funclib-3.1.1.tgz",
+  "_shasum": "c85337f36f0c68e06c6802fc2d572d805d520ed6",
+  "_spec": "funclib@^3.1.0",
+  "_where": "D:\\Code\\funclib",
   "author": {
     "name": "CN-Tower"
   },
@@ -40,7 +40,6 @@
     "UMD",
     "funclib",
     "javascript",
-    "typescript",
     "functions"
   ],
   "license": "MIT",
@@ -53,5 +52,5 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "version": "2.2.10"
+  "version": "3.1.1"
 }

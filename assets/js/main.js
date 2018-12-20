@@ -4,6 +4,11 @@
     var methodLinks = document.querySelectorAll('.searchable_section a');
     var searchInput = document.getElementById('function_filter');
     var docWrap = document.getElementById('doc_wrap');
+    var versionSelect = document.querySelector('#version_select');
+
+    versionSelect.onchange = function() {
+      window.location.href = this.value;
+    }
 
     setDocWrapHeight();
     window.onresize = setDocWrapHeight;

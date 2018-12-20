@@ -108,6 +108,13 @@ a.toc_title, a.toc_title:visited {
 a.toc_title:hover {
     text-decoration: underline;
 }
+#funclib-title {
+  display: inline-block;
+}
+#version_select {
+  height: 22px;
+  margin-top: 5px;
+}
 #sidebar .version {
     font-size: 10px;
     font-weight: normal;

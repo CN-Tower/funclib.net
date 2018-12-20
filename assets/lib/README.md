@@ -5,7 +5,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/CN-Tower/funclib.js/badge.svg)](https://coveralls.io/github/CN-Tower/funclib.js)
 
 ## Brief Intro
-Javascript通用型UMD函数库，采用Typescript开发，Webpack打包编译!
+JavaScript通用型UMD函数库!
 > 目的：高效率完成前端业务代码！
 
 ### Documents:&nbsp;&nbsp;http://funclib.net
@@ -18,7 +18,7 @@ $ npm install funclib
 # Use funclib
 $ node
 > var fn = require('funclib');
-> console.log(fn.rdid()) // => 8GH9IYO60MXQ
+> console.log(fn.gid()) // => 8GH9IYO60MXQ
 ```
 
 ## Clone Repo
@@ -46,42 +46,26 @@ $ npm run test
 ## Structure
 ```
 funclib.js
-├── node_modules/           # You know the drill...
-├── assets                  # 构建目录
-│   ├── funclib.js          # 未压缩版
-│   ├── funclib.min.js      # 压缩版
+├── node_modules/           ### You know the drill...
+├── script                  ### 脚本
+│   ├── build.js            # 构建脚本
+│   ├── karma.conf.js       # Karma测试框架配置
+│   ├── pre-build.js        # 构建配置脚本
+│   └── test.js             # 测试配置脚本
+├── src                     ### Source code
+│   ├── funclib.core.js     # 通用版
+│   ├── funclib.js          # 未压缩版客户端版
+│   ├── funclib.min.js      # 压缩版客户端版
 │   ├── index.d.ts          # 定义文件
-│   ├── index.js            # 索引文件
+│   ├── index.js            # 服务端版
 │   ├── package.json        # 库模块定义
 │   └── README.md           # Read this FIRST :)
-├── script                  # 脚本
-│   ├── build.js            # 编译脚本
-│   ├── karma.conf.js       # Karma配置
-│   └── webpack.conf.js     # Webpack配置
-├── src                     # Source code
-│   ├── modules             # 模块
-│   │   ├── _Array.ts       # Array
-│   │   ├── _Cookie.ts      # Cookie
-│   │   ├── _Dom.ts         # Element
-│   │   ├── _FileSys.ts     # FileSystem
-│   │   ├── _Function.ts    # Function
-│   │   ├── _Math.ts        # Mathematic
-│   │   ├── _Object.ts      # Object
-│   │   ├── _Pattern.ts     # RegExp
-│   │   ├── _Progress.ts    # Progress
-│   │   ├── _String.ts      # String
-│   │   ├── _Time.ts        # Time
-│   │   ├── _Trick.ts       # Trick
-│   │   ├── _Type.ts        # Type
-│   │   ├── _Logc.ts        # ClientLog
-│   │   └── _Logs.ts        # ServerLog
-│   ├── funclib.conf.ts     # 配置文件
-│   ├── funclib.ts          # ClientMain
-│   └── index.ts            # ServerMain
-├── test                    # 测试
-│   ├── client-methods      # 客户端方法测试用例
-│   ├── server-methods      # 服务端方法测试用例
-│   └── *.spec.js           # 通用方法测试用例
+├── test                    ### 测试
+│   ├── client-methods/     # 客户端版测试用例
+│   ├── core-methods/       # 通用版测试用例
+│   ├── server-methods/     # 服务端版测试用例
+│   ├── fn-core.js          # 通用版测试文件
+│   └── fn-index.js         # 服务端版测试文件
 ├── .coveralls.yml          # 测试覆盖率
 ├── .editorconfig           # Set coding style (indents, charset, etc.)
 ├── .gitignore              # You know the drill...
