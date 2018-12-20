@@ -35,8 +35,8 @@
  * fn.isDeepEqual            判断数组或对象是否相等
  ## Math
  * fn.random                 返回指定范围的随机数
- * fn.rdid                   返回指定长度的随机ID
- * fn.rdcolor                返回一个随机色值
+ * fn.gid                   返回指定长度的随机ID
+ * fn.gcolor                返回一个随机色值
  ## Time       
  * fn.interval               循环定时器
  * fn.timeout                延时定时器
@@ -130,8 +130,8 @@ interface Funclib {
   typeVal(value: any, _type: Type | Type[], ...types: Type[]): any;
   /**
    * [fn.array] 返回一个指定长度和默认值的数组
-   * @param length [number]
-   * @param value  [any, function]
+   * @param length : number
+   * @param value  : any|function [?]
    */
   array(length: number, value?: any): any[];
   /**
@@ -215,7 +215,7 @@ interface Funclib {
   sortBy(srcArr: any[], field: string, isDesc?: boolean): any;
   /**
    * [fn.len] 获取对象自有属性的个数
-   * @arg srcObj : any
+   * @param srcObj : any
    */
   len(srcObj: any): number;
   /**
@@ -246,13 +246,13 @@ interface Funclib {
    * [fn.extend] 给对象赋值
    * @param tarObj    : object
    * @param srcObj    : object
-   * @param predicate : ...string[]|string|function
+   * @param predicate : ...string[]|string|function  [?]
    */
   extend(tarObj: any, srcObj: any, predicate?: any, ...props: string[]): any;
   /**
    * [fn.forIn] 遍历对象的可数自有属性
-   * @arg srcObj   : object
-   * @arg iteratee : function
+   * @param srcObj   : object
+   * @param iteratee : function
    */
   forIn(srcObj: any, iteratee: any): any;
   /**
@@ -421,7 +421,7 @@ interface Funclib {
    * [fn.setCookie] 设置Cookie
    * @param name  : string
    * @param value : string
-   * @param days  : number
+   * @param days  : number [?]
    */
   setCookie(name: string, value: string, days?: number): void;
   /**
@@ -442,7 +442,7 @@ interface Funclib {
   /**
    * [fn.chalk] 在控制台打印有颜色的字符串
    * @param srcStr : string
-   * @param color  : 'grey'|'blue'|'cyan'|'green'|'magenta'|'red'|'yellow' = 'cyan'
+   * @param color  : 'grey'|'blue'|'cyan'|'green'|'magenta'|'red'|'yellow' = 'grey'
    */
   chalk(srcStr: string, color?: Color): string;
   /**
@@ -450,7 +450,8 @@ interface Funclib {
    * @param value   : any
    * @param title   : string|boolean [?]
    * @param configs : object [?]
-   * title: string, width: number [20-100],
+   * title: string,
+   * width: number = 66 [30-100]
    * isFmt: boolean [?]
    * isShowTime: boolean = true
    * pre:   boolean = false,
@@ -498,12 +499,12 @@ interface Funclib {
    */
   progress: Progress;
   /**
-   * [fn.size] 获取文件的大小(kb)
-   * @param src   : string
+   * [fn.size] 获取文件的大小
+   * @param file   : string
    * @param unit  : 'b'|'kb'|'mb'|'gb'|'tb' = 'kb'
    * @param digit : number = 2
    */
-  size(src, unit, digit): number;
+  size(file: string, unit?: 'b'|'kb'|'mb'|'gb'|'tb', digit?: number): number;
   /**
    * [fn.noConflict] 释放fn变量占用权
    */

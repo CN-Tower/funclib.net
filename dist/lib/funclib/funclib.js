@@ -6,7 +6,7 @@
  */
 ; (function () {
 
-  var VERSION = '3.1.2';
+  var VERSION = '3.1.3';
 
   var _global = typeof global == 'object' && global && global.Object === Object && global;
 
@@ -1124,7 +1124,7 @@
      * @param title   : string|boolean [?]
      * @param configs : object [?]
      * title: string
-     * width: number = 40 [20-100]
+     * width: number = 66 [30-100]
      * isFmt: boolean = true
      * isShowTime: boolean = true
      */

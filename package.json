@@ -5,8 +5,8 @@
   "description": "> 通用、实用、易用、好用，提高开发效率、提高代码质量、提高交付能力！",
   "main": "main.js",
   "scripts": {
-    "start": "gulp",
-    "gulp": "gulp",
+    "start": "gulp dev",
+    "build": "gulp build",
     "update": "node ./scripts/update-lib.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -20,10 +20,14 @@
   },
   "homepage": "https://github.com/CN-Tower/funclib#readme",
   "dependencies": {
-    "funclib": "^3.1.2"
+    "funclib": "^3.1.3"
   },
   "devDependencies": {
     "browser-sync": "^2.24.5",
-    "gulp": "^3.9.1"
+    "gulp": "^3.9.1",
+    "gulp-clean": "^0.4.0",
+    "gulp-rev": "^9.0.0",
+    "gulp-rev-collector": "^1.3.1",
+    "run-sequence": "^2.2.1"
   }
 }

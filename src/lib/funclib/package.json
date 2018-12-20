@@ -1,0 +1,56 @@
+{
+  "_from": "funclib@^3.1.2",
+  "_id": "funclib@3.1.3",
+  "_inBundle": false,
+  "_integrity": "sha512-KM0/lFUY2JwTG/wxhdQfC90CxUwOZqcRyHEO0lymT+5nMkg8pJxp/3QFW99aXP9V7EqlCGmtuhJ0ANqWbbAGBA==",
+  "_location": "/funclib",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "funclib@^3.1.2",
+    "name": "funclib",
+    "escapedName": "funclib",
+    "rawSpec": "^3.1.2",
+    "saveSpec": null,
+    "fetchSpec": "^3.1.2"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/funclib/-/funclib-3.1.3.tgz",
+  "_shasum": "7331a98b84cab15ad7a12fd79267a5eeb70a7d99",
+  "_spec": "funclib@^3.1.2",
+  "_where": "D:\\Code\\funclib",
+  "author": {
+    "name": "CN-Tower"
+  },
+  "bugs": {
+    "url": "https://github.com/CN-Tower/funclib.js/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "progress": "^2.0.0"
+  },
+  "deprecated": false,
+  "description": "A Powerful javascript functions lib!",
+  "homepage": "https://github.com/CN-Tower/funclib.js#readme",
+  "keywords": [
+    "UMD",
+    "funclib",
+    "javascript",
+    "functions"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "name": "funclib",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CN-Tower/funclib.js.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "3.1.3"
+}

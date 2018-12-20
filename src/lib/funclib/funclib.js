@@ -6,7 +6,7 @@
  */
 ; (function () {
 
-  var VERSION = '3.1.2';
+  var VERSION = '3.1.3';
 
   var _global = typeof global == 'object' && global && global.Object === Object && global;
 
@@ -1115,41 +1115,18 @@
     /**@spliter*/
     /**=================================================================== */
 
-    var COLOR_LIST = {
-      'grey': '\x1B[90m%s\x1B[0m',
-      'blue': '\x1B[34m%s\x1B[0m',
-      'cyan': '\x1B[36m%s\x1B[0m',
-      'green': '\x1B[32m%s\x1B[0m',
-      'magenta': '\x1B[35m%s\x1B[0m',
-      'red': '\x1B[31m%s\x1B[0m',
-      'yellow': '\x1B[33m%s\x1B[0m',
-      'default': '%s\x1B[0m'
-    };
     var getIsFmt = function (configs) { return has(configs, 'isFmt') ? configs.isFmt : true; };
     var getTitle = function (configs) { return get(configs, '/title') || 'funclib(' + VERSION + ')'; };
-
-    /**
-     * [fn.chalk] 在控制台打印有颜色的字符串
-     * @param srcStr : string
-     * @param color  : 'grey'|'blue'|'cyan'|'green'|'magenta'|'red'|'yellow' = 'cyan'
-     */
-    function chalk(srcStr, color) {
-      if (!has(COLOR_LIST, color)) color = 'grey';
-      return COLOR_LIST[color].replace(/%s/, srcStr);
-    }
 
     /**
      * [fn.log] 控制台格式化打印值
      * @param value   : any
      * @param title   : string|boolean [?]
      * @param configs : object [?]
-     * title: string, width: number [20-100],
-     * isFmt: boolean [?]
+     * title: string
+     * width: number = 66 [30-100]
+     * isFmt: boolean = true
      * isShowTime: boolean = true
-     * pre:   boolean = false,
-     * end:   boolean = false
-     * ttColor: 'grey'|'blue'|'cyan'|'green'|'magenta'|'red'|'yellow'
-     * color:   'grey'|'blue'|'cyan'|'green'|'magenta'|'red'|'yellow' = 'cyan'
      */
     function log(value, title, configs) {
       var isFmt;
@@ -1177,26 +1154,17 @@
       }
       value = pretty(value);
       var isShowTime = has(configs, 'isShowTime') ? !!configs.isShowTime : true;
-      var _time = fmtDate('hh:mm:ss');
-      var time = isShowTime ? '[' + _time + '] ' : '';
+      var time = isShowTime ? '[' + fmtDate('hh:mm:ss') + '] ' : '';
       title = title.replace(/\n/mg, '');
       var originTtLength = (time + title + '[] ').length;
       if (!isFmt)
         title = '( ' + title + ' )';
-      if(time)
-        time = '[' + chalk(_time) + '] ';
-      var titlec = get(configs, '/ttColor');
-      var valuec = get(configs, '/color');
-      title = chalk(title, titlec in COLOR_LIST && titlec || 'green');
-      value = chalk(value, valuec in COLOR_LIST && valuec || 'cyan');
       title = time + title;
       var width = get(configs, '/width');
       if (!width || width < 30 || width > 100)
         width = 66;
       if (originTtLength > width) {
-        var colorEnd = '\x1B[0m';
-        var fixLength = title.length - originTtLength - colorEnd.length;
-        title = cutString(title, width + fixLength - 3) + colorEnd;
+        title = cutString(title, width - 3);
       }
       else if (isFmt) {
         title = array((width - originTtLength) / 2, ' ').join('') + title;
@@ -1210,278 +1178,144 @@
           sgLine_1 += '-';
           dbLine_1 += '=';
         });
-        if (get(configs, '/pre', 'bol')) {
-          console.log('\n' + dbLine_1);
-          console.log(title);
-          console.log(sgLine_1);
-        }
-        else if (get(configs, '/end', 'bol')) {
-          console.log(dbLine_1 + '\n');
-        }
-        else {
-          console.log('\n' + dbLine_1);
-          console.log(title);
-          console.log(sgLine_1);
-          console.log(value);
-          console.log(dbLine_1 + '\n');
-        }
+        console.log('\n' + dbLine_1 + '\n' + title + '\n' + sgLine_1 + '\n' + value + '\n' + dbLine_1 + '\n');
       }
     }
 
-    var progressBar;
-    var duration;
-    var pgType;
-
-    var progress = {
-      /**
-       * [fn.progress.start] 开启进度条，并传入参数
-       * @param title: string
-       * @param options: object [?]
-       * title: string
-       * width: number = 40
-       * type : 'bar'|'spi' = 'bar'}}
-       */
-      start: function (title, options) {
-        if (typeOf(title, 'obj')) {
-          options = title;
-          title = undefined;
-        }
-        interval('pg_sping').stop();
-        timeout('pg_Bar').stop();
-        title = typeVal(title, 'str')
-          || get(options, 'title', 'str') || 'funclib ' + VERSION;
-        pgType = get(options, '/type', 'str');
-        if (!options)
-          options = {};
-        options.title = title;
-        if (pgType === 'bar' || ['bar', 'spi'].indexOf(pgType) === -1) {
-          pgType = 'bar';
-          startPgbar(options);
-        }
-        else {
-          startSping(title);
-        }
-      },
-      /**
-       * [fn.progress.stop] 结束进度条，结束后触发回调
-       * @param onStopped : function [?]
-       */
-      stop: function (onStopped) {
-        if (pgType === 'bar') {
-          stopPgbar(function () {
-            pgType = null;
-            if (typeOf(onStopped, 'fun'))
-              onStopped();
-          });
-        }
-        else {
-          stopSping();
-          pgType = null;
-          if (typeOf(onStopped, 'fun'))
-            onStopped();
-        }
-      }
+    var event = 'fullscreenchange';
+    var events = [event, 'webkit' + event, 'moz' + event, 'MS' + event];
+    var addFsChangeEvent = function () {
+      return events.forEach(function (e) {
+        document.addEventListener(e, window['onfullscreen']);
+      });
     };
-    function startPgbar(options) {
-      timeout('pg_Bar').stop();
-      var Pgbar = eval('require("progress")');
-      var prog = (options.title || '[fn.progress]') + ' [:bar] :percent';
-      progressBar = new Pgbar(prog, {
-        complete: '=', incomplete: ' ',
-        width: options['width'] || 40,
-        total: options['total'] || 20
+    var removeFsChangeEvent = function () {
+      return events.forEach(function (e) {
+        document.removeEventListener(e, window['onfullscreen']);
       });
-      duration = 250;
-      tickFun('+');
-    }
-    function stopPgbar(onStopped) {
-      duration = 600;
-      tickFun('-', onStopped);
-    }
-    function startSping(message) {
-      interval('pg_sping').stop();
-      spingFun(message);
-    }
-    function stopSping() {
-      interval('pg_sping').stop();
-    }
-    function spingFun(msg) {
-      var stream = process.stderr;
-      var interrupt = function (frame) {
-        stream.clearLine();
-        stream.cursorTo(0);
-        stream.write(frame);
-      };
-      var s = '/';
-      interval('pg_sping', 180, function () {
-        interrupt(chalk(s, 'cyan') + ' ' + msg);
-        s = match(s, {
-          '/': '-',
-          '-': '\\',
-          '\\': '|',
-          '|': '/',
-          '@dft': '-'
-        });
-      });
-    }
-    function tickFun(type, onStopped) {
-      timeout('pg_Bar', duration, function () {
-        progressBar.tick();
-        switch (type) {
-          case '+':
-            duration += 300;
-            break;
-          case '-':
-            duration -= duration * 0.2;
-            break;
-        }
-        if (!progressBar.complete) {
-          tickFun(type, onStopped);
-        }
-        else if (onStopped) {
-          onStopped();
-        }
-      });
-    }
-
-    var fs = eval('require("fs")');
-    var path = eval('require("path")');
-    var execSync = eval('require("child_process").execSync');
+    };
 
     /**
-     * [fn.rd] 读文件
-     * @param file : string
+     * [fn.fullScreen] 全屏显示HTML元素
+     * @param el : HTMLElement
      */
-    function rd(file) {
-      return fs.existsSync(file) ? fs.readFileSync(file, { encoding: 'utf8' }) : '';
+    function fullScreen(el) {
+      if (typeof el === 'string')
+        el = document.querySelector(el);
+      if (el && el.tagName) {
+        var rfs = el['requestFullScreen']
+          || el['webkitRequestFullScreen']
+          || el['mozRequestFullScreen']
+          || el['msRequestFullScreen'];
+        if (rfs)
+          return rfs.call(el);
+        if (window['ActiveXObject']) {
+          var ws = new window['ActiveXObject']('WScript.Shell');
+          if (ws) {
+            ws.SendKeys('{F11}');
+          }
+        }
+      }
     }
 
     /**
-     * [fn.wt] 写文件
-     * @param file : string
+     * [fn.exitFullScreen] 退出全屏显示
+     */
+    function exitFullScreen() {
+      var cfs = document['cancelFullScreen']
+        || document['webkitCancelFullScreen']
+        || document['mozCancelFullScreen']
+        || document['exitFullScreen'];
+      if (cfs)
+        return cfs.call(document);
+      if (window['ActiveXObject']) {
+        var ws = new window['ActiveXObject']('WScript.Shell');
+        if (ws != null) {
+          ws.SendKeys('{F11}');
+        }
+      }
+    }
+
+    /**
+     * [fn.isFullScreen] 检测是否全屏状态
+     */
+    function isFullScreen() {
+      return document['fullscreenEnabled']
+        || window['fullScreen']
+        || document['mozFullscreenEnabled']
+        || document['webkitIsFullScreen']
+        || document['msIsFullScreen']
+        || false;
+    }
+
+    /**
+     * [fn.fullScreenChange] 全屏状态变化事件
+     * @param callback function|false [?]
+     */
+    function fullScreenChange(callback) {
+      if (typeOf(callback, 'fun')) {
+        window['onfullscreen'] = callback;
+        addFsChangeEvent();
+      }
+      else if (window['onfullscreen']) {
+        if (callback === false) {
+          removeFsChangeEvent();
+        }
+        else {
+          return { off: removeFsChangeEvent };
+        }
+      }
+    }
+
+    /**
+     * [fn.setCookie] 设置Cookie
+     * @param name  : string
+     * @param value : string
+     * @param days  : number [?]
+     */
+    function setCookie(name, value, days) {
+      if (days === void 0) { days = 0; }
+      var date = new Date();
+      date.setDate(date.getDate() + days);
+      document.cookie = name + '=' + value + ';expires=' + date;
+    }
+
+    /**
+     * [fn.getCookie] 根据name读取cookie
+     * @param  name : string
+     */
+    function getCookie(name) {
+      var cks = document.cookie.replace(/\s/g, '').split(';');
+      for (var i = 0; i < cks.length; i++) {
+        var tempArr = cks[i].split('=');
+        if (tempArr[0] == name)
+          return decodeURIComponent(tempArr[1]);
+      }
+      return '';
+    }
+
+    /**
+     * [fn.removeCookie] 根据name删除cookie
+     * @param name : string
+     */
+    function removeCookie(name) {
+      setCookie(name, '1', -1);
+    }
+
+    /**
+     * [fn.copyText] 复制文本到粘贴板
      * @param text : string
-     * @param flag : 'w'|'a' = 'w'
      */
-    function wt(file, text, flag) {
-      if (flag === void 0) { flag = 'w'; }
-      fs.writeFileSync(file, text, { encoding: 'utf8', flag: flag });
-    }
-
-    /**
-     * [fn.cp] 复制文件或文件夹
-     * @param src  : string
-     * @param dist : string
-     */
-    function cp(src, dist) {
-      if (fs.existsSync(src)) {
-        var stat = fs.statSync(src);
-        if (stat.isFile()) {
-          fs.createReadStream(src).pipe(fs.createWriteStream(dist));
-        }
-        else if (stat.isDirectory()) {
-          mk(dist);
-          var subSrcs = fs.readdirSync(src);
-          subSrcs.forEach(function (file) {
-            var subSrc = path.join(src, file);
-            var subDist = path.join(dist, file);
-            cp(subSrc, subDist);
-          });
-        }
-      }
-    }
-
-    /**
-     * [fn.mv] 移动文件或文件夹
-     * @param src  : string
-     * @param dist : string
-     */
-    function mv(src, dist) {
-      try {
-        fs.renameSync(src, dist);
-      }
-      catch (e) {
-        cp(src, dist);
-        rm(src);
-      }
-    }
-
-    /**
-     * [fn.rm] 删除文件或文件夹
-     * @param src : string
-     */
-    function rm(src) {
-      if (fs.existsSync(src)) {
-        var stat = fs.statSync(src);
-        if (stat.isFile()) {
-          fs.unlinkSync(src);
-        }
-        else if (stat.isDirectory()) {
-          var subSrcs = fs.readdirSync(src);
-          subSrcs.forEach(function (file) {
-            var subSrc = path.join(src, file);
-            rm(subSrc);
-          });
-          try {
-            fs.rmdirSync(src);
-          }
-          catch (e) {
-            setTimeout(function () {
-              if (/win/.test(process.platform)) {
-                var absSrc = path.resolve(src);
-                execSync('rd /s /q ' + absSrc);
-              }
-              else {
-                execSync('rm -rf ' + src);
-              }
-            }, 500);
-          }
-        }
-      }
-    }
-
-    /**
-     * [fn.mk] 创建文件夹
-     * @param dir : string
-     */
-    function mk(dir) {
-      var absDir = path.resolve(dir);
-      if (!fs.existsSync(absDir)) {
-        try {
-          fs.mkdirSync(absDir);
-        }
-        catch (e) {
-          mk(path.dirname(absDir));
-          fs.mkdirSync(absDir);
-        }
-      }
-    }
-
-    /**
-     * [fn.size] 获取文件的大小(kb)
-     * @param src   : string
-     * @param unit  : 'b'|'kb'|'mb'|'gb'|'tb' = 'kb'
-     * @param digit : number = 2
-     */
-    function size(src, unit, digit) {
-      if (fs.existsSync(src)) {
-        if (typeOf(unit, 'num')) {
-          digit = unit;
-          unit = undefined;
-        }
-        if (unit === undefined || digit === undefined) {
-          digit = 2;
-        }
-        var flSize = fs.statSync(src)['size'];
-        var rlSize = match(unit, {
-          'b': flSize,
-          'kb': flSize / 1024,
-          'mb': flSize / 1024 / 1024,
-          'gb': flSize / 1024 / 1024 / 1024,
-          'tb': flSize / 1024 / 1024 / 1024 / 1024,
-          '@dft': flSize / 1024
-        });
-        return rlSize.toFixed(digit);
-      }
+    function copyText(text) {
+      if (text === void 0) { text = ''; }
+      var textarea = document.createElement('textarea');
+      textarea.style.position = 'fixed';
+      textarea.style.left = '200%';
+      document.body.appendChild(textarea);
+      textarea.value = text;
+      textarea.select();
+      document.execCommand('Copy');
+      document.body.removeChild(textarea);
     }
 
     /**=================================================================== */
@@ -1560,15 +1394,15 @@
     /**@spliter*/
     /**=================================================================== */
 
-    funclib.chalk = chalk;
     funclib.log = log;
-    funclib.rd = rd;
-    funclib.wt = wt;
-    funclib.cp = cp;
-    funclib.mv = mv;
-    funclib.rm = rm;
-    funclib.mk = mk;
-    funclib.size = size;
+    funclib.fullScreen = fullScreen;
+    funclib.exitFullScreen = exitFullScreen;
+    funclib.isFullScreen = isFullScreen;
+    funclib.fullScreenChange = fullScreenChange;
+    funclib.setCookie = setCookie;
+    funclib.getCookie = getCookie;
+    funclib.removeCookie = removeCookie;
+    funclib.copyText = copyText;
 
     /**=================================================================== */
     /**@spliter*/
@@ -1580,14 +1414,6 @@
         return _fn.data !== undefined ? fn[mtd].apply(void 0, [_fn.data].concat(args)) : fn[mtd].apply(void 0, args);
       };
     });
-
-    /**@spliter*/
-    /**=================================================================== */
-
-    funclib.progress = progress;
-
-    /**=================================================================== */
-    /**@spliter*/
 
     funclib.VERSION = VERSION;
     funclib.noConflict = noConflict;

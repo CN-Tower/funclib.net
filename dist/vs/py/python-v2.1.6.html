@@ -1,0 +1,794 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="target-densitydpi=device-dpi" />
+  <meta name="HandheldFriendly" content="true" />
+  <link rel="canonical" href="http://funclib.net/" />
+  <link rel="icon" href="../../img/favicon-6cb25f89f2.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="../../css/main-03b1a85e54.css" />
+  <title>FuncLib</title>
+</head>
+
+<body>
+  <header>
+    <div class="fn-title">
+      <span class="fn-title-logo"></span>
+      <h1 class="fn-title-text no-select">FuncLib</h1>
+    </div>
+    <ul class="nav">
+      <li>
+        <a href="../../index.html">funclib.js</a>
+      </li>
+      <li class="active">
+        <a href="../../py.html">funclib.py</a>
+      </li>
+    </ul>
+  </header>
+  <section id="doc_wrap">
+    <div id="sidebar" class="interface">
+
+      <a class="toc_title" href="#">
+        funclib.py
+        <span class="version">(2.1.6)</span>
+      </a>
+      <ul class="toc_section">
+        <li>&raquo;
+          <a href="https://travis-ci.org/CN-Tower/funclib.py" target="_blank">Travis-ci Status</a>
+        </li>
+        <li>&raquo;
+          <a href="https://pypi.org/project/funclib" target="_blank"> Pypi Package </a>
+        </li>
+        <li>&raquo;
+          <a href="https://github.com/CN-Tower/funclib.py" target="_blank"> GitHub Repository </a>
+        </li>
+      </ul>
+
+      <input id="function_filter" placeholder="Filter" type="text" autofocus />
+
+      <div class="searchable_section">
+        <a class="toc_title" href="#introduction"> Introduction </a>
+      </div>
+
+      <div class="searchable_section">
+        <a class="toc_title" href="#Collection"> Collection </a>
+        <ul class="toc_section">
+          <li data-name="fnindex">
+            <a href="#fnindex">fn.index</a>
+          </li>
+          <li data-name="fnfind">
+            <a href="#fnfind">fn.find</a>
+          </li>
+          <li data-name="fnfilter">
+            <a href="#fnfilter">fn.filter</a>
+          </li>
+          <li data-name="fnreject">
+            <a href="#fnreject">fn.reject</a>
+          </li>
+          <li data-name="fnreduce">
+            <a href="#fnreduce">fn.reduce</a>
+          </li>
+          <li data-name="fncontains">
+            <a href="#fncontains">fn.contains</a>
+          </li>
+          <li data-name="fnflatten">
+            <a href="#fnflatten">fn.flatten</a>
+          </li>
+          <li data-name="fnuniq">
+            <a href="#fnuniq">fn.uniq</a>
+          </li>
+          <li data-name="fnpluck">
+            <a href="#fnpluck">fn.pluck</a>
+          </li>
+          <li data-name="fnevery">
+            <a href="#fnevery">fn.every</a>
+          </li>
+          <li data-name="fnsome">
+            <a href="#fnsome">fn.some</a>
+          </li>
+          <li data-name="fntolist">
+            <a href="#fntolist">fn.tolist</a>
+          </li>
+          <li data-name="fndrop">
+            <a href="#fndrop">fn.drop</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="searchable_section">
+        <a class="toc_title" href="#Type"> Type </a>
+        <ul class="toc_section">
+          <li data-name="fntypeof">
+            <a href="#fntypeof">fn.typeof</a>
+          </li>
+          <li data-name="fntypeval">
+            <a href="#fntypeval">fn.typeval</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="searchable_section">
+        <a class="toc_title" href="#Structure"> Structure </a>
+        <ul class="toc_section">
+          <li data-name="fnget">
+            <a href="#fnget">fn.get</a>
+          </li>
+          <li data-name="fndump">
+            <a href="#fndump">fn.dump</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="searchable_section">
+        <a class="toc_title" href="#RegExp"> RegExp </a>
+        <ul class="toc_section">
+          <li data-name="fntest">
+            <a href="#fntest">fn.test</a>
+          </li>
+          <li data-name="fnreplace">
+            <a href="#fnreplace">fn.replace</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="searchable_section">
+        <a class="toc_title" href="#Utils"> Utils </a>
+        <ul class="toc_section">
+          <li data-name="fniscan">
+            <a href="#fniscan">fn.iscan</a>
+          </li>
+          <li data-name="fnlog">
+            <a href="#fnlog">fn.log</a>
+          </li>
+          <li data-name="fntimer">
+            <a href="#fntimer">fn.timer</a>
+          </li>
+          <li data-name="fnnow">
+            <a href="#fnnow">fn.now</a>
+          </li>
+          <li data-name="fnclear">
+            <a href="#fnclear">fn.clear</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <h2 id="introduction"> funclib.py </h2>
+
+      <p>
+        Python自带的几个高阶函数（map、reduce、filter）再搭配上lambda函数，堪称上古神器！
+      </p>
+      <p>
+        但是，在数据处理频繁的开发过程中，不论是web开发还是写AC用例，上古神器却还是有点捉襟见肘，很多交互数据的处理都不得不带上神器再另外去写一堆逻辑。
+      </p>
+      <p>
+        于是，针对频繁的交互数据处理的问题，一个强大、简单、实用的Python交互数据处理函数库
+        <a href="http://github.com/CN-Tower/funclib.py/" target="_blank">
+          <b>funclib.py</b>
+        </a>就应运而生了！
+      </p>
+      <p>
+        <b>funclib.py</b>兼容python2和python3，有充分的测试用例保证以及丰富齐全的帮助文档，绝对是你Python开发的好工具！
+      </p>
+
+      <a href="https://pypi.org/project/funclib" target="_blank">
+        <img src="https://img.shields.io/badge/pypi-v2.1.6-blue.svg" alt="pypi">
+      </a>
+      <a href="https://gitgub.com/CN-Tower/funclib.py" target="_blank">
+        <img src="https://img.shields.io/badge/license-MIT-yellow.svg" alt="License">
+      </a>
+      <a href="https://travis-ci.org/CN-Tower/funclib.py" target="_blank">
+        <img src="https://img.shields.io/badge/coverage-82%25-green.svg" alt="Coverage">
+      </a>
+      <a href="https://travis-ci.org/CN-Tower/funclib.py" target="_blank">
+        <img src="https://travis-ci.org/CN-Tower/funclib.py.svg?branch=master" alt="Build Status">
+      </a>
+
+      <p>
+        如果你喜欢funclib.py，就到GitHub上去Star或Fork吧：
+        <a href="http://github.com/CN-Tower/funclib.py" target="_blank">http://github.com/CN-Tower/funclib.py</a>
+        欢迎一起来玩！
+      </p>
+
+      <h2>Downloads
+        <i style="padding-left: 12px; font-size:12px;">（鼠标右键点击，然后选“另存为...”）</i>
+      </h2>
+
+      <table>
+        <tr>
+          <td>
+            <a href="https://files.pythonhosted.org/packages/3e/69/b289fbd1fe82c40eb227794cd67322b864b1cc88b01d23df9a10a9d4828d/funclib-2.1.6.tar.gz"
+              target="_blank">
+              funclib-2.1.6.tar.gz
+            </a>
+          </td>
+          <td>
+            <i>Release Version (2.1.6)</i>
+          </td>
+        </tr>
+      </table>
+
+      <h2>Installation</h2>
+      <pre>
+$ pip install funclib
+# pip install funclib-2.1.6.tar.gz (Local install)
+$ python
+
+>>> from funclib import fn
+>>> help(fn)
+>>> help(fn.index)</pre>
+      </li>
+
+      <div id="documentation">
+
+        <h2 id="Collection">Collection</h2>
+
+        <p id="fnindex">
+          <b class="header">fn.index</b>
+          <br>Looks through the list and returns the item index. If no match is found or if list is empty, -1 will be returned.
+          <br>
+          <code>
+            def index(predicate, src_list):
+          </code>
+          <br>
+          <b>@param predicate [dict|function]</b>
+          <br>查找条件，可以是一个字典或返回bool值的函数
+          <br>
+          <b>@param src_list [list|tuple|map]</b>
+          <br>传入的原列表
+        </p>
+        <pre>
+persons = [{"name": "Tom", "age": 12},
+  {"name": "Jerry", "age": 20},
+  {"name": "Mary", "age": 35}]
+
+fn.index({"name": 'Jerry'}, persons)              # => 1
+fn.index(lambda x: x['name'] == 'Mary', persons)  # => 2</pre>
+
+        <p id="fnfind">
+          <b class="header">fn.find</b>
+          <br>Looks through each value in the list, returning the first one that passes a truth test (predicate), or None.If
+          no value passes the test the function returns as soon as it finds an acceptable element, and doesn't traverse the
+          entire list.
+          <br>
+          <code>
+            def find(predicate, src_list):
+          </code>
+          <br>
+          <b>@param predicate [dict|function]</b>
+          <br>查找条件，可以是一个字典或返回bool值的函数
+          <br>
+          <b>@param src_list [list|tuple|map]</b>
+          <br>传入的原列表
+        </p>
+        <pre>
+persons = [{"name": "Tom", "age": 12},
+  {"name": "Jerry", "age": 20},
+  {"name": "Mary", "age": 35}]
+
+Jerry = fn.find({"name": 'Jerry'}, persons)
+Mary  = fn.find(lambda x: x['name'] == 'Mary', persons)
+
+print(Jerry)  # => {'age': 20, 'name': 'Jerry'}
+print(Mary)   # => {'age': 35, 'name': 'Mary'}</pre>
+
+        <p id="fnfilter">
+          <b class="header">fn.filter</b>
+          <br>Looks through each value in the list, returning an array of all the values that pass a truth test (predicate).
+          <br>
+          <code>
+            def filter(predicate, src_list):
+          </code>
+          <br>
+          <b>@param predicate [dict|function]</b>
+          <br>过滤条件，可以是一个字典或返回bool值的函数
+          <br>
+          <b>@param src_list [list|tuple|map]</b>
+          <br>传入的原列表
+        </p>
+        <pre>
+persons = [{"name": "Tom", "age": 20},
+  {"name": "Jerry", "age": 20},
+  {"name": "Jerry", "age": 35}]
+
+Jerry = fn.filter({"age": 20}, persons)
+Mary = fn.filter(lambda x: x['name'] == 'Jerry', persons)
+
+print(Jerry)  # => [{'age': 20, 'name': 'Tom'},
+                {'age': 20, 'name': 'Jerry'}]
+print(Mary)   # => [{'age': 20, 'name': 'Jerry'},
+                {'age': 35, 'name': 'Jerry'}]</pre>
+
+        <p id="fnreject">
+          <b class="header">fn.reject</b>
+          <br>Returns the values in list without the elements that the truth test (predicate) passes.
+          <br>
+          <code>
+            def reject(predicate, src_list):
+          </code>
+          <br>
+          <b>@param predicate [dict|function]</b>
+          <br>拒绝条件，可以是一个字典或返回bool值的函数
+          <br>
+          <b>@param src_list [list|tuple|map]</b>
+          <br>传入的原列表
+        </p>
+        <pre>
+persons = [{"name": "Tom", "age": 12},
+  {"name": "Jerry", "age": 20},
+  {"name": "Mary", "age": 35}]
+
+not_Mary = fn.reject({"name": "Mary"}, persons)
+adults = fn.reject(lambda x: x['age'] < 18, persons)
+
+print(not_Mary)  # => [{"age": 12, "name": "Tom"},
+                        {"age": 20, "name": "Jerry"}]
+print(adults)    # => [{"age": 20, "name": "Jerry"},
+                        {"age": 35, "name": "Mary"}]</pre>
+
+        <p id="fnreduce">
+          <b class="header">fn.reduce</b>
+          <br>Returns the buildIn method 'reduce', in python 3 the 'reduce' is imported from functools.
+          <br>
+          <code>
+            def reduce(*args):
+          </code>
+          <br>
+          <br>参考python自带的reduce方法，这里做了python3的引入适配。
+        </p>
+        <pre>
+num_list = [1 , 2, 3, 4]
+fn.reduce(lambda a, b: a + b, num_list)  # => 10</pre>
+
+        <p id="fncontains">
+          <b class="header">fn.contains</b>
+          <br>Returns true if the value is present in the list.
+          <br>
+          <code>
+            def contains(predicate, src_list):
+          </code>
+          <br>
+          <b>@param predicate [dict|function]</b>
+          <br>查询条件，可以是一个字典或返回bool值的函数
+          <br>
+          <b>@param src_list [list|tuple|map]</b>
+          <br>传入的原列表
+        </p>
+        <pre>
+persons = [{"name": "Tom", "age": 12},
+  {"name": "Jerry", "age": 20},
+  {"name": "Mary", "age": 35}]
+
+fn.contains({"name": "Jerry", "age": 12}, persons)  # => False
+fn.contains(lambda x: x['name'] == 'Mary', persons) # => True</pre>
+
+        <p id="fnflatten">
+          <b class="header">fn.flatten</b>
+          <br>Flattens a nested array (the nesting can be to any depth). If you pass shallow, the array will only be flattened
+          a single level.
+          <br>
+          <code>
+            def flatten(src_list, is_deep=False):
+          </code>
+          <br>
+          <b>@param src_list [list|tuple|map]</b>
+          <br>传入的原列表
+          <br>
+          <b>@param is_deep=False [bool] (可选)</b>
+          <br>是否深度打扁
+        </p>
+        <pre>
+fn.flatten([1, [2], [3, [[4]]]])        # => [1, 2, 3, [[4]]]
+fn.flatten([1, [2], [3, [[4]]]], True)  # => [1, 2, 3, 4] </pre>
+
+        <p id="fnuniq">
+          <b class="header">fn.uniq</b>
+          <br>Produces a duplicate-free version of the array. In particular only the first occurence of each value is kept.
+          <br>
+          <code>
+            def uniq(src_list, path='/'):
+          </code>
+          <br>
+          <b>@param src_list [list|tuple|map]</b>
+          <br>传入的原列表
+          <br>
+          <b>@param path [str]</b>
+          <br>去重字段路径
+        </p>
+        <pre>
+demo_list = [False, [], False, True, [], {}, False, '']
+persons = [{"name": "Tom", "age": 12, "pet": {"species": "dog", "name": "Kitty"}},
+  {"name": "Tom", "age": 20, "pet": {"species": "cat", "name": "wang"}},
+  {"name": "Mary", "age": 35, "pet": {"species": "cat", "name": "mimi"}}]
+
+fn.uniq(("Tom", "Tom", "Jerry"))    # => ["Jerry", "Tom"]
+fn.uniq(["Tom", "Tom", "Jerry"])    # => ["Jerry", "Tom"]
+fn.uniq(demo_list)                  # => [False, [], True, {}, '']
+fn.uniq(persons, 'name')            # => []
+fn.uniq(persons, 'pet', 'species')  # => []</pre>
+
+        <p id="fnpluck">
+          <b class="header">fn.pluck</b>
+          <br>Pluck the collections element.
+          <br>
+          <code>
+            def pluck(body, *keys, **conf):
+          </code>
+          <br>
+          <b>@param body [list|dict]</b>
+          <br>传入的原列表
+          <br>
+          <b>@param keys [str]</b>
+          <br>合并的位置
+          <br>
+          <b>@param conf</b>
+          <br>is_uniq=False
+        </p>
+        <pre>
+persons = [{"name": "Tom", "hobbies": ["sing", "running"]},
+  {"name": "Jerry", "hobbies": []},
+  {"name": "Mary", "hobbies": ['hiking', 'sing']}]
+hobbies = fn.pluck(persons, 'hobbies')
+uniq_hobbies = fn.pluck(persons, 'hobbies', uniq=True)
+print(hobbies)      # => ["sing", "running", 'hiking', 'sing']
+print(hobbies_uniq) # => ["sing", "running", 'hiking']</pre>
+
+        <p id="fnevery">
+          <b class="header">fn.every</b>
+          <br>Returns true if all of the values in the list pass the predicate truth test. Short-circuits and stops traversing
+          the list if a false element is found.
+          <br>
+          <code>
+            def every(predicate, src_list):
+          </code>
+          <br>
+          <b>@param predicate [dict|function]</b>
+          <br>判断条件，可以是一个字典或返回bool值的函数
+          <br>
+          <b>@param src_list [list|tuple|map]</b>
+          <br>传入的原列表
+        </p>
+        <pre>
+persons = [{"name": "Tom", "age": 12, "sex": "m"},
+  {"name": "Jerry", "age": 20, "sex": "m"},
+  {"name": "Mary", "age": 35, "sex": "f"}]
+
+fn.every(5, [1, 1, 2, 3, 5, 8])             # => False
+fn.every({"sex": "m"}, persons)             # => False
+fn.every(lambda x: x['age'] > 18, persons)  # => False</pre>
+
+        <p id="fnsome">
+          <b class="header">fn.some</b>
+          <br>Returns true if any of the values in the list pass the predicate truth test. Short-circuits and stops traversing
+          the list if a true element is found.
+          <br>
+          <code>
+            def some(predicate, src_list):
+          </code>
+          <br>
+          <b>@param predicate [dict|function]</b>
+          <br>判断条件，可以是一个字典或返回bool值的函数
+          <br>
+          <b>@param src_list [list|tuple|map]</b>
+          <br>传入的原列表
+        </p>
+        <pre>
+persons = [{"name": "Tom", "age": 12, "sex": "m"},
+  {"name": "Jerry", "age": 20, "sex": "m"},
+  {"name": "Mary", "age": 35, "sex": "f"}]
+
+fn.some(5, [1, 1, 2, 3, 5, 8])             # => True
+fn.some({"sex": "m"}, persons)             # => True
+fn.some(lambda x: x['age'] > 18, persons)  # => True</pre>
+
+        <p id="fntolist">
+          <b class="header">fn.tolist</b>
+          <br>Return a listlized value.
+          <br>
+          <code>
+            def tolist(*values):
+          </code>
+          <br>
+          <b>@param values [any]</b>
+          <br>任意类型的值
+        </p>
+        <pre>
+fn.tolist()       # => []
+fn.tolist([])     # => []
+fn.tolist({})     # => [{}]
+fn.tolist(None)   # => [None]
+fn.tolist('str')  # => ['str']</pre>
+
+        <p id="fndrop">
+          <b class="header">fn.drop</b>
+          <br>Delete false values expect 0.
+          <br>
+          <code>
+            def drop(src_list, is_without_0=False):
+          </code>
+          <br>
+          <b>@param src_list [list|tuple|map]</b>
+          <br>传入的原列表
+          <br>
+          <b>@param is_without_0=False [bool]</b>
+          <br>是否去掉0，默认不去掉
+        </p>
+        <pre>
+tmp_list = [0, '', 3, None, [], {}, ['Yes'], 'Test']
+fn.drop(tmp_list)        # => [3, ['Yes'], 'Test']
+fn.drop(tmp_list, True)  # => [0, 3, ['Yes'], 'Test']</pre>
+
+        <h2 id="Type">Type</h2>
+
+        <p id="fntypeof">
+          <b class="header">fn.typeof</b>
+          <br>Verify is value in given types. types should be one or some key or value in the types_map below.
+          <br>
+          <code>
+            def typeof(value, *types):
+          </code>
+          <br>
+          <b>@param value [list|tuple|map]</b>
+          <br>待测试的值
+          <br>
+          <b>@param types [str|type]</b>
+          <br>
+          <b>'int'</b> or
+          <b>int</b>,
+          <br>
+          <b>'flt'</b> or
+          <b>float</b>,
+          <br>
+          <b>'str'</b> or
+          <b>str</b>,
+          <br>
+          <b>'bol'</b> or
+          <b>bool</b>,
+          <br>
+          <b>'dic'</b> or
+          <b>dict</b>,
+          <br>
+          <b>'lst'</b> or
+          <b>list</b>,
+          <br>
+          <b>'tup'</b> or
+          <b>tuple</b>,
+          <br>
+          <b>'uni'</b> or
+          <b>'unicode'</b>,
+          <br>
+          <b>'non'</b> or
+          <b>'NoneType'</b>,
+          <br>
+          <b>'fun'</b> or
+          <b>'function'</b>,
+          <br>
+          <b>'kis'</b> or
+          <b>'dict_keys'</b>,
+        </p>
+        <pre>
+fn.typeof(None, 'non')                # => True
+fn.typeof(True, 'str')                # => False
+fn.typeof([], 'map', 'lst', 'tup')    # => True
+fn.typeof(lambda x: x, 'fun')         # => True</pre>
+
+        <p id="fntypeval">
+          <b class="header">fn.typeval</b>
+          <br>Verify is value in given types. retury The value self or False by typeof check.
+          <br>
+          <code>
+            def typeval(value, *types):
+          </code>
+          <br>
+          <b>@param value [list|tuple|map]</b>
+          <br>待测试的值
+          <br>
+          <b>@param types [str|type]</b>
+          <br>The same to fn.typeof's types
+        </p>
+        <pre>
+fn.typeval('test', 'str')  # => 'test'
+fn.typeval([], 'lst')  # => []
+fn.typeval({}, 'lst')  # => False</pre>
+
+        <h2 id="Structure">Structure</h2>
+
+        <p id="fnget">
+          <b class="header">fn.get</b>
+          <br>Get values form dict or list.
+          <br>
+          <code>
+              def get(origin, path, *types):
+            </code>
+          <br>
+          <b>@param origin [list|dict]</b>
+          <br>传入的原值
+          <br>
+          <b>@param path [str]</b>
+          <br>值所在的字段路径
+          <br>
+          <b>@param types [str|type]</b>
+          <br>指定值的类型
+        </p>
+        <pre>
+fn.typeval('test', 'str')  # => 'test'
+fn.typeval([], 'lst')      # => []
+fn.typeval({}, 'lst')      # => False</pre>
+
+        <p id="fndump">
+          <b class="header">fn.dump</b>
+          <br>Return a formatted json string.
+          <br>
+          <code>
+            def dump(_json, **conf):
+          </code>
+          <br>
+          <b>@param _json [list|dict]</b>
+          <br>传入的原值
+          <br>
+          <b>@param conf</b>
+          <br>sort_keys=True, indent=2
+        </p>
+        <pre>
+persons = [{"name": "Tom", "hobbies": ["sing", "running"]},
+  {"name": "Jerry", "hobbies": []}]
+print(fn.dump(persons)) #=>
+[
+    {
+    "hobbies": [
+        "sing", 
+        "running"
+    ], 
+    "name": "Tom"
+    }, 
+    {
+    "hobbies": [], 
+    "name": "Jerry"
+    }
+]</pre>
+
+        <h2 id="RegExp">RegExp</h2>
+
+        <p id="fntest">
+          <b class="header">fn.test</b>
+          <br>Varify is the match successful, a boolean value will be returned.
+          <br>
+          <code>
+            def test(pattern, origin):
+          </code>
+          <br>
+          <b>@param pattern [re]</b>
+          <br>传入正则
+          <br>
+          <b>@param origin [str]</b>
+          <br>待判定的原字符串
+        </p>
+        <pre>
+fn.test(r'ab', 'Hello World!')  # => False
+fn.test(r'll', 'Hello World!')  # => True</pre>
+
+        <p id="fnreplace">
+          <b class="header">fn.replace</b>
+          <br>Replace sub string of the origin string with re.sub()
+          <br>
+          <code>
+            def replace(*args):
+          </code>
+          <br>用法与python的re相同
+        </p>
+        <pre>
+print(fn.replace(r'Tom', 'Jack', 'Hello I\'m Tom!')) # => Hello I'm Jack!</pre>
+
+        <h2 id="Utils">Utils</h2>
+
+        <p id="fniscan">
+          <b class="header">fn.iscan</b>
+          <br>Test is the expression valid, a boolean value will be returned.
+          <br>
+          <code>
+            def iscan(exp):
+          </code>
+          <br>
+          <b>@param exp [str]</b>
+          <br>字符串表达式
+        </p>
+        <pre>
+print(fn.iscan("int('a')"))  # => False
+print(fn.iscan("int('5')"))  # => True</pre>
+
+        <p id="fnlog">
+          <b class="header">fn.log</b>
+          <br>Show log clear in console.
+          <br>
+          <code>
+            def log(*values, **conf):
+          </code>
+          <br>
+          <b>@param values [any]</b>
+          <br>需要打印的值
+          <br>
+          <b>@param conf</b>
+          <br>width=68, title='funclib 2.1.6', pre=False, end=False,
+        </p>
+        <pre>
+persons = [{"name": "Tom", "hobbies": ["sing", "running"]}]
+fn.log(persons)  # =>
+==========================================================
+                    [12:22:35] funclib 2.1.6
+----------------------------------------------------------
+[
+    {
+        "hobbies": [
+            "sing", 
+            "running"
+        ], 
+        "name": "Tom"
+    }
+]
+==========================================================</pre>
+
+        <p id="fntimer">
+          <b class="header">fn.timer</b>
+          <br>Set a timer with interval and timeout limit.
+          <br>
+          <code>
+            def timer(func, times=60, interval=1):
+          </code>
+          <br>
+          <b>@param func [function]</b>
+          <br>定时触发的函数
+        </p>
+        <pre>
+count = 0
+def fn():
+    global count
+    if count == 4:
+        return True
+    count += 1
+    print(count)
+fn.timer(fn, 10, 2)
+# =>
+>>> 1  #at 0s
+>>> 2  #at 2s
+>>> 3  #at 4s
+>>> 4  #at 4s</pre>
+
+        <p id="fnnow">
+          <b class="header">fn.now</b>
+          <br>Return system now time.
+          <br>
+          <code>
+            def now():
+          </code>
+        </p>
+        <pre>
+fn.now()  #=> 2018-07-26 14:34:26</pre>
+
+        <p id="fnclear">
+          <b class="header">fn.clear</b>
+          <br>Clear the terminam screen.
+          <br>
+          <code>
+            def clear():
+          </code>
+        </p>
+        <pre>
+$ python
+>>> from funclib import fn
+>>> fn.clear()</pre>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Include funclib.py, so you can play with it in the console. -->
+  <script type="text/javascript" src="../../lib/funclib/funclib.min.js"></script>
+  <script type="text/javascript" src="../../js/main-3d2ce8e4c4.js"></script>
+</body>
+
+</html>
