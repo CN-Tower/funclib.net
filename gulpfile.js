@@ -14,10 +14,7 @@ gulp.task('dev', ['openSrc', 'watch']);
 
 // npm run build
 gulp.task('build', function (done) {
-  runSequence(
-    'clean', 'revCss', 'revHtmlCss', 'revJs', 'revHtmlJs',
-    'revImg', 'revHtmlImg', 'copyLib', 'openDist', done
-  );
+  runSequence( 'clean', 'revAssets', 'revReplace', 'copyLib', 'openDist', done );
 });
 
 /**
@@ -33,9 +30,7 @@ gulp.task('openDist', function () {
 });
 
 gulp.task('watch', function () {
-  gulp.watch('./src/**/**', function () {
-    browserSync.reload();
-  });
+  gulp.watch('./src/**', function () { browserSync.reload(); });
 });
 
 /**
@@ -43,65 +38,28 @@ gulp.task('watch', function () {
  * ===================================================
  */
 gulp.task('clean', function () {
-  return gulp.src('./dist')
-    .pipe(clean());
+  return gulp.src('./dist').pipe(clean());
 });
 
-gulp.task('revCss', function () {
-  return gulp.src(['./src/**/*.css', '!./src/lib/**/*.css'])
-    .pipe(rev())                                //给文件添加hash编码
-    .pipe(gulp.dest('./dist'))
-    .pipe(rev.manifest())                       //生成rev-mainfest.json文件作为记录
-    .pipe(gulp.dest('./rev/css'));
+gulp.task('revAssets', function () {
+  return gulp.src(['./src/assets/**', '!./src/assets/lib/**'])
+    .pipe(rev())                 //给文件添加hash编码
+    .pipe(gulp.dest('./dist/assets'))
+    .pipe(rev.manifest())        //生成rev-mainfest.json文件作为记录
+    .pipe(gulp.dest('./rev'));
 });
 
-gulp.task('revHtmlCss', function () {
+gulp.task('revReplace', function () {
   return gulp.src([
-    './rev/css/*.json',
-    './src/**/*.html', '!./src/lib/**/*.html'
-  ]).pipe(revCollector())                         //替换html中对应的记录
-    .pipe(gulp.dest('./dist'));                   //输出到该文件夹中
-});
-
-gulp.task('revJs', function () {
-  return gulp.src(['./src/**/*.js', '!./src/lib/**/*.js'])
-    .pipe(rev())
-    .pipe(gulp.dest('./dist'))
-    .pipe(rev.manifest())
-    .pipe(gulp.dest('./rev/js'));
-});
-
-gulp.task('revHtmlJs', function () {
-  return gulp.src([
-    './rev/js/*.json',
-    './dist/**/*.html', '!./dist/lib/**/*.html'
-  ]).pipe(revCollector())
-    .pipe(gulp.dest('./dist'));
-});
-
-gulp.task('revImg', function () {
-  return gulp.src([
-    './src/**/*.jpg', '!./src/lib/**/*.jpg',
-    './src/**/*.jpeg', '!./src/lib/**/*.jpeg',
-    './src/**/*.png', '!./src/lib/**/*.png',
-    './src/**/*.gif', '!./src/lib/**/*.gif',
-    './src/**/*.ico', '!./src/lib/**/*.ico',
-  ]).pipe(rev())
-    .pipe(gulp.dest('./dist'))
-    .pipe(rev.manifest())
-    .pipe(gulp.dest('./rev/img'));
-});
-
-gulp.task('revHtmlImg', function () {
-  return gulp.src([
-    './rev/img/*.json',
-    './dist/**/*.css', '!./dist/lib/**/*.css',
-    './dist/**/*.html', '!./dist/lib/**/*.html'
-  ]).pipe(revCollector())
-    .pipe(gulp.dest('./dist'));
+    './rev/*.json',
+    './dist/**/*.css',
+    './dist/**/*.js',
+    './dist/**/*.html',
+    './src/index.html'
+  ]).pipe(revCollector())        //替换css/js/html中对应的记录
+    .pipe(gulp.dest('./dist'));  //输出到该文件夹中
 });
 
 gulp.task('copyLib', function () {
-  gulp.src(['./src/lib/**/**'])
-    .pipe(gulp.dest('./dist/lib'));
+  gulp.src(['./src/assets/lib/**']).pipe(gulp.dest('./dist/assets/lib'));
 });
