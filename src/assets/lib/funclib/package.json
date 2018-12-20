@@ -1,28 +1,28 @@
 {
-  "_from": "funclib@^3.1.2",
-  "_id": "funclib@3.1.3",
+  "_from": "funclib@^3.1.3",
+  "_id": "funclib@3.1.5",
   "_inBundle": false,
-  "_integrity": "sha512-KM0/lFUY2JwTG/wxhdQfC90CxUwOZqcRyHEO0lymT+5nMkg8pJxp/3QFW99aXP9V7EqlCGmtuhJ0ANqWbbAGBA==",
+  "_integrity": "sha512-dH3QXGDj5bfA1D01Ar+yiDjdVInBEjdNWbxgVZGm3JAQNiFTxBJ/sG8UsWvdmX5aQbh4bJN7pyXjweLv7TVNPQ==",
   "_location": "/funclib",
   "_phantomChildren": {},
   "_requested": {
     "type": "range",
     "registry": true,
-    "raw": "funclib@^3.1.2",
+    "raw": "funclib@^3.1.3",
     "name": "funclib",
     "escapedName": "funclib",
-    "rawSpec": "^3.1.2",
+    "rawSpec": "^3.1.3",
     "saveSpec": null,
-    "fetchSpec": "^3.1.2"
+    "fetchSpec": "^3.1.3"
   },
   "_requiredBy": [
     "#USER",
     "/"
   ],
-  "_resolved": "https://registry.npmjs.org/funclib/-/funclib-3.1.3.tgz",
-  "_shasum": "7331a98b84cab15ad7a12fd79267a5eeb70a7d99",
-  "_spec": "funclib@^3.1.2",
-  "_where": "D:\\Code\\funclib",
+  "_resolved": "https://registry.npmjs.org/funclib/-/funclib-3.1.5.tgz",
+  "_shasum": "8e257528bce595514d4ba714aeed5b14a1eac8a2",
+  "_spec": "funclib@^3.1.3",
+  "_where": "E:\\Code\\funclib",
   "author": {
     "name": "CN-Tower"
   },
@@ -34,13 +34,13 @@
     "progress": "^2.0.0"
   },
   "deprecated": false,
-  "description": "A Powerful javascript functions lib!",
+  "description": "A Powerful javaScript function library!",
   "homepage": "https://github.com/CN-Tower/funclib.js#readme",
   "keywords": [
     "UMD",
     "funclib",
-    "javascript",
-    "functions"
+    "javaScript",
+    "library"
   ],
   "license": "MIT",
   "main": "index.js",
@@ -52,5 +52,5 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "version": "3.1.3"
+  "version": "3.1.5"
 }

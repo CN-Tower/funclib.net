@@ -2,12 +2,13 @@
   "name": "funclib.net",
   "author": "CN-Tower",
   "version": "1.0.0",
-  "description": "> 通用、实用、易用、好用，提高开发效率、提高代码质量、提高交付能力！",
+  "description": "以“通用、实用、易用、好用”为目标，能够提高开发效率、提高代码质量、提高交付能力！",
   "main": "main.js",
   "scripts": {
     "start": "gulp dev",
+    "check": "gulp check",
     "build": "gulp build",
-    "update": "node ./scripts/update-lib.js",
+    "update": "node ./scripts/update.js && npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,7 +21,7 @@
   },
   "homepage": "https://github.com/CN-Tower/funclib#readme",
   "dependencies": {
-    "funclib": "^3.1.3"
+    "funclib": "^3.1.5"
   },
   "devDependencies": {
     "browser-sync": "^2.24.5",

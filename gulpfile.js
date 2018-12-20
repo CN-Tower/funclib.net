@@ -3,18 +3,22 @@ var gulp = require('gulp'),
   runSequence = require('run-sequence'),
   rev = require('gulp-rev'),
   revCollector = require('gulp-rev-collector'),
-  clean = require('gulp-clean');
+  clean = require('gulp-clean'),
+  fn = require('funclib');
 
 /**
  * 任务入口
  * ===================================================
  */
 // npm start
-gulp.task('dev', ['openSrc', 'watch']);
+gulp.task('dev', ['openSrc', 'watchSrc']);
+
+// npm run check
+gulp.task('check', ['openDist', 'watchDist']);
 
 // npm run build
 gulp.task('build', function (done) {
-  runSequence( 'clean', 'revAssets', 'revReplace', 'copyLib', 'openDist', done );
+  runSequence( 'clean', 'revAssets', 'revReplace', 'copyLib', 'logInfo', done );
 });
 
 /**
@@ -25,12 +29,16 @@ gulp.task('openSrc', function () {
   browserSync.init({ server: './src', port: 8081 });
 });
 
+gulp.task('watchSrc', function () {
+  gulp.watch('./src/**', function () { browserSync.reload(); });
+});
+
 gulp.task('openDist', function () {
   browserSync.init({ server: './dist', port: 8082 });
 });
 
-gulp.task('watch', function () {
-  gulp.watch('./src/**', function () { browserSync.reload(); });
+gulp.task('watchDist', function () {
+  gulp.watch('./dist/**', function () { browserSync.reload(); });
 });
 
 /**
@@ -62,4 +70,8 @@ gulp.task('revReplace', function () {
 
 gulp.task('copyLib', function () {
   gulp.src(['./src/assets/lib/**']).pipe(gulp.dest('./dist/assets/lib'));
+});
+
+gulp.task('logInfo', function() {
+  fn.defer(() => fn.log('构建成功！', 'Gulp'));
 });
