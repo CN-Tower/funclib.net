@@ -36,7 +36,8 @@
       </a>&nbsp;&nbsp;
 
       <select id="version_select">
-        <option value="./index.html">v3.1.5</option>
+        <option value="./index.html">v3.1.9</option>
+        <option value="./assets/versions/js/funclib-v3.1.5.html">v3.1.5</option>
         <option value="./assets/versions/js/funclib-v2.2.10.html">v2.2.10</option>
       </select>
 
@@ -288,18 +289,6 @@
       </div>
 
       <div class="searchable_section">
-        <a class="toc_title" href="#Tricks"> Tricks </a>
-        <ul class="toc_section">
-          <li data-name="fncopytext">
-            <a href="#fncopytext">[c] fn.copyText</a>
-          </li>
-          <li data-name="fnnoconflict">
-            <a href="#fnnoconflict">fn.noConflict</a>
-          </li>
-        </ul>
-      </div>
-
-      <div class="searchable_section">
         <a class="toc_title" href="#Loger"> Loger </a>
         <ul class="toc_section">
           <li data-name="fnchalk">
@@ -335,14 +324,8 @@
           <li data-name="fnsize">
             <a href="#fnsize">[s] fn.size</a>
           </li>
-        </ul>
-      </div>
-
-      <div class="searchable_section">
-        <a class="toc_title" href="#OOP"> OOP </a>
-        <ul class="toc_section">
-          <li data-name="fnmethod">
-            <a href="#fnmethod">fn().method</a>
+          <li data-name="fncopytext">
+            <a href="#fncopytext">[c] fn.copyText</a>
           </li>
         </ul>
       </div>
@@ -360,8 +343,20 @@
       </div>
 
       <div class="searchable_section">
-        <a class="toc_title" href="#Version"> Version </a>
+        <a class="toc_title" href="#OOP"> OOP </a>
         <ul class="toc_section">
+          <li data-name="fnmethod">
+            <a href="#fnmethod">fn().method</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="searchable_section">
+        <a class="toc_title" href="#Tricks"> Tricks </a>
+        <ul class="toc_section">
+          <li data-name="fnnoconflict">
+            <a href="#fnnoconflict">fn.noConflict</a>
+          </li>
           <li data-name="fnversion">
             <a href="#fnversion">fn.version</a>
           </li>
@@ -429,7 +424,7 @@
             <a href="./assets/lib/funclib/funclib.js" target="_blank">funclib.js</a>
           </td>
           <td>
-            <i>(v3.1.5) Development Version, Uncompressed</i>
+            <i>(v3.1.9) Development Version, Uncompressed</i>
           </td>
         </tr>
         <tr>
@@ -437,7 +432,7 @@
             <a href="./assets/lib/funclib/funclib.min.js" target="_blank">funclib.min.js</a>
           </td>
           <td>
-            <i>(v3.1.5) Production Version, Minified</i>
+            <i>(v3.1.9) Production Version, Minified</i>
           </td>
         </tr>
         <tr>
@@ -445,7 +440,7 @@
             <a href="./assets/lib/funclib/index.js" target="_blank">index.js</a>
           </td>
           <td>
-            <i>(v3.1.5) Server Side Version, Uncompressed</i>
+            <i>(v3.1.9) Server Side Version, Uncompressed</i>
           </td>
         </tr>
         <tr>
@@ -453,7 +448,7 @@
             <a href="./assets/lib/funclib/index.d.ts" target="_blank">index.d.ts</a>
           </td>
           <td>
-            <i>(v3.1.5) TypeScript Definition File</i>
+            <i>(v3.1.9) TypeScript Definition File</i>
           </td>
         </tr>
       </table>
@@ -1611,31 +1606,6 @@ fn.getCookie('name');  // Tom</pre>
           <pre>
 fn.removeCookie('name');</pre>
 
-          <h2 id="Tricks">Tricks</h2>
-
-          <p id="fncopytext">
-            <b class="header">fn.copyText</b>
-            <br>复制文本到粘贴板
-            <br>
-            <code>
-              fn.copyText(text);
-            </code>
-            <br>
-            <b>@param text : string</b>
-            <br>需要复制到粘贴板的文本
-          </p>
-          <pre>
-可使用：Ctrl + V，粘贴复制的内容</pre>
-
-          <p id="fnnoconflict">
-            <b class="header">fn.noConflict</b>
-            <br>释放fn变量占用权
-            <br>
-            <code>
-              fn.noConflict();
-            </code>
-          </p>
-
           <h2 id="Loger">Loger</h2>
 
           <p id="fnchalk">
@@ -1683,7 +1653,7 @@ console.log(fn.chalk('test', 'cyan'));</pre>
           <pre>
 fn.log([{name: 'tom', age: 22}], false);
 // =>
-[15:27:16] ( funclib(v3.1.5) ):
+[15:27:16] ( funclib(v3.1.9) ):
 [
   {
     "name": "tom",
@@ -1816,10 +1786,10 @@ fn.mk('C:\\Users\\Administrator\\Desktop\\test');</pre>
               fn.size(file, unit?, digit?);
             </code>
             <br>
-            <b>@param file   : string</b>
+            <b>@param file : string</b>
             <br>文件路径
             <br>
-            <b>@param unit  : 'b'|'kb'|'mb'|'gb'|'tb' = 'kb'</b>
+            <b>@param unit : 'b'|'kb'|'mb'|'gb'|'tb' = 'kb'</b>
             <br>文件大小的单位
             <br>
             <b>@param digit : number = 2</b>
@@ -1828,26 +1798,19 @@ fn.mk('C:\\Users\\Administrator\\Desktop\\test');</pre>
           <pre>
 fn.size('C:\\Users\\Administrator\\Desktop\\test\\test.txt');</pre>
 
-          <h2 id="OOP">OOP</h2>
-
-          <p id="fnmethod">
-            <b class="header">fn().method</b>
-            <br>可把第一个参数传入fn()，剩余的参数传入method中，实现OOP风格的调用
+          <p id="fncopytext">
+            <b class="header">fn.copyText</b>
+            <br>复制文本到粘贴板
             <br>
             <code>
-              fn(data).method(...args);
+              fn.copyText(text);
             </code>
             <br>
-            <b>@param data : any</b>
-            <br>method方法的第一个参数
-            <br>
-            <b>@param args : ...any[]</b>
-            <br>method方法除去第一个参数后的剩余参数
+            <b>@param text : string</b>
+            <br>需要复制到粘贴板的文本
           </p>
           <pre>
-var persons = [{name:'Tom', age: 22}, {name:'Jerry', age: 18}];
-fn(persons).find({name: 'Tom'});            // {name:'Tom', age: 22}
-fn(persons).find(ps => ps.name === 'Tom');  // {name:'Tom', age: 22}</pre>
+可使用：Ctrl + V，粘贴复制的内容</pre>
 
           <h2 id="Progress">Progress</h2>
 
@@ -1885,7 +1848,38 @@ Test [================                        ] 40%</pre>
           <pre>
 fn.progress.stop(() => { // Do something... });</pre>
 
-          <h2 id="Version">Version</h2>
+          <p id="fnmethod">
+            <b class="header">fn().method</b>
+            <br>可把第一个参数传入fn()，剩余的参数传入method中，实现OOP风格的调用
+            <br>
+            <code>
+              fn(data).method(...args);
+            </code>
+            <br>
+            <b>@param data : any</b>
+            <br>method方法的第一个参数
+            <br>
+            <b>@param args : ...any[]</b>
+            <br>method方法除去第一个参数后的剩余参数
+          </p>
+          <pre>
+var persons = [{name:'Tom', age: 22}, {name:'Jerry', age: 18}];
+fn(persons).find({name: 'Tom'});            // {name:'Tom', age: 22}
+fn(persons).find(ps => ps.name === 'Tom');  // {name:'Tom', age: 22}</pre>
+
+          <h2 id="Tricks">Tricks</h2>
+
+          <p id="fnnoconflict">
+            <b class="header">fn.noConflict</b>
+            <br>释放fn变量占用权
+            <br>
+            <code>
+              fn.noConflict();
+            </code>
+          </p>
+          <pre>
+fn.noConflict();  // [Funclib]
+console.log(fn)   // undefined</pre>
 
           <p id="fnversion">
             <b class="header">fn.version</b>
@@ -1896,7 +1890,7 @@ fn.progress.stop(() => { // Do something... });</pre>
             </code>
           </p>
           <pre>
-fn.version;  //3.1.5 </pre>
+fn.version;  //3.1.9 </pre>
 
           <h2 id="changelog">Change Log</h2>
 
@@ -2033,6 +2027,31 @@ fn.version;  //3.1.5 </pre>
             <br>
             <b>fn.log()</b>
             <br>增加时间可选配置
+          </p>
+
+          <p>
+            <b class="header">3.1.9</b> &mdash;
+            <small>
+              <i>2018-12-22</i>
+            </small>
+            <br>
+            <strong>【删除方法】:</strong>
+            <br>
+            <b>fn.progress.start()</b>
+            <br>改为: fn.progress() 进度显示工具
+            <br>
+            <strong>【增加方法】:</strong>
+            <br>
+            <b>fn.each()</b>
+            <br>同: fn.forEach() 遍历数组或类数组
+            <br>
+            <strong>【修改方法】：</strong>
+            <br>
+            <b>fn.progress()</b>
+            <br>修改自: fn.progress.start()
+            <br>
+            <strong>【其它升级】：</strong>
+            <br><i>[1]</i>优化index.d.ts，有更好的vs-code体验
           </p>
       </div>
     </div>

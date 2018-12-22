@@ -1,10 +1,11 @@
-var gulp = require('gulp'),
+const gulp = require('gulp'),
   browserSync = require('browser-sync').create(),
   runSequence = require('run-sequence'),
   rev = require('gulp-rev'),
-  revCollector = require('gulp-rev-collector'),
+  revAll = require('gulp-rev-all'),
   clean = require('gulp-clean'),
-  fn = require('funclib');
+  fn = require('funclib'),
+  path = require('path');
 
 /**
  * 任务入口
@@ -14,64 +15,58 @@ var gulp = require('gulp'),
 gulp.task('dev', ['openSrc', 'watchSrc']);
 
 // npm run check
-gulp.task('check', ['openDist', 'watchDist']);
+gulp.task('check', ['openDist']);
 
 // npm run build
-gulp.task('build', function (done) {
-  runSequence( 'clean', 'revAssets', 'revReplace', 'copyLib', 'logInfo', done );
-});
+gulp.task('build', done => runSequence(
+  'clean', 'revAssets', 'copyLib', 'logInfo', 'openDist', done
+));
 
 /**
  * browser-sync相关任务
  * ===================================================
  */
-gulp.task('openSrc', function () {
+gulp.task('openSrc', () => {
   browserSync.init({ server: './src', port: 8081 });
 });
 
-gulp.task('watchSrc', function () {
-  gulp.watch('./src/**', function () { browserSync.reload(); });
+gulp.task('watchSrc', () => {
+  gulp.watch('./src/**', () => browserSync.reload());
 });
 
-gulp.task('openDist', function () {
+gulp.task('openDist', () => {
   browserSync.init({ server: './dist', port: 8082 });
-});
-
-gulp.task('watchDist', function () {
-  gulp.watch('./dist/**', function () { browserSync.reload(); });
 });
 
 /**
  * rev相关任务
  * ===================================================
  */
-gulp.task('clean', function () {
+gulp.task('clean', () => {
   return gulp.src('./dist').pipe(clean());
 });
 
-gulp.task('revAssets', function () {
-  return gulp.src(['./src/assets/**', '!./src/assets/lib/**'])
-    .pipe(rev())                 //给文件添加hash编码
-    .pipe(gulp.dest('./dist/assets'))
-    .pipe(rev.manifest())        //生成rev-mainfest.json文件作为记录
-    .pipe(gulp.dest('./rev'));
+gulp.task('revAssets', () => {
+  return gulp.src(['./src/**', '!./src/assets/lib/**'])
+    .pipe(revAll.revision({
+      dontRenameFile: [/favicon.ico/g, /index.html/g],
+      transformFilename: (file, hash) => {
+        if (['index.html', 'favicon.ico'].some(fl => fn.contains(file.path, fl))) {
+          return path.basename(file.path);
+        }
+        const ext = path.extname(file.path);
+        return path.basename(file.path, ext) + '-' + hash.substr(0, 12) + ext;
+      }
+    }))
+    .pipe(gulp.dest("./dist"))
+    .pipe(rev.manifest())
+    .pipe(gulp.dest('./rev'));;
 });
 
-gulp.task('revReplace', function () {
-  return gulp.src([
-    './rev/*.json',
-    './dist/**/*.css',
-    './dist/**/*.js',
-    './dist/**/*.html',
-    './src/index.html'
-  ]).pipe(revCollector())        //替换css/js/html中对应的记录
-    .pipe(gulp.dest('./dist'));  //输出到该文件夹中
-});
-
-gulp.task('copyLib', function () {
+gulp.task('copyLib', () => {
   gulp.src(['./src/assets/lib/**']).pipe(gulp.dest('./dist/assets/lib'));
 });
 
-gulp.task('logInfo', function() {
+gulp.task('logInfo', () => {
   fn.defer(() => fn.log('构建成功！', 'Gulp'));
 });
