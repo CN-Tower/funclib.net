@@ -1,7 +1,7 @@
 const fn = require('funclib');
 const path = require('path');
 
-const lib = path.resolve('./src/assets/lib');
+const lib = path.resolve('./src/lib');
 const fnLib = path.join(lib, 'funclib');
 const newFn = path.resolve('node_modules/funclib');
 

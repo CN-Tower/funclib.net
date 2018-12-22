@@ -19,7 +19,7 @@ gulp.task('check', ['openDist']);
 
 // npm run build
 gulp.task('build', done => runSequence(
-  'clean', 'revAssets', 'copyLib', 'logInfo', 'openDist', done
+  'clean', 'revSrc', 'copyLib', 'logInfo', 'openDist', done
 ));
 
 /**
@@ -46,8 +46,8 @@ gulp.task('clean', () => {
   return gulp.src('./dist').pipe(clean());
 });
 
-gulp.task('revAssets', () => {
-  return gulp.src(['./src/**', '!./src/assets/lib/**'])
+gulp.task('revSrc', () => {
+  return gulp.src(['./src/**', '!./src/lib/**'])
     .pipe(revAll.revision({
       dontRenameFile: [/favicon.ico/g, /index.html/g],
       transformFilename: (file, hash) => {
@@ -64,7 +64,7 @@ gulp.task('revAssets', () => {
 });
 
 gulp.task('copyLib', () => {
-  gulp.src(['./src/assets/lib/**']).pipe(gulp.dest('./dist/assets/lib'));
+  gulp.src(['./src/lib/**']).pipe(gulp.dest('./dist/lib'));
 });
 
 gulp.task('logInfo', () => {
