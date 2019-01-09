@@ -39,7 +39,8 @@
       </a>&nbsp;&nbsp;
 
       <select id="version_select">
-        <option value="./index.html">v3.1.12</option>
+        <option value="./index.html">v3.2.2</option>
+        <option value="./versions/js/funclib-v3.1.12.html">v3.1.12</option>
         <option value="./versions/js/funclib-v3.1.9.html">v3.1.9</option>
         <option value="./versions/js/funclib-v3.1.5.html">v3.1.5</option>
         <option value="./versions/js/funclib-v2.2.10.html">v2.2.10</option>
@@ -244,6 +245,9 @@
           <li data-name="fngetpattern">
             <a href="#fngetpattern">fn.getPattern</a>
           </li>
+          <li data-name="fntestpattern">
+            <a href="#fntestpattern">fn.testPattern</a>
+          </li>
           <li data-name="fnmatchpattern">
             <a href="#fnmatchpattern">fn.matchPattern</a>
           </li>
@@ -253,6 +257,9 @@
       <div class="searchable_section">
         <a class="toc_title" href="#Function"> Function </a>
         <ul class="toc_section">
+          <li data-name="fnrestargs">
+            <a href="#fnrestargs">fn.restArgs</a>
+          </li>
           <li data-name="fnthrottle">
             <a href="#fnthrottle">fn.throttle</a>
           </li>
@@ -431,7 +438,7 @@
             <a href="./lib/funclib/funclib.js" target="_blank">funclib.js</a>
           </td>
           <td>
-            <i>(v3.1.12) Development Version, Uncompressed</i>
+            <i>(v3.2.2) Development Version, Uncompressed</i>
           </td>
         </tr>
         <tr>
@@ -439,7 +446,7 @@
             <a href="./lib/funclib/funclib.min.js" target="_blank">funclib.min.js</a>
           </td>
           <td>
-            <i>(v3.1.12) Production Version, Minified</i>
+            <i>(v3.2.2) Production Version, Minified</i>
           </td>
         </tr>
         <tr>
@@ -447,7 +454,7 @@
             <a href="./lib/funclib/index.js" target="_blank">index.js</a>
           </td>
           <td>
-            <i>(v3.1.12) Server Side Version, Uncompressed</i>
+            <i>(v3.2.2) Server Side Version, Uncompressed</i>
           </td>
         </tr>
         <tr>
@@ -455,7 +462,7 @@
             <a href="./lib/funclib/index.d.ts" target="_blank">index.d.ts</a>
           </td>
           <td>
-            <i>(v3.1.12) TypeScript Definition File</i>
+            <i>(v3.2.2) TypeScript Definition File</i>
           </td>
         </tr>
       </table>
@@ -1222,7 +1229,7 @@ fn.fmtDate('yy-MM-dd hh:mm', date);             // 18-06-06 12:30</pre>
           <br>用来匹配的字符串
           <br>
           <b>@param cases ：object</b>
-          <br>匹配对象，可以包含'@dft'或'@default'项为默认匹配项
+          <br>匹配对象，可以包含'default'项为默认匹配项
           <br>匹配项，可以包含'@pass'值，当包含该值时，匹配结果同其下一项相同
           <br>
           <b>@param isExec : boolean = true</b>
@@ -1232,11 +1239,10 @@ fn.fmtDate('yy-MM-dd hh:mm', date);             // 18-06-06 12:30</pre>
 fn.match('b', {'a': 'aaa', 'b': 'bbb', c: 'ccc'});         // 'bbb'
 fn.match('b', {'a': 'aaa', 'b': '@pass', c: 'ccc'});       // 'ccc'
 fn.match('c', {'a': 'aaa', 'b': () => 'bbb', c: 'ccc'});  // undefine
-fn.match('c', {'a': 'aaa', b: 'bbb', '@dft': 'ddd'});      // 'ddd'
-fn.match('c', {'a': 'aaa', b: 'bbb', '@default': 'ddd'});  // 'ddd'
+fn.match('c', {'a': 'aaa', b: 'bbb', 'default': 'ddd'});  // 'ddd'
 fn.match('c', {                                            // 'ccc'
   'a': 'aaa',
-  '@default': s => s === 'c' ? 'ccc' : 'ddd'
+  'default': s => s === 'c' ? 'ccc' : 'ddd'
 });</pre>
 
         <p id="fnpretty">
@@ -1407,7 +1413,7 @@ fn.matchPattern('test', 'myPtn');   // true</pre>
             <br>
             <b>cnChar</b>: 汉字
             <br>
-            <b>dblBitChar</b>: 双字节字符
+            <b>dbChar</b>: 双字节字符
             <br>
             <b>mobPhone</b>: 中国大陆电话号码
             <br>
@@ -1416,6 +1422,8 @@ fn.matchPattern('test', 'myPtn');   // true</pre>
             <b>email</b>: Email
             <br>
             <b>idCard</b>: 中国大陆身份证
+            <br>
+            <b>uuid</b>: uuid: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
             <br>
             <b>base64Code</b>: Base64编码格式
             <br>
@@ -1442,6 +1450,27 @@ fn.matchPattern('test', 'myPtn');   // true</pre>
 fn.getPattern('cnChar');       // /^[\u4e00-\u9fa5]+$/
 fn.getPattern('cnChar', false); // /[\u4e00-\u9fa5]+/</pre>
 
+          <p id="fntestpattern">
+            <b class="header">fn.fntestpattern</b>
+            <br>用一个或几个通用正则测试
+            <br>
+            <code>
+              fn.matchPattern(srcStr, _type, limit?);
+            </code>
+            <br>
+            <b>@param srcStr : string</b>
+            <br>传入需要测试的字符串
+            <br>
+            <b>@param _type : ...string[]|string[]</b>
+            <br>正则名称，可以是一个名称或多个名称
+            <br>
+            <b>@param limit : boolean = true</b>
+            <br>是否强制加首尾限制(^和$)，默认为true
+          </p>
+          <pre>
+fn.fntestpattern('cntower@yahoo.com', 'mobPhone'); // false
+fn.fntestpattern('cntower@yahoo.com', 'email');    // true</pre>
+
           <p id="fnmatchpattern">
             <b class="header">fn.matchPattern</b>
             <br>与一个或几个通用正则匹配
@@ -1461,9 +1490,23 @@ fn.getPattern('cnChar', false); // /[\u4e00-\u9fa5]+/</pre>
           </p>
           <pre>
 fn.matchPattern('cntower@yahoo.com', 'mobPhone'); // false
-fn.matchPattern('cntower@yahoo.com', 'email');    // true</pre>
+fn.matchPattern('cntower@yahoo.com', 'email');    // [...mtchResult]</pre>
 
           <h2 id="Function">Function</h2>
+
+          <p id="fnrestargs">
+            <b class="header">fn.restArgs</b>
+            <br>获取函数的剩余参数
+            <br>
+            <code>
+                fn.restArgs(srcFunc);
+              </code>
+            <br>
+            <b>@param srcFunc : function</b>
+            <br>需要获取剩余参数的原函数
+          </p>
+          <pre>
+fn.restArgs(function(args) {fn.log(args)})('a', 'b'); // ['a', 'b']</pre>
 
           <p id="fnthrottle">
             <b class="header">fn.throttle</b>
@@ -1681,7 +1724,7 @@ console.log(fn.chalk('test', 'cyan'));</pre>
           <pre>
 fn.log([{name: 'tom', age: 22}], false);
 // =>
-[15:27:16] ( funclib(v3.1.12) ):
+[15:27:16] ( funclib(v3.2.2) ):
 [
   {
     "name": "tom",
@@ -1918,7 +1961,7 @@ console.log(fn)   // undefined</pre>
             </code>
           </p>
           <pre>
-fn.version;  //3.1.12 </pre>
+fn.version;  //3.2.2 </pre>
 
           <h2 id="changelog">Change Log</h2>
 
