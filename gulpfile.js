@@ -49,7 +49,7 @@ gulp.task('clean', () => {
 gulp.task('revSrc', () => {
   return gulp.src(['./src/**', '!./src/lib/**'])
     .pipe(revAll.revision({
-      dontRenameFile: [/favicon.ico/g, /index.html/g],
+      dontRenameFile: [/favicon.ico/g, /index.html/g, /py.html/g],
       transformFilename: (file, hash) => {
         if (['index.html', 'favicon.ico'].some(fl => fn.contains(file.path, fl))) {
           return path.basename(file.path);

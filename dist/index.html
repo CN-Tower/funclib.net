@@ -27,7 +27,7 @@
         <a href="./index.html">funclib.js</a>
       </li>
       <li>
-        <a href="./py-8dd4e5750068.html">funclib.py</a>
+        <a href="./py-ab85cd6fa768.html">funclib.py</a>
       </li>
     </ul>
   </header>
@@ -39,11 +39,11 @@
       </a>&nbsp;&nbsp;
 
       <select id="version_select">
-        <option value="./index.html">v3.2.2</option>
-        <option value="./versions/js/funclib-v3.1.12-68e39522aed8.html">v3.1.12</option>
-        <option value="./versions/js/funclib-v3.1.9-798b4b759a91.html">v3.1.9</option>
-        <option value="./versions/js/funclib-v3.1.5-80650d8a4360.html">v3.1.5</option>
-        <option value="./versions/js/funclib-v2.2.10-5461f4fec80f.html">v2.2.10</option>
+        <option value="./index.html">v3.2.4</option>
+        <option value="./versions/js/v3.1.12/index.html">v3.1.12</option>
+        <option value="./versions/js/v3.1.9/index.html">v3.1.9</option>
+        <option value="./versions/js/v3.1.5/index.html">v3.1.5</option>
+        <option value="./versions/js/v2.2.10/index.html">v2.2.10</option>
       </select>
 
       <ul class="toc_section">
@@ -438,7 +438,7 @@
             <a href="./lib/funclib/funclib.js" target="_blank">funclib.js</a>
           </td>
           <td>
-            <i>(v3.2.2) Development Version, Uncompressed</i>
+            <i>(v3.2.4) Development Version, Uncompressed</i>
           </td>
         </tr>
         <tr>
@@ -446,7 +446,7 @@
             <a href="./lib/funclib/funclib.min.js" target="_blank">funclib.min.js</a>
           </td>
           <td>
-            <i>(v3.2.2) Production Version, Minified</i>
+            <i>(v3.2.4) Production Version, Minified</i>
           </td>
         </tr>
         <tr>
@@ -454,7 +454,7 @@
             <a href="./lib/funclib/index.js" target="_blank">index.js</a>
           </td>
           <td>
-            <i>(v3.2.2) Server Side Version, Uncompressed</i>
+            <i>(v3.2.4) Server Side Version, Uncompressed</i>
           </td>
         </tr>
         <tr>
@@ -462,7 +462,7 @@
             <a href="./lib/funclib/index.d.ts" target="_blank">index.d.ts</a>
           </td>
           <td>
-            <i>(v3.2.2) TypeScript Definition File</i>
+            <i>(v3.2.4) TypeScript Definition File</i>
           </td>
         </tr>
       </table>
@@ -502,13 +502,13 @@ $ node
           <br>检查值的类型
           <br>
           <code>
-            fn.typeOf(value, _type, ...types);
+            fn.typeOf(value, type_, ...types);
           </code>
           <br>
           <b>@param value : any</b>
           <br>接收一个任意类型的值
           <br>
-          <b>@param _type : string</b>
+          <b>@param type_ : string</b>
           <br>接收一个类型字符串,可以是类型简写（如："udf" 对应 "undefined"），也可以是js标准类型的 全称（如："string"），或者类型的枚举或数组（如：'str', 'arr' 或 ['str,
           arr']）
           <br>
@@ -533,13 +533,13 @@ fn.typeOf(undefined, ['str', 'udf']); // true</pre>
           <br>先检查值的类型，如果是true则返回该值，否则返回false
           <br>
           <code>
-            fn.typeVal(value, _type);
+            fn.typeVal(value, type_);
           </code>
           <br>
           <b>@param value : any</b>
           <br>接收一个任意类型的值
           <br>
-          <b>@param _type : string</b>
+          <b>@param type_ : string</b>
           <br>接收一个类型字符串,可以是类型简写（如："udf" 对应 "undefined"），也可以是js标准类型的 全称（如："string"），或者类型的枚举或数组（如：'str', 'arr' 或 ['str,
           arr']）
           <br>
@@ -1404,10 +1404,10 @@ fn.matchPattern('test', 'myPtn');   // true</pre>
             <br>获取一个通用的正则表达式
             <br>
             <code>
-              fn.getPattern(_type, limit?);
+              fn.getPattern(type_, limit?);
             </code>
             <br>
-            <b>@param _type : string</b>
+            <b>@param type_ : string</b>
             <br>传入正则名称
             <br>正则名称主要有：
             <br>
@@ -1455,13 +1455,13 @@ fn.getPattern('cnChar', false); // /[\u4e00-\u9fa5]+/</pre>
             <br>用一个或几个通用正则测试
             <br>
             <code>
-              fn.matchPattern(srcStr, _type, limit?);
+              fn.matchPattern(srcStr, type_, limit?);
             </code>
             <br>
             <b>@param srcStr : string</b>
             <br>传入需要测试的字符串
             <br>
-            <b>@param _type : ...string[]|string[]</b>
+            <b>@param type_ : ...string[]|string[]</b>
             <br>正则名称，可以是一个名称或多个名称
             <br>
             <b>@param limit : boolean = true</b>
@@ -1476,13 +1476,13 @@ fn.fntestpattern('cntower@yahoo.com', 'email');    // true</pre>
             <br>与一个或几个通用正则匹配
             <br>
             <code>
-              fn.matchPattern(srcStr, _type, limit?);
+              fn.matchPattern(srcStr, type_, limit?);
             </code>
             <br>
             <b>@param srcStr : string</b>
             <br>传入需要匹配的字符串
             <br>
-            <b>@param _type : ...string[]|string[]</b>
+            <b>@param type_ : ...string[]|string[]</b>
             <br>正则名称，可以是一个名称或多个名称
             <br>
             <b>@param limit : boolean = true</b>
@@ -1724,7 +1724,7 @@ console.log(fn.chalk('test', 'cyan'));</pre>
           <pre>
 fn.log([{name: 'tom', age: 22}], false);
 // =>
-[15:27:16] ( funclib(v3.2.2) ):
+[15:27:16] ( funclib(v3.2.4) ):
 [
   {
     "name": "tom",
@@ -1961,7 +1961,7 @@ console.log(fn)   // undefined</pre>
             </code>
           </p>
           <pre>
-fn.version;  //3.2.2 </pre>
+fn.version;  //3.2.4 </pre>
 
           <h2 id="changelog">Change Log</h2>
 
