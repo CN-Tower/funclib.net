@@ -1,6 +1,6 @@
 /**
  * @license
- * Funclib v3.2.2 <https://www.funclib.net>
+ * Funclib v3.2.4 <https://www.funclib.net>
  * GitHub Repository <https://github.com/CN-Tower/funclib.js>
  * Released under MIT license <https://github.com/CN-Tower/funclib.js/blob/master/LICENSE>
  */
@@ -21,12 +21,12 @@
  * fn.filter                [-] 根据条件取过滤值
  * fn.reject                [-] 根据条件过滤值
  * fn.contains              [-] 判断数组是否包含符合条件的值
- * fn.drop                  [-] 去掉空数组、空对象及布尔化后为false的值
+ * fn.drop                  [-] 去掉空数组空对象及布尔化后为false的值
  * fn.flatten               [-] 把有结构的数组打散，减少层数
  * fn.pluck                 [-] 把结构中的字段取出合并到一个数组中
  * fn.uniq                  [-] 去重或根据字段去重
- * fn.each                  [-] 遍历数组或类数组
- * fn.forEach               [-] 遍历数组或类数组, 同: fn.forEach
+ * fn.each                  [-] 遍历数组或类数组, 同: fn.forEach
+ * fn.forEach               [-] 遍历数组或类数组
  * fn.sortBy                [-] 返回对象数组根据字段排序后的副本
  ## Object
  * fn.len                   [-] 获取对象自有属性的个数
