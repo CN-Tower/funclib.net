@@ -27,7 +27,7 @@
         <a href="./index.html">funclib.js</a>
       </li>
       <li>
-        <a href="./py-ab85cd6fa768.html">funclib.py</a>
+        <a href="./py-9c34eccc9434.html">funclib.py</a>
       </li>
     </ul>
   </header>
@@ -1230,14 +1230,14 @@ fn.fmtDate('yy-MM-dd hh:mm', date);             // 18-06-06 12:30</pre>
           <br>
           <b>@param cases ：object</b>
           <br>匹配对象，可以包含'default'项为默认匹配项
-          <br>匹配项，可以包含'@pass'值，当包含该值时，匹配结果同其下一项相同
+          <br>匹配项，可以包含'@next'值，当包含该值时，匹配结果同其下一项相同
           <br>
           <b>@param isExec : boolean = true</b>
           <br>匹配对象的值为函数时，是否调用该函数，默认true
         </p>
         <pre>
 fn.match('b', {'a': 'aaa', 'b': 'bbb', c: 'ccc'});         // 'bbb'
-fn.match('b', {'a': 'aaa', 'b': '@pass', c: 'ccc'});       // 'ccc'
+fn.match('b', {'a': 'aaa', 'b': '@next', c: 'ccc'});       // 'ccc'
 fn.match('c', {'a': 'aaa', 'b': () => 'bbb', c: 'ccc'});  // undefine
 fn.match('c', {'a': 'aaa', b: 'bbb', 'default': 'ddd'});  // 'ddd'
 fn.match('c', {                                            // 'ccc'
