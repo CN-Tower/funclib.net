@@ -1,6 +1,6 @@
 /**
  * @license
- * Funclib v3.2.4 <https://www.funclib.net>
+ * Funclib v3.2.7 <https://www.funclib.net>
  * GitHub Repository <https://github.com/CN-Tower/funclib.js>
  * Released under MIT license <https://github.com/CN-Tower/funclib.js/blob/master/LICENSE>
  */
@@ -14,7 +14,7 @@
   var root = _global || _self || Function('return this')();
   var expFuncErr = new TypeError('Expected a function');
 
-  var version = '3.2.4';
+  var version = '3.2.7';
   var originalFn = root.fn;
 
   var fn = (function () {
@@ -96,8 +96,7 @@
           }
         };
         if (length === void 0) {
-          length = start;
-          start = undefined;
+          length = start, start = undefined;
           rangeLoop(false);
         } else if (typeOf(length, 'num')) {
           rangeLoop(true);
@@ -149,7 +148,7 @@
      * @param predicate : object|function|any
      */
     function filter(srcArr, predicate) {
-      return filterBase(srcArr, predicate, 'filter');
+      return filterBase(srcArr, predicate, true);
     }
 
     /**
@@ -158,10 +157,10 @@
      * @param predicate : object|function|any
       */
     function reject(srcArr, predicate) {
-      return filterBase(srcArr, predicate, 'reject');
+      return filterBase(srcArr, predicate, false);
     }
 
-    function filterBase(srcArr, predicate, type_) {
+    function filterBase(srcArr, predicate, isFilter) {
       var ftItems = [];
       var rjItems = [];
       forEach(srcArr, function (item) {
@@ -175,7 +174,7 @@
           predicate(item) ? ftItems.push(item) : rjItems.push(item);
         }
       });
-      return match(type_, { 'filter': ftItems, 'reject': rjItems });
+      return isFilter ? ftItems : rjItems;
     }
 
     /**
@@ -604,12 +603,12 @@
         params = [duration, 0], callback = params[0], duration = params[1];
       }
       if (typeOf(timerId, 'num') && typeOf(duration, 'fun')) {
-        params = [undefined, timerId, duration],
-          timerId = params[0], duration = params[1], callback = params[2];
+        params = [undefined, timerId, duration];
+        timerId = params[0], duration = params[1], callback = params[2];
       }
       if (typeOf(timerId, 'fun')) {
-        params = [undefined, 0, timerId],
-          timerId = params[0], duration = params[1], callback = params[2];
+        params = [undefined, 0, timerId];
+        timerId = params[0], duration = params[1], callback = params[2];
       }
       if (typeOf(callback, 'fun')) {
         if (typeOf(duration, 'num') && duration >= 0) {
@@ -633,13 +632,11 @@
     }
 
     /**
-     * [fn.timestamp] 返回一个当前时间戳
+     * [fn.timestamp] 返回一个时间戳
      * @param time : date|string|number [?]
      */
     function timestamp(time) {
-      var date = new Date(String(time));
-      if (!date.getTime()) date = new Date();
-      return date.getTime();
+      return dateBase(time).getTime();
     }
 
     /**
@@ -648,8 +645,8 @@
      * @param time   : date|string|number [?]
      */
     function fmtDate(fmtStr, time) {
-      var date = new Date(String(time));
-      if (!date.getTime()) date = new Date();
+      var date = dateBase(time);
+      if (!date.getTime()) return '';
       var obj = {
         'M+': date.getMonth() + 1,
         'd+': date.getDate(),
@@ -664,13 +661,17 @@
       }
       forIn(obj, function (k) {
         if (new RegExp('(' + k + ')').test(fmtStr)) {
-          fmtStr = fmtStr.replace(RegExp.$1, (RegExp.$1.length === 1)
-            ? obj[k]
-            : (('00' + obj[k]).substr((obj[k] + '').length))
+          fmtStr = fmtStr.replace(
+            RegExp.$1, (RegExp.$1.length === 1) ? obj[k] : (('00' + obj[k]).substr((obj[k] + '').length))
           );
         }
       });
       return fmtStr;
+    }
+
+    function dateBase(time) {
+      time = String(time);
+      return new Date(time.match(/^[0-9]*$/) ? +time : time);
     }
 
     /**
@@ -916,7 +917,7 @@
      */
     var testPattern = restArgs(function (srcStr, type_, types) {
       if (!srcStr || !type_) return false;
-      return patternBase(srcStr, [type_].concat(types), 'test');
+      return patternBase(srcStr, [type_].concat(types), true);
     });
 
     /**
@@ -928,10 +929,10 @@
      */
     var matchPattern = restArgs(function (srcStr, type_, types) {
       if (!srcStr || !type_) return null;
-      return patternBase(srcStr, [type_].concat(types), 'match');
+      return patternBase(srcStr, [type_].concat(types), false);
     });
 
-    function patternBase(srcStr, types, type_) {
+    function patternBase(srcStr, types, isTest) {
       var limit = true,
         ttRst = false, mtRst = null;
       if (types.length && typeOf(types[types.length - 1], 'bol')) {
@@ -940,15 +941,11 @@
       for (var i = 0; i < types.length; i++) {
         var pattern = getPattern(types[i], limit);
         if (pattern) {
-          if (type_ === 'test') {
-            ttRst = pattern.test(srcStr);
-          } else if (type_ === 'match') {
-            mtRst = srcStr.match(pattern);
-          }
+          isTest ? ttRst = pattern.test(srcStr) : mtRst = srcStr.match(pattern);
           if (ttRst || mtRst) break;
         }
       }
-      return match(type_, { 'test': ttRst, 'match': mtRst });
+      return isTest ? ttRst : mtRst;
     }
 
     /**
@@ -1132,7 +1129,7 @@
       }
       value = pretty(value);
       var isShowTime = has(configs, 'isShowTime') ? !!configs.isShowTime : true;
-      var time = isShowTime ? '[' + fmtDate('hh:mm:ss') + '] ' : '';
+      var time = isShowTime ? '[' + fmtDate('hh:mm:ss', new Date()) + '] ' : '';
       title = title.replace(/\n/mg, '');
       var originTtLength = (time + title + '[] ').length;
       if (!isFmt) {

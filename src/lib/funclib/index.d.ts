@@ -1,6 +1,6 @@
 /**
  * @license
- * Funclib v3.2.4 <https://www.funclib.net>
+ * Funclib v3.2.7 <https://www.funclib.net>
  * GitHub Repository <https://github.com/CN-Tower/funclib.js>
  * Released under MIT license <https://github.com/CN-Tower/funclib.js/blob/master/LICENSE>
  */
@@ -47,7 +47,7 @@
  * fn.interval              [-] 循环定时器
  * fn.timeout               [-] 延时定时器
  * fn.defer                 [-] 延迟执行函数
- * fn.timestamp             [-] 返回一个当前时间戳
+ * fn.timestamp             [-] 返回一个时间戳
  * fn.fmtDate               [-] 获取格式化的时间字符串
  ## String
  * fn.match                 [-] 字符串匹配
@@ -332,16 +332,16 @@ declare namespace fn {
      */
     defer(func: Function): void;
     /**
-     * [fn.timestamp] 返回一个当前时间戳
-     * @param time : date|string|number [?]
+     * [fn.timestamp] 返回一个时间戳
+     * @param time : date|string|number
      */
-    timestamp(time?: Date | string | number): number;
+    timestamp(time: Date | string | number): number;
     /**
      * [fn.fmtDate] 获取格式化的时间字符串
      * @param fmtStr : string
-     * @param time   : date|string|number [?]
+     * @param time   : date|string|number
      */
-    fmtDate(fmtStr: string, time?: Date | string | number): string;
+    fmtDate(fmtStr: string, time: Date | string | number): string;
     /**
      * [fn.match] 字符串匹配
      * @param source : any

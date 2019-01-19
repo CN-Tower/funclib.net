@@ -1,28 +1,28 @@
 {
-  "_from": "funclib@^3.2.2",
-  "_id": "funclib@3.2.4",
+  "_from": "funclib",
+  "_id": "funclib@3.2.7",
   "_inBundle": false,
-  "_integrity": "sha512-IKsKMmoJRJWW7YFNaEyRv8fd0jgW9cKqpgqyRnFy4Uq5Y4B3P5m6bWZPxkt9GdvSLs9EzRr7mpAjuJ3+w8MNBw==",
+  "_integrity": "sha1-TN/3V13s2fLdA9gkMhBU0mbwlwQ=",
   "_location": "/funclib",
   "_phantomChildren": {},
   "_requested": {
-    "type": "range",
+    "type": "tag",
     "registry": true,
-    "raw": "funclib@^3.2.2",
+    "raw": "funclib",
     "name": "funclib",
     "escapedName": "funclib",
-    "rawSpec": "^3.2.2",
+    "rawSpec": "",
     "saveSpec": null,
-    "fetchSpec": "^3.2.2"
+    "fetchSpec": "latest"
   },
   "_requiredBy": [
     "#USER",
     "/"
   ],
-  "_resolved": "https://registry.npmjs.org/funclib/-/funclib-3.2.4.tgz",
-  "_shasum": "feb9c802f2615c5d50a32097bc2876b37a42d60f",
-  "_spec": "funclib@^3.2.2",
-  "_where": "E:\\Code\\funclib",
+  "_resolved": "http://registry.npm.taobao.org/funclib/download/funclib-3.2.7.tgz",
+  "_shasum": "4cdff7575decd9f2dd03d824321054d266f09704",
+  "_spec": "funclib",
+  "_where": "E:\\work\\code\\funclib",
   "author": {
     "name": "CN-Tower"
   },
@@ -57,5 +57,5 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "version": "3.2.4"
+  "version": "3.2.7"
 }
