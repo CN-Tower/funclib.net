@@ -1,27 +1,27 @@
 {
-  "_from": "funclib",
-  "_id": "funclib@3.2.7",
+  "_from": "funclib@^3.2.8",
+  "_id": "funclib@3.2.9",
   "_inBundle": false,
-  "_integrity": "sha1-TN/3V13s2fLdA9gkMhBU0mbwlwQ=",
+  "_integrity": "sha512-Ax3tCcqCat01ntA3DZsDcCZ1uMo4DjrnfMQe44a5d0ZnxGWRSaZwJtU/WwWpUd81ZBvrw6QRu499RVp8niyjtA==",
   "_location": "/funclib",
   "_phantomChildren": {},
   "_requested": {
-    "type": "tag",
+    "type": "range",
     "registry": true,
-    "raw": "funclib",
+    "raw": "funclib@^3.2.8",
     "name": "funclib",
     "escapedName": "funclib",
-    "rawSpec": "",
+    "rawSpec": "^3.2.8",
     "saveSpec": null,
-    "fetchSpec": "latest"
+    "fetchSpec": "^3.2.8"
   },
   "_requiredBy": [
     "#USER",
     "/"
   ],
-  "_resolved": "http://registry.npm.taobao.org/funclib/download/funclib-3.2.7.tgz",
-  "_shasum": "4cdff7575decd9f2dd03d824321054d266f09704",
-  "_spec": "funclib",
+  "_resolved": "https://registry.npmjs.org/funclib/-/funclib-3.2.9.tgz",
+  "_shasum": "ff80182ae899db8767212192e09a0c0c2323685c",
+  "_spec": "funclib@^3.2.8",
   "_where": "E:\\work\\code\\funclib",
   "author": {
     "name": "CN-Tower"
@@ -37,15 +37,24 @@
   "description": "A powerful javascript functions library!",
   "homepage": "https://github.com/CN-Tower/funclib.js#readme",
   "keywords": [
-    "UMD",
+    "fn",
     "funclib",
+    "FuncLib",
+    "function",
+    "functions",
+    "js",
+    "ts",
+    "JavaScript",
+    "TypeScript",
     "javascript",
+    "typescript",
     "library",
     "js-library",
     "javascript-library",
     "js-functions",
     "underscore",
-    "lodash"
+    "lodash",
+    "jquery"
   ],
   "license": "MIT",
   "main": "index.js",
@@ -57,5 +66,5 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "version": "3.2.7"
+  "version": "3.2.9"
 }

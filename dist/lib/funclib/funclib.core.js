@@ -1,6 +1,6 @@
 /**
  * @license
- * Funclib v3.2.7 <https://www.funclib.net>
+ * Funclib v3.2.9 <https://www.funclib.net>
  * GitHub Repository <https://github.com/CN-Tower/funclib.js>
  * Released under MIT license <https://github.com/CN-Tower/funclib.js/blob/master/LICENSE>
  */
@@ -14,7 +14,7 @@
   var root = _global || _self || Function('return this')();
   var expFuncErr = new TypeError('Expected a function');
 
-  var version = '3.2.7';
+  var version = '3.2.9';
   var originalFn = root.fn;
 
   var fn = (function () {
@@ -57,7 +57,6 @@
 
     /**
      * [fn.array] 返回一个指定长度和默认值的数组
-     * @param length : number
      * @param value  : any|function [?]
      */
     function array(length, value) {
@@ -133,7 +132,7 @@
     }
 
     /**
-     * [fn.find] 根据条件取值
+     * [fn.find] 根据条件取一个值
      * @param srcArr    : array
      * @param predicate : object|function|any
      */
@@ -575,24 +574,15 @@
 
     function timerBase(timerId, duration, callback, type_) {
       var params, timer, setTimer, clearTimer;
-      match(type_, {
-        'interval': function () {
-          timer = intervalTimers;
-          setTimer = setInterval;
-          clearTimer = clearInterval;
-        },
-        'timeout': function () {
-          timer = timeoutTimers;
-          setTimer = setTimeout;
-          clearTimer = clearTimeout;
-        }
-      });
+      if (type_ === 'interval') {
+        timer = intervalTimers, setTimer = setInterval, clearTimer = clearInterval;
+      } else if (type_ === 'timeout') {
+        timer = timeoutTimers, setTimer = setTimeout, clearTimer = clearTimeout;
+      }
       var isIdStr = typeVal(timerId, 'str');
       if (isIdStr && duration === undefined) {
         return {
-          id: timer[timerId], stop: function () {
-            return clearTimer(timer[timerId]);
-          }
+          id: timer[timerId], stop: function () { return clearTimer(timer[timerId]); }
         };
       }
       if (isIdStr && contains([null, false], duration)) {
@@ -610,16 +600,12 @@
         params = [undefined, 0, timerId];
         timerId = params[0], duration = params[1], callback = params[2];
       }
-      if (typeOf(callback, 'fun')) {
-        if (typeOf(duration, 'num') && duration >= 0) {
-          if (isIdStr) {
-            clearTimer(timer[timerId]);
-            return timer[timerId] = setTimer(callback, duration);
-          }
-          if (timerId === undefined) {
-            return setTimer(callback, duration);
-          }
+      if (typeOf(callback, 'fun') && typeOf(duration, 'num') && duration >= 0) {
+        if (isIdStr) {
+          clearTimer(timer[timerId]);
+          return timer[timerId] = setTimer(callback, duration);
         }
+        if (timerId === undefined) return setTimer(callback, duration);
       }
     }
 
@@ -633,16 +619,34 @@
 
     /**
      * [fn.timestamp] 返回一个时间戳
-     * @param time : date|string|number [?]
+     * @param time : date|string|number
      */
     function timestamp(time) {
       return dateBase(time).getTime();
     }
 
     /**
+     * [fn.asUtcTime] 转化为相同时间的零时区时间戳
+     * @param time : date|string|number
+     */
+    function asUtcTime(time) {
+      var date = dateBase(time);
+      if (!date.getTime()) return NaN;
+      return Date.UTC(
+        date.getFullYear(),
+        date.getMonth(),
+        date.getDate(),
+        date.getHours(),
+        date.getMinutes(),
+        date.getSeconds(),
+        date.getMilliseconds()
+      );
+    }
+
+    /**
      * [fn.fmtDate] 获取格式化的时间字符串
      * @param fmtStr : string
-     * @param time   : date|string|number [?]
+     * @param time   : date|string|number
      */
     function fmtDate(fmtStr, time) {
       var date = dateBase(time);
@@ -670,6 +674,7 @@
     }
 
     function dateBase(time) {
+      if (time instanceof Date) return time;
       time = String(time);
       return new Date(time.match(/^[0-9]*$/) ? +time : time);
     }
@@ -1139,6 +1144,7 @@
     funclib.timeout = timeout;
     funclib.defer = defer;
     funclib.timestamp = timestamp;
+    funclib.asUtcTime = asUtcTime;
     funclib.fmtDate = fmtDate;
 
     funclib.match = match;

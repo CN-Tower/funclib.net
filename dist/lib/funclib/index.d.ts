@@ -1,6 +1,6 @@
 /**
  * @license
- * Funclib v3.2.7 <https://www.funclib.net>
+ * Funclib v3.2.9 <https://www.funclib.net>
  * GitHub Repository <https://github.com/CN-Tower/funclib.js>
  * Released under MIT license <https://github.com/CN-Tower/funclib.js/blob/master/LICENSE>
  */
@@ -48,6 +48,7 @@
  * fn.timeout               [-] 延时定时器
  * fn.defer                 [-] 延迟执行函数
  * fn.timestamp             [-] 返回一个时间戳
+ * fn.asUtcTime             [-] 转化为相同时间的零时区时间戳
  * fn.fmtDate               [-] 获取格式化的时间字符串
  ## String
  * fn.match                 [-] 字符串匹配
@@ -76,11 +77,6 @@
  * fn.exitFullScreen        [c] 退出全屏显示
  * fn.checkIsFullScreen     [c] 检测是否处理全屏状态
  * fn.fullScreenChange      [c] 检测是否全屏状态
- * fn.noAutoComplete        [c] 防止input密码自动填充
- ## Cookie
- * fn.setCookie             [c] 设置cookie
- * fn.getCookie             [c] 根据name读取cookie
- * fn.removeCookie          [c] 根据name删除cookie
  ## Tools
  * fn.rd                    [s] 读文件
  * fn.wt                    [s] 写文件
@@ -105,6 +101,7 @@ declare var fn: fn.Funclib;
 
 declare namespace fn {
 
+  type Any = any;
   type Type = 'arr' | 'obj' | 'fun' | 'str' | 'num' | 'bol' | 'udf' | 'nul' | 'ptn' | string | string[];
   type Color = 'grey' | 'blue' | 'cyan' | 'green' | 'magenta' | 'red' | 'yellow';
 
@@ -119,13 +116,38 @@ declare namespace fn {
      */
     (title: string, options?: any): void;
     /**
+     * [fn.progress.start] 进度显示工具
+     * @param title: string
+     * @param options: object [?]
+     * title: string
+     * width: number = 40
+     * type : 'bar'|'spi' = 'bar'
+     */
+    start(title: string, options?: any): void;
+    /**
      * [fn.progress.stop] 结束进度条，结束后触发回调
      * @param onStopped : function [?]
      */
     stop(onStopped?: Function): void;
+    /**
+     * [fn.progress.stop] 立即结束进度条，并触发回调
+     * @param onStopped : function [?]
+     */
+    clear(onStopped?: Function): void;
   }
 
-  interface Funclib {
+  interface Timer extends Any {
+    /**
+     * 定时器ID
+     */
+    id: any;
+    /**
+     * 关闭定时器
+     */
+    stop: () => any;
+  }
+
+  interface Funclib extends Any {
     /**
      * [fn().method] 使用OOP风格的调用
      * @param data : any 目标方法的第一个参数
@@ -318,14 +340,14 @@ declare namespace fn {
      * @param duration : number|false|null [?]
      * @param callback : function
      */
-    interval(timerId: any, duration?: any, callback?: any): any | { id: any, stop: () => any };
+    interval(timerId: any, duration?: any, callback?: any): Timer;
     /**
      * [fn.timeout] 延时定时器
      * @param timerId  : string [?]
      * @param duration : number|false|null [?]
      * @param callback : function
      */
-    timeout(timerId: any, duration?: any, callback?: any): any | { id: any, stop: () => any };
+    timeout(timerId: any, duration?: any, callback?: any): Timer;
     /**
      * [fn.defer] 延迟执行函数
      * @param func : function
@@ -336,6 +358,11 @@ declare namespace fn {
      * @param time : date|string|number
      */
     timestamp(time: Date | string | number): number;
+    /**
+     * [fn.asUtcTime] 转化为相同时间的零时区时间戳
+     * @param time : date|string|number
+     */
+    asUtcTime(time: Date | string | number): number;
     /**
      * [fn.fmtDate] 获取格式化的时间字符串
      * @param fmtStr : string
@@ -462,23 +489,6 @@ declare namespace fn {
      * @param callback function|false [?]
      */
     fullScreenChange(callback?: any): void;
-    /**
-     * [fn.setCookie] 设置cookie
-     * @param name  : string
-     * @param value : string
-     * @param days  : number [?]
-     */
-    setCookie(name: string, value: string, days?: number): void;
-    /**
-     * [fn.getCookie] 根据name读取cookie
-     * @param  name : string
-     */
-    getCookie(name: string): string;
-    /**
-     * [fn.removeCookie] 根据name删除cookie
-     * @param name : string
-     */
-    removeCookie(name: string): void;
     /**
      * [fn.copyText] 复制文本到粘贴板
      * @param text : string

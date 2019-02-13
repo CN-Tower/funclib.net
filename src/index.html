@@ -5,7 +5,8 @@
   <meta charset="utf-8">
   <title>Funclib-简单、易用、贴进业务逻辑的函数库！</title>
   <meta name="description" content=" Funclib 是一个JavaScript UMD函数库，以高效完成业务代码为目标，具有“通用、实用、易用、好用”等特点！" />
-  <meta name="keywords" content="Funclib, funclib, fn, js函数库, javascript函数库, js-library, javascript-library, js-functions, jquery, lodash" />
+  <meta name="keywords"
+    content="Funclib, funclib, fn, js函数库, javascript函数库, js-library, javascript-library, js-functions, jquery, lodash" />
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="chrome=1" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -39,7 +40,7 @@
       </a>&nbsp;&nbsp;
 
       <select id="version_select">
-        <option value="./index.html">v3.2.4</option>
+        <option value="./index.html">v3.2.9</option>
         <option value="./versions/js/v3.1.12/index.html">v3.1.12</option>
         <option value="./versions/js/v3.1.9/index.html">v3.1.9</option>
         <option value="./versions/js/v3.1.5/index.html">v3.1.5</option>
@@ -197,6 +198,9 @@
           <li data-name="fntimestamp">
             <a href="#fntimestamp">fn.timestamp</a>
           </li>
+          <li data-name="fnasutctime">
+            <a href="#fnasutctime">fn.asUtcTime</a>
+          </li>
           <li data-name="fnfmtdate">
             <a href="#fnfmtdate">fn.fmtDate</a>
           </li>
@@ -283,21 +287,6 @@
           </li>
           <li data-name="fnfullscreenchange">
             <a href="#fnfullscreenchange">[c] fn.fullScreenChange</a>
-          </li>
-        </ul>
-      </div>
-
-      <div class="searchable_section">
-        <a class="toc_title" href="#Cookie"> Cookie </a>
-        <ul class="toc_section">
-          <li data-name="fnsetcookie">
-            <a href="#fnsetcookie">[c] fn.setCookie</a>
-          </li>
-          <li data-name="fngetcookie">
-            <a href="#fngetcookie">[c] fn.getCookie</a>
-          </li>
-          <li data-name="fnremovecookie">
-            <a href="#fnremovecookie">[c] fn.removeCookie</a>
           </li>
         </ul>
       </div>
@@ -438,7 +427,7 @@
             <a href="./lib/funclib/funclib.js" target="_blank">funclib.js</a>
           </td>
           <td>
-            <i>(v3.2.4) Development Version, Uncompressed</i>
+            <i>(v3.2.9) Development Version, Uncompressed</i>
           </td>
         </tr>
         <tr>
@@ -446,7 +435,7 @@
             <a href="./lib/funclib/funclib.min.js" target="_blank">funclib.min.js</a>
           </td>
           <td>
-            <i>(v3.2.4) Production Version, Minified</i>
+            <i>(v3.2.9) Production Version, Minified</i>
           </td>
         </tr>
         <tr>
@@ -454,7 +443,7 @@
             <a href="./lib/funclib/index.js" target="_blank">index.js</a>
           </td>
           <td>
-            <i>(v3.2.4) Server Side Version, Uncompressed</i>
+            <i>(v3.2.9) Server Side Version, Uncompressed</i>
           </td>
         </tr>
         <tr>
@@ -462,7 +451,7 @@
             <a href="./lib/funclib/index.d.ts" target="_blank">index.d.ts</a>
           </td>
           <td>
-            <i>(v3.2.4) TypeScript Definition File</i>
+            <i>(v3.2.9) TypeScript Definition File</i>
           </td>
         </tr>
       </table>
@@ -1184,34 +1173,47 @@ setTimeout(func, 0);</pre>
           <br>返回一个时间戳
           <br>
           <code>
-            fn.timestamp(time?);
+            fn.timestamp(time);
           </code>
           <br>
-          <b>@param time : date|string|number [?]</b>
+          <b>@param time : date|string|number</b>
           <br>传入时间，不传默认为当前时间
         </p>
         <pre>
-fn.timestamp();                             // 1528295152832
 fn.timestamp(new Date('2018-06-06 12:30')); // 1528259400000</pre>
+
+
+        <p id="fnasutctime">
+          <b class="header">fn.asUtcTime</b>
+          <br>返回一个时间戳
+          <br>
+          <code>
+            fn.asUtcTime(time);
+          </code>
+          <br>
+          <b>@param time : date|string|number</b>
+          <br>传入时间，不传默认为当前时间
+        </p>
+        <pre>
+fn.asUtcTime(new Date('2018-06-06 12:30')); // 1528288200000</pre>
 
         <p id="fnfmtdate">
           <b class="header">fn.fmtDate</b>
           <br>获取格式化的时间字符串
           <br>
           <code>
-            fn.fmtDate(fmtStr, time?);
+            fn.fmtDate(fmtStr, time);
           </code>
           <br>
           <b>@param fmtStr : string</b>
           <br>时间格式字符串，如：yy-MM-dd hh:mm:ss, MM-dd hh:mm 等
           <br>
-          <b>@param time : date|string|number [?]</b>
+          <b>@param time : date|string|number</b>
           <br>传入时间，不传默认为当前时间
         </p>
         <pre>
 var date = new Date('2018-06-06 12:30');
 
-fn.fmtDate('yy-MM-dd hh:mm:ss');                // 18-06-06 22:31:16
 fn.fmtDate('yyyy-MM-dd hh:mm', 1528259400000);  // 2018-06-06 12:30
 fn.fmtDate('yy-MM-dd hh:mm', date);             // 18-06-06 12:30</pre>
 
@@ -1627,56 +1629,6 @@ fn.isFullScreen();  // false</pre>
 function fullsScreenHandler() { //Do Something... }
 fn.fullScreenChange(() => fullsScreenHandler);</pre>
 
-          <h2 id="Cookie">Cookie</h2>
-
-          <p id="fnsetcookie">
-            <b class="header">fn.setCookie</b>
-            <br>设置Cookie
-            <br>
-            <code>
-              fn.setCookie(name, value, days?);
-            </code>
-            <br>
-            <b>@param name : string</b>
-            <br>Cookie名称
-            <br>
-            <b>@param value : string</b>
-            <br>Cookie值
-            <br>
-            <b>@param days : number [?]</b>
-            <br>Cookie过期天数
-          </p>
-          <pre>
-fn.setCookie('name', 'Tom');</pre>
-
-          <p id="fngetcookie">
-            <b class="header">fn.getCookie</b>
-            <br>根据name读取cookie
-            <br>
-            <code>
-              fn.getCookie(name);
-            </code>
-            <br>
-            <b>@param name : string</b>
-            <br>Cookie名称
-          </p>
-          <pre>
-fn.getCookie('name');  // Tom</pre>
-
-          <p id="fnremovecookie">
-            <b class="header">fn.removeCookie</b>
-            <br>根据name删除cookie
-            <br>
-            <code>
-              fn.removeCookie(name);
-            </code>
-            <br>
-            <b>@param name : string</b>
-            <br>Cookie名称
-          </p>
-          <pre>
-fn.removeCookie('name');</pre>
-
           <h2 id="Loger">Loger</h2>
 
           <p id="fnchalk">
@@ -1724,7 +1676,7 @@ console.log(fn.chalk('test', 'cyan'));</pre>
           <pre>
 fn.log([{name: 'tom', age: 22}], false);
 // =>
-[15:27:16] ( funclib(v3.2.4) ):
+[15:27:16] ( funclib(v3.2.9) ):
 [
   {
     "name": "tom",
@@ -1961,7 +1913,7 @@ console.log(fn)   // undefined</pre>
             </code>
           </p>
           <pre>
-fn.version;  //3.2.4 </pre>
+fn.version;  //3.2.9 </pre>
 
           <h2 id="changelog">Change Log</h2>
 
@@ -2147,6 +2099,26 @@ fn.version;  //3.2.4 </pre>
             <b>fn.match()</b>
             <br>默认项：'@dft' 修改为：'$dft'，'@default' 修改为：'$default'
             <br>'@pass' 修改为：'@next'
+            <br>
+          </p>
+
+
+          <p>
+            <b class="header">3.2.9</b> &mdash;
+            <small>
+              <i>2018-1-03</i>
+            </small>
+            <br>
+            <strong>【删除方法】:</strong>
+            <br>
+            <b>fn.setCookie()</b>
+            <b>fn.getCookie()</b>
+            <b>fn.rmCookie()</b>
+            <br>
+            <strong>【增加方法】：</strong>
+            <br>
+            <b>fn.asUtcTime()</b>
+            <br>把时间转为相同时间的格林尼治时间戳
             <br>
           </p>
       </div>
