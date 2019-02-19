@@ -51,7 +51,7 @@ gulp.task('revSrc', () => {
     .pipe(revAll.revision({
       dontRenameFile: [/favicon.ico/g, /index.html/g, /py.html/g],
       transformFilename: (file, hash) => {
-        if (['index.html', 'favicon.ico'].some(fl => fn.contains(file.path, fl))) {
+        if (['index.html', 'py.html', 'favicon.ico'].some(fl => fn.contains(file.path, fl))) {
           return path.basename(file.path);
         }
         const ext = path.extname(file.path);

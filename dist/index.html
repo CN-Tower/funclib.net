@@ -28,7 +28,7 @@
         <a href="./index.html">funclib.js</a>
       </li>
       <li>
-        <a href="./py-ffff85c208d2.html">funclib.py</a>
+        <a href="./py.html">funclib.py</a>
       </li>
     </ul>
   </header>
@@ -40,7 +40,7 @@
       </a>&nbsp;&nbsp;
 
       <select id="version_select">
-        <option value="./index.html">v3.2.9</option>
+        <option value="./index.html">v3.3.1</option>
         <option value="./versions/js/v3.1.12/index.html">v3.1.12</option>
         <option value="./versions/js/v3.1.9/index.html">v3.1.9</option>
         <option value="./versions/js/v3.1.5/index.html">v3.1.5</option>
@@ -427,7 +427,7 @@
             <a href="./lib/funclib/funclib.js" target="_blank">funclib.js</a>
           </td>
           <td>
-            <i>(v3.2.9) Development Version, Uncompressed</i>
+            <i>(v3.3.1) Development Version, Uncompressed</i>
           </td>
         </tr>
         <tr>
@@ -435,7 +435,7 @@
             <a href="./lib/funclib/funclib.min.js" target="_blank">funclib.min.js</a>
           </td>
           <td>
-            <i>(v3.2.9) Production Version, Minified</i>
+            <i>(v3.3.1) Production Version, Minified</i>
           </td>
         </tr>
         <tr>
@@ -443,7 +443,7 @@
             <a href="./lib/funclib/index.js" target="_blank">index.js</a>
           </td>
           <td>
-            <i>(v3.2.9) Server Side Version, Uncompressed</i>
+            <i>(v3.3.1) Server Side Version, Uncompressed</i>
           </td>
         </tr>
         <tr>
@@ -451,7 +451,7 @@
             <a href="./lib/funclib/index.d.ts" target="_blank">index.d.ts</a>
           </td>
           <td>
-            <i>(v3.2.9) TypeScript Definition File</i>
+            <i>(v3.3.1) TypeScript Definition File</i>
           </td>
         </tr>
       </table>
@@ -1100,7 +1100,7 @@ fn.gcolor(); // #d0b1ab</pre>
           <b>@param timerId : string [?]</b>
           <br>定时器名称
           <br><i>当fn.interval()正常传值时，返回定时器ID</i>
-          <br><i>当fn.interval()传入定时器名称时，返回带stop方法和id属性的对象</i>
+          <br><i>当fn.interval()传入定时器名称时，返回带stop和clear方法和id属性的对象</i>
           <br>
           <b>@param duration : number|false|null [?]</b>
           <br>间隔时间，默认为0
@@ -1113,8 +1113,9 @@ fn.gcolor(); // #d0b1ab</pre>
 // 设置名称为my-timer的循环定时器
 fn.interval('my-timer', 1000, () => console.log(111));
 // 清除名称为my-timer的循环定时器
-fn.interval('my-timer', false);
+// fn.interval('my-timer', false);
 // fn.interval('my-timer').stop();
+fn.interval('my-timer').clear();
 
 // 设置延循环时器
 var timerId = fn.interval(1000, () => console.log(111));
@@ -1132,7 +1133,7 @@ clearInterval(timerId);</pre>
           <b>@param timerId : string [?]</b>
           <br>定时器名称
           <br><i>当fn.timeout()正常传值时，返回定时器ID</i>
-          <br><i>当fn.timeout()传入定时器名称时，返回带stop方法和id属性的对象</i>
+          <br><i>当fn.timeout()传入定时器名称时，返回带stop和clear方法和id属性的对象</i>
           <br>
           <b>@param duration : number|false|null [?]</b>
           <br>间隔时间，默认为0
@@ -1145,8 +1146,9 @@ clearInterval(timerId);</pre>
 // 设置名称为my-timer的延时定时器
 fn.timeout('my-timer', 1000, () => console.log(222));
 // 清除名称为my-timer的延时定时器
-fn.timeout('my-timer', false);
+// fn.timeout('my-timer', false);
 // fn.timeout('my-timer').stop();
+fn.timeout('my-timer').clear();
 
 // 设置延时定时器
 var timerId = fn.timeout(1000, () => console.log(111));
@@ -1676,7 +1678,7 @@ console.log(fn.chalk('test', 'cyan'));</pre>
           <pre>
 fn.log([{name: 'tom', age: 22}], false);
 // =>
-[15:27:16] ( funclib(v3.2.9) ):
+[15:27:16] ( funclib(v3.3.1) ):
 [
   {
     "name": "tom",
@@ -1913,7 +1915,7 @@ console.log(fn)   // undefined</pre>
             </code>
           </p>
           <pre>
-fn.version;  //3.2.9 </pre>
+fn.version;  //3.3.1 </pre>
 
           <h2 id="changelog">Change Log</h2>
 
@@ -2104,7 +2106,7 @@ fn.version;  //3.2.9 </pre>
 
 
           <p>
-            <b class="header">3.2.9</b> &mdash;
+            <b class="header">3.3.1</b> &mdash;
             <small>
               <i>2018-1-03</i>
             </small>
