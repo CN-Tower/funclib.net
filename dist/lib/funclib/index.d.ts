@@ -1,6 +1,6 @@
 /**
  * @license
- * Funclib v3.3.1 <https://www.funclib.net>
+ * Funclib v3.3.4 <https://www.funclib.net>
  * GitHub Repository <https://github.com/CN-Tower/funclib.js>
  * Released under MIT license <https://github.com/CN-Tower/funclib.js/blob/master/LICENSE>
  */
@@ -47,9 +47,12 @@
  * fn.interval              [-] 循环定时器
  * fn.timeout               [-] 延时定时器
  * fn.defer                 [-] 延迟执行函数
+ * fn.time                  [-] 返回一个时间戳, 同：fn.timestamp
  * fn.timestamp             [-] 返回一个时间戳
  * fn.asUtcTime             [-] 转化为相同时间的零时区时间戳
  * fn.fmtDate               [-] 获取格式化的时间字符串
+ * fn.fmtUTCDate            [-] 获取格式化的UTC时间字符串
+ * fn.fmtXYZDate            [-] 获取格式化指定时差的时间字符串
  ## String
  * fn.match                 [-] 字符串匹配
  * fn.pretty                [-] 转换成格式化字符串
@@ -102,7 +105,7 @@ declare var fn: fn.Funclib;
 declare namespace fn {
 
   type Any = any;
-  type Type = 'arr' | 'obj' | 'fun' | 'str' | 'num' | 'bol' | 'udf' | 'nul' | 'ptn' | string | string[];
+  type Type = 'arr' | 'obj' | 'fun' | 'str' | 'num' | 'bol' | 'udf' | 'nul' | 'ptn' | 'dat' | string | string[];
   type Color = 'grey' | 'blue' | 'cyan' | 'green' | 'magenta' | 'red' | 'yellow';
 
   interface Progress {
@@ -278,8 +281,9 @@ declare namespace fn {
      * [fn.has] 判断对象是否存在某自有属性
      * @param srcObj   : object
      * @param property : string
+     * @param types    : ...string[]
      */
-    has(srcObj: any, property: string): boolean;
+    has(srcObj: any, property: string, ...types: Type[]): boolean;
     /**
      * [fn.get] 返回对象或子孙对象的属性，可判断类型
      * @param srcObj  : object
@@ -365,6 +369,11 @@ declare namespace fn {
      */
     defer(func: Function): void;
     /**
+     * [fn.time] 返回一个时间戳
+     * @param time : date|string|number
+     */
+    time(time: Date | string | number): number;
+    /**
      * [fn.timestamp] 返回一个时间戳
      * @param time : date|string|number
      */
@@ -380,6 +389,19 @@ declare namespace fn {
      * @param time   : date|string|number
      */
     fmtDate(fmtStr: string, time: Date | string | number): string;
+    /**
+     * [fn.fmtUTCDate] 获取格式化的UTC时间字符串
+     * @param fmtStr : string
+     * @param time   : date|string|number
+     */
+    fmtUTCDate(fmtStr: string, time: Date | string | number): string;
+    /**
+     * [fn.fmtXYZDate] 获取格式化指定时差的时间字符串
+     * @param fmtStr : string
+     * @param time   : date|string|number
+     * @param offset : number
+     */
+    fmtXYZDate(fmtStr: string, time: Date | string | number, offset: number): string;
     /**
      * [fn.match] 字符串匹配
      * @param source : any
@@ -520,6 +542,7 @@ declare namespace fn {
      * width: number = 66 [30-100]
      * isFmt: boolean [?]
      * isShowTime: boolean = true
+     * isSplit: boolean = true,
      * pre:   boolean = false,
      * end:   boolean = false
      * ttColor: 'grey'|'blue'|'cyan'|'green'|'magenta'|'red'|'yellow'
