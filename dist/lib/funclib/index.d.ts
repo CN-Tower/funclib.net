@@ -1,6 +1,6 @@
 /**
  * @license
- * Funclib v3.3.5 <https://www.funclib.net>
+ * Funclib v3.3.8 <https://www.funclib.net>
  * GitHub Repository <https://github.com/CN-Tower/funclib.js>
  * Released under MIT license <https://github.com/CN-Tower/funclib.js/blob/master/LICENSE>
  */
@@ -74,7 +74,8 @@
  * fn.debounce              [-] 防抖函数
  ## Loger
  * fn.chalk                 [s] 返回带颜色的字符串
- * fn.log                [c][s] 控制打印格式化值
+ * fn.print              [c][s] 在控制台打印值
+ * fn.log                [c][s] 在控制台打印格式化的值
  ## Element
  * fn.fullScreen            [c] 全屏显示一个HTML元素
  * fn.exitFullScreen        [c] 退出全屏显示
@@ -88,6 +89,7 @@
  * fn.rm                    [s] 删除文件夹和文件
  * fn.mk                    [s] 创建文件夹
  * fn.size                  [s] 获取文件的大小
+ * fn.clear                 [s] 控制台清屏
  * fn.copyText              [c] 复制文本到粘贴板
  ## Progress
  * fn.progress              [s] 进度显示工具
@@ -528,23 +530,29 @@ declare namespace fn {
      */
     copyText(text: string): void;
     /**
-     * [fn.chalk] 在控制台打印有颜色的字符串
+     * [fn.chalk] 返回带颜色的字符串
      * @param srcStr : string
-     * @param color  : 'grey'|'blue'|'cyan'|'green'|'magenta'|'red'|'yellow' = 'grey'
+     * @param color  : 'grey'|'blue'|'cyan'|'green'|'magenta'|'red'|'yellow' [?]
      */
     chalk(srcStr: string, color?: Color): string;
     /**
-     * [fn.log] 控制台格式化打印值
+     * [fn.print] 在控制台打印值
+     * @param value  : any
+     * @param color  : 'grey'|'blue'|'cyan'|'green'|'magenta'|'red'|'yellow' [?]
+     */
+    print(value: any, color?: Color): void;
+    /**
+     * [fn.log] 在控制台打印格式化的值
      * @param value   : any
      * @param title   : string|boolean [?]
      * @param configs : object [?]
      * title: string,
-     * width: number = 66 [30-100]
-     * isFmt: boolean [?]
+     * width: number = 66 [30-100],
+     * isFmt:      boolean = true
      * isShowTime: boolean = true
-     * isSplit: boolean = true,
+     * isSplit:    boolean = true,
      * pre:   boolean = false,
-     * end:   boolean = false
+     * end:   boolean = false,
      * ttColor: 'grey'|'blue'|'cyan'|'green'|'magenta'|'red'|'yellow'
      * color:   'grey'|'blue'|'cyan'|'green'|'magenta'|'red'|'yellow' = 'cyan'
      */
@@ -590,6 +598,10 @@ declare namespace fn {
      * @param digit : number = 2
      */
     size(file: string, unit?: 'b' | 'kb' | 'mb' | 'gb' | 'tb', digit?: number): number;
+    /**
+     * [fn.clear] 命令行清屏
+     */
+    clear(): void;
     /**
      * [fn.progress] 进度显示工具
      */

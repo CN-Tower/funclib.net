@@ -4,8 +4,9 @@
 <head>
   <meta charset="utf-8">
   <title>Funclib-简单、易用、贴进业务逻辑的函数库！</title>
-  <meta name="description" content=" Funclib 是一个JavaScript UMD函数库，以高效完成业务代码为目标，具有“通用、实用、易用、好用”等特点！"/>
-  <meta name="keywords" content="Funclib, funclib, fn, js函数库, javascript函数库, js-library, javascript-library, js-functions, jquery, lodash"/>
+  <meta name="description" content=" Funclib 是一个JavaScript UMD函数库，以高效完成业务代码为目标，具有“通用、实用、易用、好用”等特点！" />
+  <meta name="keywords"
+    content="Funclib, funclib, fn, js函数库, javascript函数库, js-library, javascript-library, js-functions, jquery, lodash" />
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="chrome=1" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -39,11 +40,10 @@
       </a>&nbsp;&nbsp;
 
       <select id="version_select">
-        <option value="./index.html">v3.1.5</option>
+        <option value="./index.html">v3.3.1</option>
         <option value="../../../index.html">v3.3.8</option>
-        <option value="../v3.3.1/index.html">v3.3.1</option>
-        <option value="../v3.1.12/index.html">v3.1.12</option>
         <option value="../v3.1.9/index.html">v3.1.9</option>
+        <option value="../v3.1.5/index.html">v3.1.5</option>
         <option value="../v2.2.10/index.html">v2.2.10</option>
       </select>
 
@@ -198,6 +198,9 @@
           <li data-name="fntimestamp">
             <a href="#fntimestamp">fn.timestamp</a>
           </li>
+          <li data-name="fnasutctime">
+            <a href="#fnasutctime">fn.asUtcTime</a>
+          </li>
           <li data-name="fnfmtdate">
             <a href="#fnfmtdate">fn.fmtDate</a>
           </li>
@@ -240,8 +243,14 @@
       <div class="searchable_section">
         <a class="toc_title" href="#RegExp"> RegExp </a>
         <ul class="toc_section">
+          <li data-name="fnsetpattern">
+            <a href="#fnsetpattern">fn.setPattern</a>
+          </li>
           <li data-name="fngetpattern">
             <a href="#fngetpattern">fn.getPattern</a>
+          </li>
+          <li data-name="fntestpattern">
+            <a href="#fntestpattern">fn.testPattern</a>
           </li>
           <li data-name="fnmatchpattern">
             <a href="#fnmatchpattern">fn.matchPattern</a>
@@ -252,6 +261,9 @@
       <div class="searchable_section">
         <a class="toc_title" href="#Function"> Function </a>
         <ul class="toc_section">
+          <li data-name="fnrestargs">
+            <a href="#fnrestargs">fn.restArgs</a>
+          </li>
           <li data-name="fnthrottle">
             <a href="#fnthrottle">fn.throttle</a>
           </li>
@@ -275,33 +287,6 @@
           </li>
           <li data-name="fnfullscreenchange">
             <a href="#fnfullscreenchange">[c] fn.fullScreenChange</a>
-          </li>
-        </ul>
-      </div>
-
-      <div class="searchable_section">
-        <a class="toc_title" href="#Cookie"> Cookie </a>
-        <ul class="toc_section">
-          <li data-name="fnsetcookie">
-            <a href="#fnsetcookie">[c] fn.setCookie</a>
-          </li>
-          <li data-name="fngetcookie">
-            <a href="#fngetcookie">[c] fn.getCookie</a>
-          </li>
-          <li data-name="fnremovecookie">
-            <a href="#fnremovecookie">[c] fn.removeCookie</a>
-          </li>
-        </ul>
-      </div>
-
-      <div class="searchable_section">
-        <a class="toc_title" href="#Tricks"> Tricks </a>
-        <ul class="toc_section">
-          <li data-name="fncopytext">
-            <a href="#fncopytext">[c] fn.copyText</a>
-          </li>
-          <li data-name="fnnoconflict">
-            <a href="#fnnoconflict">fn.noConflict</a>
           </li>
         </ul>
       </div>
@@ -342,14 +327,8 @@
           <li data-name="fnsize">
             <a href="#fnsize">[s] fn.size</a>
           </li>
-        </ul>
-      </div>
-
-      <div class="searchable_section">
-        <a class="toc_title" href="#OOP"> OOP </a>
-        <ul class="toc_section">
-          <li data-name="fnmethod">
-            <a href="#fnmethod">fn().method</a>
+          <li data-name="fncopytext">
+            <a href="#fncopytext">[c] fn.copyText</a>
           </li>
         </ul>
       </div>
@@ -367,8 +346,20 @@
       </div>
 
       <div class="searchable_section">
-        <a class="toc_title" href="#Version"> Version </a>
+        <a class="toc_title" href="#OOP"> OOP </a>
         <ul class="toc_section">
+          <li data-name="fnmethod">
+            <a href="#fnmethod">fn().method</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="searchable_section">
+        <a class="toc_title" href="#Tricks"> Tricks </a>
+        <ul class="toc_section">
+          <li data-name="fnnoconflict">
+            <a href="#fnnoconflict">fn.noConflict</a>
+          </li>
           <li data-name="fnversion">
             <a href="#fnversion">fn.version</a>
           </li>
@@ -406,16 +397,6 @@
         进行持续集成。
       </p>
 
-      <a href="https://www.npmjs.com/package/funclib" target="_blank">
-        <img src="https://img.shields.io/npm/l/funclib.svg" alt="LICENSE MIT">
-      </a>
-      <a href="https://coveralls.io/github/CN-Tower/funclib.js" target="_blank">
-        <img src="https://coveralls.io/repos/github/CN-Tower/funclib.js/badge.svg" alt="Coverage Status">
-      </a>
-      <a href="https://travis-ci.org/CN-Tower/funclib.js" target="_blank">
-        <img src="https://travis-ci.org/CN-Tower/funclib.js.svg?branch=master" alt="Build Status">
-      </a>
-
       <p>
         如果你喜欢funclib.js，就到GitHub上去Star或Fork吧!（欢迎一起来玩）
         <br><br>
@@ -423,10 +404,14 @@
         <a href="https://github.com/CN-Tower/funclib.js" target="_blank">https://github.com/CN-Tower/funclib.js</a>
       </p>
 
+      <h2>Downloads
+        <i style="padding-left: 12px; font-size:12px;">（鼠标右键点击，然后选“另存为...”）</i>
+      </h2>
+
       <h2>Installation</h2>
       <pre>
 # Install funclib.js
-$ npm install funclib
+$ npm install funclib@3.3.1
 
 # Use funclib
 $ node
@@ -458,18 +443,18 @@ $ node
           <br>检查值的类型
           <br>
           <code>
-            fn.typeOf(value, _type, ...types);
+            fn.typeOf(value, type_, ...types);
           </code>
           <br>
           <b>@param value : any</b>
           <br>接收一个任意类型的值
           <br>
-          <b>@param _type : string</b>
+          <b>@param type_ : string</b>
           <br>接收一个类型字符串,可以是类型简写（如："udf" 对应 "undefined"），也可以是js标准类型的 全称（如："string"），或者类型的枚举或数组（如：'str', 'arr' 或 ['str,
           arr']）
           <br>
           <b>@param types: ...string[]|string[]</b>
-          <br>'arr' | 'obj' | 'fun' | 'str' | 'num' | 'bol' | 'udf' | 'nul' | string | string[];
+          <br>'arr' | 'obj' | 'fun' | 'str' | 'num' | 'bol' | 'udf' | 'nul' | 'ptn' | string | string[];
         </p>
         <pre>
 fn.typeOf('test', 'str');     // true
@@ -489,18 +474,18 @@ fn.typeOf(undefined, ['str', 'udf']); // true</pre>
           <br>先检查值的类型，如果是true则返回该值，否则返回false
           <br>
           <code>
-            fn.typeVal(value, _type);
+            fn.typeVal(value, type_);
           </code>
           <br>
           <b>@param value : any</b>
           <br>接收一个任意类型的值
           <br>
-          <b>@param _type : string</b>
+          <b>@param type_ : string</b>
           <br>接收一个类型字符串,可以是类型简写（如："udf" 对应 "undefined"），也可以是js标准类型的 全称（如："string"），或者类型的枚举或数组（如：'str', 'arr' 或 ['str,
           arr']）
           <br>
           <b>@param types: ...string[]|string[]</b>
-          <br>'arr' | 'obj' | 'fun' | 'str' | 'num' | 'bol' | 'udf' | 'nul' | string | string[];
+          <br>'arr' | 'obj' | 'fun' | 'str' | 'num' | 'bol' | 'udf' | 'nul' | 'ptn' | string | string[];
         </p>
         <pre>
 fn.typeVal('test', 'str');       // test
@@ -1067,7 +1052,7 @@ fn.gcolor(); // #d0b1ab</pre>
           <b>@param timerId : string [?]</b>
           <br>定时器名称
           <br><i>当fn.interval()正常传值时，返回定时器ID</i>
-          <br><i>当fn.interval()传入定时器名称时，返回带stop方法和id属性的对象</i>
+          <br><i>当fn.interval()传入定时器名称时，返回带stop和clear方法和id属性的对象</i>
           <br>
           <b>@param duration : number|false|null [?]</b>
           <br>间隔时间，默认为0
@@ -1080,8 +1065,9 @@ fn.gcolor(); // #d0b1ab</pre>
 // 设置名称为my-timer的循环定时器
 fn.interval('my-timer', 1000, () => console.log(111));
 // 清除名称为my-timer的循环定时器
-fn.interval('my-timer', false);
+// fn.interval('my-timer', false);
 // fn.interval('my-timer').stop();
+fn.interval('my-timer').clear();
 
 // 设置延循环时器
 var timerId = fn.interval(1000, () => console.log(111));
@@ -1099,7 +1085,7 @@ clearInterval(timerId);</pre>
           <b>@param timerId : string [?]</b>
           <br>定时器名称
           <br><i>当fn.timeout()正常传值时，返回定时器ID</i>
-          <br><i>当fn.timeout()传入定时器名称时，返回带stop方法和id属性的对象</i>
+          <br><i>当fn.timeout()传入定时器名称时，返回带stop和clear方法和id属性的对象</i>
           <br>
           <b>@param duration : number|false|null [?]</b>
           <br>间隔时间，默认为0
@@ -1112,8 +1098,9 @@ clearInterval(timerId);</pre>
 // 设置名称为my-timer的延时定时器
 fn.timeout('my-timer', 1000, () => console.log(222));
 // 清除名称为my-timer的延时定时器
-fn.timeout('my-timer', false);
+// fn.timeout('my-timer', false);
 // fn.timeout('my-timer').stop();
+fn.timeout('my-timer').clear();
 
 // 设置延时定时器
 var timerId = fn.timeout(1000, () => console.log(111));
@@ -1140,34 +1127,47 @@ setTimeout(func, 0);</pre>
           <br>返回一个时间戳
           <br>
           <code>
-            fn.timestamp(time?);
+            fn.timestamp(time);
           </code>
           <br>
-          <b>@param time : date|string|number [?]</b>
-          <br>传入时间，不传默认为当前时间
+          <b>@param time : date|string|number</b>
+          <br>传入一个日期对象、时间字符串或时间辍
         </p>
         <pre>
-fn.timestamp();                             // 1528295152832
 fn.timestamp(new Date('2018-06-06 12:30')); // 1528259400000</pre>
+
+
+        <p id="fnasutctime">
+          <b class="header">fn.asUtcTime</b>
+          <br>返回一个时间戳
+          <br>
+          <code>
+            fn.asUtcTime(time);
+          </code>
+          <br>
+          <b>@param time : date|string|number</b>
+          <br>传入一个日期对象、时间字符串或时间辍
+        </p>
+        <pre>
+fn.asUtcTime(new Date('2018-06-06 12:30')); // 1528288200000</pre>
 
         <p id="fnfmtdate">
           <b class="header">fn.fmtDate</b>
           <br>获取格式化的时间字符串
           <br>
           <code>
-            fn.fmtDate(fmtStr, time?);
+            fn.fmtDate(fmtStr, time);
           </code>
           <br>
           <b>@param fmtStr : string</b>
           <br>时间格式字符串，如：yy-MM-dd hh:mm:ss, MM-dd hh:mm 等
           <br>
-          <b>@param time : date|string|number [?]</b>
-          <br>传入时间，不传默认为当前时间
+          <b>@param time : date|string|number</b>
+          <br>传入一个日期对象、时间字符串或时间辍
         </p>
         <pre>
 var date = new Date('2018-06-06 12:30');
 
-fn.fmtDate('yy-MM-dd hh:mm:ss');                // 18-06-06 22:31:16
 fn.fmtDate('yyyy-MM-dd hh:mm', 1528259400000);  // 2018-06-06 12:30
 fn.fmtDate('yy-MM-dd hh:mm', date);             // 18-06-06 12:30</pre>
 
@@ -1185,21 +1185,20 @@ fn.fmtDate('yy-MM-dd hh:mm', date);             // 18-06-06 12:30</pre>
           <br>用来匹配的字符串
           <br>
           <b>@param cases ：object</b>
-          <br>匹配对象，可以包含'@dft'或'@default'项为默认匹配项
-          <br>匹配项，可以包含'@pass'值，当包含该值时，匹配结果同其下一项相同
+          <br>匹配对象，可以包含'default'项为默认匹配项
+          <br>匹配项，可以包含'@next'值，当包含该值时，匹配结果同其下一项相同
           <br>
           <b>@param isExec : boolean = true</b>
           <br>匹配对象的值为函数时，是否调用该函数，默认true
         </p>
         <pre>
 fn.match('b', {'a': 'aaa', 'b': 'bbb', c: 'ccc'});         // 'bbb'
-fn.match('b', {'a': 'aaa', 'b': '@pass', c: 'ccc'});       // 'ccc'
+fn.match('b', {'a': 'aaa', 'b': '@next', c: 'ccc'});       // 'ccc'
 fn.match('c', {'a': 'aaa', 'b': () => 'bbb', c: 'ccc'});  // undefine
-fn.match('c', {'a': 'aaa', b: 'bbb', '@dft': 'ddd'});      // 'ddd'
-fn.match('c', {'a': 'aaa', b: 'bbb', '@default': 'ddd'});  // 'ddd'
+fn.match('c', {'a': 'aaa', b: 'bbb', 'default': 'ddd'});  // 'ddd'
 fn.match('c', {                                            // 'ccc'
   'a': 'aaa',
-  '@default': s => s === 'c' ? 'ccc' : 'ddd'
+  'default': s => s === 'c' ? 'ccc' : 'ddd'
 });</pre>
 
         <p id="fnpretty">
@@ -1335,21 +1334,42 @@ fn.log(fn.stringfyQueryStr(params)); // ?name=Tom&age=28</pre>
 
           <h2 id="RegExp">RegExp</h2>
 
+          <p id="fnsetpattern">
+            <b class="header">fn.setPattern</b>
+            <br>设置一个正则表达式
+            <br>
+            <code>
+              fn.setPattern(ptnMap, pattern);
+            </code>
+            <br>
+            <b>@param ptnMap : string|object</b>
+            <br>正则名称，或正则Object（key为名称，val为正则表达式）
+            <br>
+            <b>@param pattern : regexp [?]</b>
+            <br>ptnMap为正则名称，传入正则表达式
+          </p>
+          <pre>
+fn.setPattern('myPtn', /test/);
+fn.setPattern({myPtn: /test/});
+
+fn.matchPattern('abc', 'myPtn');    // false
+fn.matchPattern('test', 'myPtn');   // true</pre>
+
           <p id="fngetpattern">
             <b class="header">fn.getPattern</b>
             <br>获取一个通用的正则表达式
             <br>
             <code>
-              fn.getPattern(_type, isNoLimit?);
+              fn.getPattern(type_, limit?);
             </code>
             <br>
-            <b>@param _type : string</b>
+            <b>@param type_ : string</b>
             <br>传入正则名称
             <br>正则名称主要有：
             <br>
             <b>cnChar</b>: 汉字
             <br>
-            <b>dblBitChar</b>: 双字节字符
+            <b>dbChar</b>: 双字节字符
             <br>
             <b>mobPhone</b>: 中国大陆电话号码
             <br>
@@ -1358,6 +1378,8 @@ fn.log(fn.stringfyQueryStr(params)); // ?name=Tom&age=28</pre>
             <b>email</b>: Email
             <br>
             <b>idCard</b>: 中国大陆身份证
+            <br>
+            <b>uuid</b>: uuid: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
             <br>
             <b>base64Code</b>: Base64编码格式
             <br>
@@ -1377,35 +1399,70 @@ fn.log(fn.stringfyQueryStr(params)); // ?name=Tom&age=28</pre>
             <br>
             <b>withPortUrl</b>: 带端口的 Url
             <br>
-            <b>@param isNoLimit : boolean = false</b>
-            <br>是否不加首尾限制(^和$)，默认为false
+            <b>@param limit : boolean = true</b>
+            <br>是否强制加首尾限制(^和$)，默认为true
           </p>
           <pre>
 fn.getPattern('cnChar');       // /^[\u4e00-\u9fa5]+$/
-fn.getPattern('cnChar', true); // /[\u4e00-\u9fa5]+/</pre>
+fn.getPattern('cnChar', false); // /[\u4e00-\u9fa5]+/</pre>
+
+          <p id="fntestpattern">
+            <b class="header">fn.fntestpattern</b>
+            <br>用一个或几个通用正则测试
+            <br>
+            <code>
+              fn.matchPattern(srcStr, type_, limit?);
+            </code>
+            <br>
+            <b>@param srcStr : string</b>
+            <br>传入需要测试的字符串
+            <br>
+            <b>@param type_ : ...string[]|string[]</b>
+            <br>正则名称，可以是一个名称或多个名称
+            <br>
+            <b>@param limit : boolean = true</b>
+            <br>是否强制加首尾限制(^和$)，默认为true
+          </p>
+          <pre>
+fn.fntestpattern('cntower@yahoo.com', 'mobPhone'); // false
+fn.fntestpattern('cntower@yahoo.com', 'email');    // true</pre>
 
           <p id="fnmatchpattern">
             <b class="header">fn.matchPattern</b>
             <br>与一个或几个通用正则匹配
             <br>
             <code>
-              fn.matchPattern(srcStr, _type, isNoLimit?);
+              fn.matchPattern(srcStr, type_, limit?);
             </code>
             <br>
             <b>@param srcStr : string</b>
             <br>传入需要匹配的字符串
             <br>
-            <b>@param _type : string|string[]</b>
-            <br>正则名称，可以是一个名称或多个名称组成的数组
+            <b>@param type_ : ...string[]|string[]</b>
+            <br>正则名称，可以是一个名称或多个名称
             <br>
-            <b>@param isNoLimit : boolean = false</b>
-            <br>是否不加首尾限制(^和$)，默认为false
+            <b>@param limit : boolean = true</b>
+            <br>是否强制加首尾限制(^和$)，默认为true
           </p>
           <pre>
 fn.matchPattern('cntower@yahoo.com', 'mobPhone'); // false
-fn.matchPattern('cntower@yahoo.com', 'email');    // true</pre>
+fn.matchPattern('cntower@yahoo.com', 'email');    // [...mtchResult]</pre>
 
           <h2 id="Function">Function</h2>
+
+          <p id="fnrestargs">
+            <b class="header">fn.restArgs</b>
+            <br>获取函数的剩余参数
+            <br>
+            <code>
+                fn.restArgs(srcFunc);
+              </code>
+            <br>
+            <b>@param srcFunc : function</b>
+            <br>需要获取剩余参数的原函数
+          </p>
+          <pre>
+fn.restArgs(function(args) {fn.log(args)})('a', 'b'); // ['a', 'b']</pre>
 
           <p id="fnthrottle">
             <b class="header">fn.throttle</b>
@@ -1526,81 +1583,6 @@ fn.isFullScreen();  // false</pre>
 function fullsScreenHandler() { //Do Something... }
 fn.fullScreenChange(() => fullsScreenHandler);</pre>
 
-          <h2 id="Cookie">Cookie</h2>
-
-          <p id="fnsetcookie">
-            <b class="header">fn.setCookie</b>
-            <br>设置Cookie
-            <br>
-            <code>
-              fn.setCookie(name, value, days?);
-            </code>
-            <br>
-            <b>@param name : string</b>
-            <br>Cookie名称
-            <br>
-            <b>@param value : string</b>
-            <br>Cookie值
-            <br>
-            <b>@param days : number [?]</b>
-            <br>Cookie过期天数
-          </p>
-          <pre>
-fn.setCookie('name', 'Tom');</pre>
-
-          <p id="fngetcookie">
-            <b class="header">fn.getCookie</b>
-            <br>根据name读取cookie
-            <br>
-            <code>
-              fn.getCookie(name);
-            </code>
-            <br>
-            <b>@param name : string</b>
-            <br>Cookie名称
-          </p>
-          <pre>
-fn.getCookie('name');  // Tom</pre>
-
-          <p id="fnremovecookie">
-            <b class="header">fn.removeCookie</b>
-            <br>根据name删除cookie
-            <br>
-            <code>
-              fn.removeCookie(name);
-            </code>
-            <br>
-            <b>@param name : string</b>
-            <br>Cookie名称
-          </p>
-          <pre>
-fn.removeCookie('name');</pre>
-
-          <h2 id="Tricks">Tricks</h2>
-
-          <p id="fncopytext">
-            <b class="header">fn.copyText</b>
-            <br>复制文本到粘贴板
-            <br>
-            <code>
-              fn.copyText(text);
-            </code>
-            <br>
-            <b>@param text : string</b>
-            <br>需要复制到粘贴板的文本
-          </p>
-          <pre>
-可使用：Ctrl + V，粘贴复制的内容</pre>
-
-          <p id="fnnoconflict">
-            <b class="header">fn.noConflict</b>
-            <br>释放fn变量占用权
-            <br>
-            <code>
-              fn.noConflict();
-            </code>
-          </p>
-
           <h2 id="Loger">Loger</h2>
 
           <p id="fnchalk">
@@ -1648,7 +1630,7 @@ console.log(fn.chalk('test', 'cyan'));</pre>
           <pre>
 fn.log([{name: 'tom', age: 22}], false);
 // =>
-[15:27:16] ( funclib(v3.1.5) ):
+[15:27:16] ( funclib(v3.3.1) ):
 [
   {
     "name": "tom",
@@ -1781,10 +1763,10 @@ fn.mk('C:\\Users\\Administrator\\Desktop\\test');</pre>
               fn.size(file, unit?, digit?);
             </code>
             <br>
-            <b>@param file   : string</b>
+            <b>@param file : string</b>
             <br>文件路径
             <br>
-            <b>@param unit  : 'b'|'kb'|'mb'|'gb'|'tb' = 'kb'</b>
+            <b>@param unit : 'b'|'kb'|'mb'|'gb'|'tb' = 'kb'</b>
             <br>文件大小的单位
             <br>
             <b>@param digit : number = 2</b>
@@ -1793,26 +1775,19 @@ fn.mk('C:\\Users\\Administrator\\Desktop\\test');</pre>
           <pre>
 fn.size('C:\\Users\\Administrator\\Desktop\\test\\test.txt');</pre>
 
-          <h2 id="OOP">OOP</h2>
-
-          <p id="fnmethod">
-            <b class="header">fn().method</b>
-            <br>可把第一个参数传入fn()，剩余的参数传入method中，实现OOP风格的调用
+          <p id="fncopytext">
+            <b class="header">fn.copyText</b>
+            <br>复制文本到粘贴板
             <br>
             <code>
-              fn(data).method(...args);
+              fn.copyText(text);
             </code>
             <br>
-            <b>@param data : any</b>
-            <br>method方法的第一个参数
-            <br>
-            <b>@param args : ...any[]</b>
-            <br>method方法除去第一个参数后的剩余参数
+            <b>@param text : string</b>
+            <br>需要复制到粘贴板的文本
           </p>
           <pre>
-var persons = [{name:'Tom', age: 22}, {name:'Jerry', age: 18}];
-fn(persons).find({name: 'Tom'});            // {name:'Tom', age: 22}
-fn(persons).find(ps => ps.name === 'Tom');  // {name:'Tom', age: 22}</pre>
+可使用：Ctrl + V，粘贴复制的内容</pre>
 
           <h2 id="Progress">Progress</h2>
 
@@ -1850,7 +1825,38 @@ Test [================                        ] 40%</pre>
           <pre>
 fn.progress.stop(() => { // Do something... });</pre>
 
-          <h2 id="Version">Version</h2>
+          <p id="fnmethod">
+            <b class="header">fn().method</b>
+            <br>可把第一个参数传入fn()，剩余的参数传入method中，实现OOP风格的调用
+            <br>
+            <code>
+              fn(data).method(...args);
+            </code>
+            <br>
+            <b>@param data : any</b>
+            <br>method方法的第一个参数
+            <br>
+            <b>@param args : ...any[]</b>
+            <br>method方法除去第一个参数后的剩余参数
+          </p>
+          <pre>
+var persons = [{name:'Tom', age: 22}, {name:'Jerry', age: 18}];
+fn(persons).find({name: 'Tom'});            // {name:'Tom', age: 22}
+fn(persons).find(ps => ps.name === 'Tom');  // {name:'Tom', age: 22}</pre>
+
+          <h2 id="Tricks">Tricks</h2>
+
+          <p id="fnnoconflict">
+            <b class="header">fn.noConflict</b>
+            <br>释放fn变量占用权
+            <br>
+            <code>
+              fn.noConflict();
+            </code>
+          </p>
+          <pre>
+fn.noConflict();  // [Funclib]
+console.log(fn)   // undefined</pre>
 
           <p id="fnversion">
             <b class="header">fn.version</b>
@@ -1861,7 +1867,7 @@ fn.progress.stop(() => { // Do something... });</pre>
             </code>
           </p>
           <pre>
-fn.version;  //3.1.5 </pre>
+fn.version;  //3.3.1 </pre>
 
           <h2 id="changelog">Change Log</h2>
 
@@ -1998,6 +2004,76 @@ fn.version;  //3.1.5 </pre>
             <br>
             <b>fn.log()</b>
             <br>增加时间可选配置
+          </p>
+
+          <p>
+            <b class="header">3.1.9</b> &mdash;
+            <small>
+              <i>2018-12-22</i>
+            </small>
+            <br>
+            <strong>【删除方法】:</strong>
+            <br>
+            <b>fn.progress.start()</b>
+            <br>改为: fn.progress() 进度显示工具
+            <br>
+            <strong>【增加方法】:</strong>
+            <br>
+            <b>fn.each()</b>
+            <br>同: fn.forEach() 遍历数组或类数组
+            <br>
+            <strong>【修改方法】：</strong>
+            <br>
+            <b>fn.progress()</b>
+            <br>修改自: fn.progress.start()
+            <br>
+            <strong>【其它升级】：</strong>
+            <br><i>[1]</i>优化index.d.ts，有更好的vs-code体验
+          </p>
+
+          <p>
+            <b class="header">3.1.12</b> &mdash;
+            <small>
+              <i>2018-1-03</i>
+            </small>
+            <br>
+            <strong>【增加方法】:</strong>
+            <br>
+            <b>fn.setPattern()</b>
+            <br>增加自定义的正则
+            <br>
+            <strong>【修改方法】：</strong>
+            <br>
+            <b>fn.getPattern() && fn.matchPattern()</b>
+            <br>isNoLimit 修改为 limit
+            <br>
+            <b>fn.typeOf()</b>
+            <br>增加type: 'ptn'
+            <br>
+            <b>fn.match()</b>
+            <br>默认项：'@dft' 修改为：'$dft'，'@default' 修改为：'$default'
+            <br>'@pass' 修改为：'@next'
+            <br>
+          </p>
+
+
+          <p>
+            <b class="header">3.3.1</b> &mdash;
+            <small>
+              <i>2018-1-03</i>
+            </small>
+            <br>
+            <strong>【删除方法】:</strong>
+            <br>
+            <b>fn.setCookie()</b>
+            <b>fn.getCookie()</b>
+            <b>fn.rmCookie()</b>
+            <br>
+            <strong>【增加方法】：</strong>
+            <br>
+            <b>fn.asUtcTime()</b>
+            <br>把时间转为相同时间的格林尼治时间戳
+            <br>
           </p>
       </div>
     </div>

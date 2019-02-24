@@ -40,7 +40,8 @@
       </a>&nbsp;&nbsp;
 
       <select id="version_select">
-        <option value="./index.html">v3.3.1</option>
+        <option value="./index.html">v3.3.8</option>
+        <option value="./versions/js/v3.3.1/index.html">v3.3.1</option>
         <option value="./versions/js/v3.1.12/index.html">v3.1.12</option>
         <option value="./versions/js/v3.1.9/index.html">v3.1.9</option>
         <option value="./versions/js/v3.1.5/index.html">v3.1.5</option>
@@ -195,6 +196,9 @@
           <li data-name="fndefer">
             <a href="#fndefer">fn.defer</a>
           </li>
+          <li data-name="fntime">
+            <a href="#fntime">fn.time</a>
+          </li>
           <li data-name="fntimestamp">
             <a href="#fntimestamp">fn.timestamp</a>
           </li>
@@ -203,6 +207,12 @@
           </li>
           <li data-name="fnfmtdate">
             <a href="#fnfmtdate">fn.fmtDate</a>
+          </li>
+          <li data-name="fnfmtutcdate">
+            <a href="#fnfmtutcdate">fn.fmtUTCDate</a>
+          </li>
+          <li data-name="fnfmtxyzdate">
+            <a href="#fnfmtxyzdate">fn.fmtXYZDate</a>
           </li>
         </ul>
       </div>
@@ -297,6 +307,9 @@
           <li data-name="fnchalk">
             <a href="#fnchalk">[s] fn.chalk</a>
           </li>
+          <li data-name="fnprint">
+            <a href="#fnprint">[c][s] fn.print</a>
+          </li>
           <li data-name="fnlog">
             <a href="#fnlog">[c][s] fn.log</a>
           </li>
@@ -326,6 +339,9 @@
           </li>
           <li data-name="fnsize">
             <a href="#fnsize">[s] fn.size</a>
+          </li>
+          <li data-name="fnclear">
+            <a href="#fnclear">[c] fn.clear</a>
           </li>
           <li data-name="fncopytext">
             <a href="#fncopytext">[c] fn.copyText</a>
@@ -427,7 +443,7 @@
             <a href="./lib/funclib/funclib.js" target="_blank">funclib.js</a>
           </td>
           <td>
-            <i>(v3.3.1) Development Version, Uncompressed</i>
+            <i>(v3.3.8) Development Version, Uncompressed</i>
           </td>
         </tr>
         <tr>
@@ -435,7 +451,7 @@
             <a href="./lib/funclib/funclib.min.js" target="_blank">funclib.min.js</a>
           </td>
           <td>
-            <i>(v3.3.1) Production Version, Minified</i>
+            <i>(v3.3.8) Production Version, Minified</i>
           </td>
         </tr>
         <tr>
@@ -443,7 +459,7 @@
             <a href="./lib/funclib/index.js" target="_blank">index.js</a>
           </td>
           <td>
-            <i>(v3.3.1) Server Side Version, Uncompressed</i>
+            <i>(v3.3.8) Server Side Version, Uncompressed</i>
           </td>
         </tr>
         <tr>
@@ -451,7 +467,7 @@
             <a href="./lib/funclib/index.d.ts" target="_blank">index.d.ts</a>
           </td>
           <td>
-            <i>(v3.3.1) TypeScript Definition File</i>
+            <i>(v3.3.8) TypeScript Definition File</i>
           </td>
         </tr>
       </table>
@@ -480,6 +496,19 @@ $ node
     "age": 22
   }
 ]
+==================================================================
+
+> // var bob = fn.find(ps, function(p) { return p.name === 'Bob'; });
+> var bob = fn.find(ps, {name: 'Bob'});
+> fn.log(bob, 'Persons');
+// =>
+==================================================================
+                       [10:33:55] Persons 
+------------------------------------------------------------------
+{
+  "name": "Bob",
+  "age": 22
+}
 ==================================================================</pre>
 
       <div id="documentation">
@@ -1184,6 +1213,20 @@ setTimeout(func, 0);</pre>
         <pre>
 fn.timestamp(new Date('2018-06-06 12:30')); // 1528259400000</pre>
 
+        <p id="fntime">
+          <b class="header">fn.time</b>
+          <br>返回一个时间戳, 同：fn.timestamp
+          <br>
+          <code>
+            fn.time(time);
+          </code>
+          <br>
+          <b>@param time : date|string|number</b>
+          <br>传入一个日期对象、时间字符串或时间辍
+        </p>
+        <pre>
+fn.time(new Date('2018-06-06 12:30')); // 1528259400000</pre>
+
 
         <p id="fnasutctime">
           <b class="header">fn.asUtcTime</b>
@@ -1218,6 +1261,49 @@ var date = new Date('2018-06-06 12:30');
 
 fn.fmtDate('yyyy-MM-dd hh:mm', 1528259400000);  // 2018-06-06 12:30
 fn.fmtDate('yy-MM-dd hh:mm', date);             // 18-06-06 12:30</pre>
+
+        <p id="fnfmtutcdate">
+          <b class="header">fn.fmtUTCDate</b>
+          <br>获取格式化的UTC时间字符串
+          <br>
+          <code>
+            fn.fmtUTCDate(fmtStr, time);
+          </code>
+          <br>
+          <b>@param fmtStr : string</b>
+          <br>时间格式字符串，如：yy-MM-dd hh:mm:ss, MM-dd hh:mm 等
+          <br>
+          <b>@param time : date|string|number</b>
+          <br>传入一个日期对象、时间字符串或时间辍
+        </p>
+        <pre>
+var date = new Date('2018-06-06 12:30');
+
+fn.fmtUTCDate('yyyy-MM-dd hh:mm', 1528259400000);
+fn.fmtUTCDate('yy-MM-dd hh:mm', date);</pre>
+
+        <p id="fnfmtxyzdate">
+          <b class="header">fn.fmtXYZDate</b>
+          <br>获取格式化指定时差的时间字符串
+          <br>
+          <code>
+            fn.fmtXYZDate(fmtStr, time, offset);
+          </code>
+          <br>
+          <b>@param fmtStr : string</b>
+          <br>时间格式字符串，如：yy-MM-dd hh:mm:ss, MM-dd hh:mm 等
+          <br>
+          <b>@param time : date|string|number</b>
+          <br>传入一个日期对象、时间字符串或时间辍
+          <br>
+          <b>@param offset : number</b>
+          <br>与UTC的时差
+        </p>
+        <pre>
+var date = new Date('2018-06-06 12:30');
+
+fn.fmtXYZDate('yyyy-MM-dd hh:mm', 1528259400000, 5.5 * 60 * 60 * 1000);
+fn.fmtXYZDate('yy-MM-dd hh:mm', date, 5.5 * 60 * 60 * 1000);</pre>
 
         <h2 id="String">String</h2>
 
@@ -1644,11 +1730,26 @@ fn.fullScreenChange(() => fullsScreenHandler);</pre>
             <b>@param srcStr : string</b>
             <br>原字符串
             <br>
-            <b>@param color : 'grey'|'blue'|'cyan'|'green'|'magenta'|'red'|'yellow' = 'grey'</b>
-            <br>默认为'grey'
+            <b>@param color : 'grey'|'blue'|'cyan'|'green'|'magenta'|'red'|'yellow'</b>
           </p>
           <pre>
 console.log(fn.chalk('test', 'cyan'));</pre>
+
+          <p id="fnprint">
+            <b class="header">fn.print</b>
+            <br>在控制台打印值
+            <br>
+            <code>
+              fn.chalk(value, color?);
+            </code>
+            <br>
+            <b>@param value : any</b>
+            <br>任意需要打印的值
+            <br>
+            <b>@param color : 'grey'|'blue'|'cyan'|'green'|'magenta'|'red'|'yellow'</b>
+          </p>
+          <pre>
+fn.print('test', 'cyan');</pre>
 
           <p id="fnlog">
             <b class="header">fn.log</b>
@@ -1678,7 +1779,7 @@ console.log(fn.chalk('test', 'cyan'));</pre>
           <pre>
 fn.log([{name: 'tom', age: 22}], false);
 // =>
-[15:27:16] ( funclib(v3.3.1) ):
+[15:27:16] ( funclib(v3.3.8) ):
 [
   {
     "name": "tom",
@@ -1823,6 +1924,16 @@ fn.mk('C:\\Users\\Administrator\\Desktop\\test');</pre>
           <pre>
 fn.size('C:\\Users\\Administrator\\Desktop\\test\\test.txt');</pre>
 
+          <p id="fnclear">
+            <b class="header">fn.clear</b>
+            <br>命令行清屏
+            <br>
+            <code>
+              fn.clear();
+            </code>
+          </p>
+          <pre>fn.clear();</pre>
+
           <p id="fncopytext">
             <b class="header">fn.copyText</b>
             <br>复制文本到粘贴板
@@ -1915,7 +2026,7 @@ console.log(fn)   // undefined</pre>
             </code>
           </p>
           <pre>
-fn.version;  //3.3.1 </pre>
+fn.version;  //3.3.8 </pre>
 
           <h2 id="changelog">Change Log</h2>
 
@@ -2104,7 +2215,6 @@ fn.version;  //3.3.1 </pre>
             <br>
           </p>
 
-
           <p>
             <b class="header">3.3.1</b> &mdash;
             <small>
@@ -2122,6 +2232,34 @@ fn.version;  //3.3.1 </pre>
             <b>fn.asUtcTime()</b>
             <br>把时间转为相同时间的格林尼治时间戳
             <br>
+          </p>
+
+          <p>
+            <b class="header">3.3.1</b> &mdash;
+            <small>
+              <i>2018-2-24</i>
+            </small>
+            <br>
+            <strong>【增加方法】：</strong>
+            <br>
+            <b>fn.time()</b>
+            <br>同：fn.timestamp()
+            <br>
+            <b>fn.fmtUTCDate()</b>
+            <br>获取格式化的UTC时间字符串
+            <br>
+            <b>fn.fmtXYZDate()</b>
+            <br>获取格式化指定时差的时间字符串
+            <br>
+            <b>fn.print()</b>
+            <br>在控制台打印值
+            <br>
+            <b>fn.clear()</b>
+            <br>命令行清屏
+            <br>
+            <strong>【其它修改】:</strong>
+            <br>
+            <br>修复一些bug,如：fn.match()的@next
           </p>
       </div>
     </div>

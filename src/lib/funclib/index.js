@@ -1,6 +1,6 @@
 /**
  * @license
- * Funclib v3.3.5 <https://www.funclib.net>
+ * Funclib v3.3.8 <https://www.funclib.net>
  * GitHub Repository <https://github.com/CN-Tower/funclib.js>
  * Released under MIT license <https://github.com/CN-Tower/funclib.js/blob/master/LICENSE>
  */
@@ -14,7 +14,7 @@
   var root = _global || _self || Function('return this')();
   var expFuncErr = new TypeError('Expected a function');
 
-  var version = '3.3.5';
+  var version = '3.3.8';
   var originalFn = root.fn;
 
   var fn = (function () {
@@ -688,7 +688,11 @@
      * @param offset : number
      */
     function fmtXYZDate (fmtStr, time, offset) {
-      return fmtDate(fmtStr, timestamp(fn.fmtUTCDate('yyyy-MM-dd hh:mm:ss', time)) + offset);
+      var date = dateBase(time);
+      if (!date.getTime()) return '';
+      var ms = date.getUTCMilliseconds();
+      offset = !+offset ? 0 : +offset;
+      return fmtDate(fmtStr, timestamp(fn.fmtUTCDate('yyyy-MM-dd hh:mm:ss', time)) + ms + offset);
     }
 
     function fmtDateBase(fmtStr, time, fmtObj) {
@@ -1143,28 +1147,36 @@
     };
 
     /**
-     * [fn.chalk] 在控制台打印有颜色的字符串
+     * [fn.chalk] 返回带颜色的字符串
      * @param srcStr : string
-     * @param color  : 'grey'|'blue'|'cyan'|'green'|'magenta'|'red'|'yellow' = 'cyan'
+     * @param color  : 'grey'|'blue'|'cyan'|'green'|'magenta'|'red'|'yellow' [?]
      */
     function chalk(srcStr, color) {
-      if (!has(colorList, color)) color = 'grey';
+      if (!has(colorList, color)) color = 'default';
       return colorList[color].replace(/%s/, srcStr);
     }
 
     /**
-     * [fn.log] 控制台格式化打印值
+     * [fn.print] 在控制台打印值
+     * @param value  : any
+     * @param color  : 'grey'|'blue'|'cyan'|'green'|'magenta'|'red'|'yellow' [?]
+     */
+    function print(value, color) {
+      console.log(chalk(pretty(value), color));
+    }
+
+    /**
+     * [fn.log] 在控制台打印格式化的值
      * @param value   : any
      * @param title   : string|boolean [?]
      * @param configs : object [?]
      * title: string,
      * width: number = 66 [30-100],
-     * isFmt: boolean [?]
+     * isFmt:      boolean = true
      * isShowTime: boolean = true
-     * isSplit: boolean = true,
+     * isSplit:    boolean = true,
      * pre:   boolean = false,
      * end:   boolean = false,
-
      * ttColor: 'grey'|'blue'|'cyan'|'green'|'magenta'|'red'|'yellow'
      * color:   'grey'|'blue'|'cyan'|'green'|'magenta'|'red'|'yellow' = 'cyan'
      */
@@ -1206,7 +1218,7 @@
         title = '( ' + title + ' )';
       }
       if (time) {
-        time = '[' + chalk(_time) + '] ';
+        time = '[' + chalk(_time, 'grey') + '] ';
       }
       var valuec = get(configs, 'color');
       var titlec = get(configs, 'ttColor');
@@ -1260,6 +1272,7 @@
      * title: string
      * width: number = 40
      * type : 'bar'|'spi' = 'bar'
+     * split: boolean = true
      */
     function progress(title, options) {
       timeout('#fn_pg_Bar').stop();
@@ -1273,6 +1286,7 @@
       title = typeVal(title, 'str') || get(options, '/title', 'str') || 'funclib ' + version;
       options.title = title;
       pgType = get(options, '/type', 'str');
+      if (has(options, 'isSplit', 'bol') ? options.isSplit : true) console.log('');
       if (pgType === 'bar' || !contains(['bar', 'spi'], pgType)) {
         var Pgbar = eval('require("progress")');
         var prog = (options.title || '[fn.progress]') + ' [:bar] :percent';
@@ -1493,6 +1507,13 @@
       }
     }
 
+    /**
+     * [fn.clear] 命令行清屏
+     */
+    function clear() {
+      process.stdout.write(process.platform === 'win32' ? '\x1Bc' : '\x1B[2J\x1B[3J\x1B[H');
+    }
+
     /**=================================================================== */
     /**@spliter*/
 
@@ -1578,6 +1599,7 @@
     /**=================================================================== */
 
     funclib.chalk = chalk;
+    funclib.print = print;
     funclib.log = log;
     funclib.rd = rd;
     funclib.wt = wt;
@@ -1586,6 +1608,7 @@
     funclib.rm = rm;
     funclib.mk = mk;
     funclib.size = size;
+    funclib.clear = clear;
 
     /**=================================================================== */
     /**@spliter*/
