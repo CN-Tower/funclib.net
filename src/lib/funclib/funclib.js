@@ -1,6 +1,6 @@
 /**
  * @license
- * Funclib v3.4.3 <https://www.funclib.net>
+ * Funclib v3.4.5 <https://www.funclib.net>
  * GitHub Repository <https://github.com/CN-Tower/funclib.js>
  * Released under MIT license <https://github.com/CN-Tower/funclib.js/blob/master/LICENSE>
  */
@@ -14,7 +14,7 @@
   var root = _global || _self || Function('return this')();
   var expFuncErr = new TypeError('Expected a function');
 
-  var version = '3.4.3';
+  var version = '3.4.5';
   var originalFn = root.fn;
 
   var fn = (function () {
@@ -400,7 +400,7 @@
     /**
      * [fn.pick] 获取对象的部分属性
      * @param srcObj    : object
-     * @param predicate : function
+     * @param predicate : function|object
      * @param props     : ...string[]
      */
     var pick = restArgs(function (srcObj, predicate, props) {
@@ -411,7 +411,7 @@
      * [fn.extend] 给对象赋值
      * @param tarObj    : object
      * @param srcObj    : object
-     * @param predicate : function
+     * @param predicate : function|object
      * @param props     : ...string[]
      */
     var extend = restArgs(function (tarObj, srcObj, predicate, props) {
@@ -422,17 +422,19 @@
     });
 
     function extendBase(tarObj, srcObj, predicate, propList, isTraDft) {
+      propList = flatten(propList);
+      var isPredicateObj = typeOf(predicate, 'obj');
       var traversal = function (tarObj, srcObj, propList) {
         forEach(propList, function (prop) {
-          tarObj[prop] = has(srcObj, prop) ? srcObj[prop] : undefined;
+          if (has(srcObj, prop)) {
+            tarObj[prop] = srcObj[prop];
+          } else if (isPredicateObj && has(predicate, 'default')) {
+            tarObj[prop] = predicate.default;
+          }
         });
       }
-      if (typeOf(predicate, 'str')) {
-        propList.unshift(predicate);
-        traversal(tarObj, srcObj, propList);
-      }
-      else if (typeOf(predicate, 'arr')) {
-        traversal(tarObj, srcObj, predicate);
+      if (typeOf(predicate, 'str', 'arr', 'obj')) {
+        traversal(tarObj, srcObj, isPredicateObj ? propList : toArr(predicate).concat(propList));
       }
       else if (typeOf(predicate, 'fun')) {
         forIn(srcObj, function (key, val) {
@@ -440,7 +442,7 @@
         });
       }
       else if (isTraDft) {
-        traversal(tarObj, srcObj, Object.keys(srcObj));
+        traversal(tarObj, srcObj, keys(srcObj));
       }
       return tarObj;
     }
@@ -501,9 +503,7 @@
       if (typeOf(obj1, 'arr') && typeOf(obj2, 'arr')) {
         if (obj1.length !== obj2.length) return false;
         for (var i = 0; i < obj1.length; i++) {
-          if (!isDeepEqual(obj1[i], obj2[i], isStrict)) {
-            return false;
-          }
+          if (!isDeepEqual(obj1[i], obj2[i], isStrict)) return false;
         }
         return true;
       }
@@ -652,13 +652,8 @@
       var date = dateBase(time);
       if (!date.getTime()) return NaN;
       return Date.UTC(
-        date.getFullYear(),
-        date.getMonth(),
-        date.getDate(),
-        date.getHours(),
-        date.getMinutes(),
-        date.getSeconds(),
-        date.getMilliseconds()
+        date.getFullYear(), date.getMonth(), date.getDate(),
+        date.getHours(), date.getMinutes(), date.getSeconds(), date.getMilliseconds()
       );
     }
 
@@ -677,18 +672,7 @@
      * @param time   : date|string|number
      */
     function fmtDate(fmtStr, time) {
-      return fmtDateBase(fmtStr, time, function (date, mtd) {
-        return match(mtd, {
-          'y': date.getFullYear(),
-          'M': date.getMonth() + 1,
-          'd': date.getDate(),
-          'h': date.getHours(),
-          'm': date.getMinutes(),
-          's': date.getSeconds(),
-          'q': Math.floor((date.getMonth() + 3) / 3),
-          'S': date.getMilliseconds()
-        });
-      });
+      return fmtDateBase(fmtStr, time, false);
     }
 
     /**
@@ -697,18 +681,7 @@
      * @param time   : date|string|number
      */
     function fmtUtcDate(fmtStr, time) {
-      return fmtDateBase(fmtStr, time, function (date, mtd) {
-        return match(mtd, {
-          'y': date.getUTCFullYear(),
-          'M': date.getUTCMonth() + 1,
-          'd': date.getUTCDate(),
-          'h': date.getUTCHours(),
-          'm': date.getUTCMinutes(),
-          's': date.getUTCSeconds(),
-          'q': Math.floor((date.getUTCMonth() + 3) / 3),
-          'S': date.getUTCMilliseconds()
-        });
-      });
+      return fmtDateBase(fmtStr, time, true);
     }
 
     /**
@@ -724,20 +697,31 @@
       return fmtDate(fmtStr, timestamp(fmtUtcDate('yyyy-MM-dd hh:mm:ss', time)) + ms + (!+offset ? 0 : +offset));
     }
 
-    function fmtDateBase(fmtStr, time, fmtObj) {
-      var date = dateBase(time);
+    function fmtDateBase(fmtStr, time, isUtc) {
+      var date = dateBase(time), obj, year;
       if (!date.getTime()) return '';
-      var obj = {
-        'M+': fmtObj(date, 'M'), 'd+': fmtObj(date, 'd'), 'h+': fmtObj(date, 'h'),
-        'm+': fmtObj(date, 'm'), 's+': fmtObj(date, 's'), 'q+': fmtObj(date, 'q'), 'S': fmtObj(date, 'S'),
-      };
-      if (/(y+)/.test(fmtStr)) {
-        fmtStr = fmtStr.replace(RegExp.$1, (fmtObj(date, 'y') + '').substr(4 - RegExp.$1.length));
+      if (isUtc) {
+        year = date.getUTCFullYear();
+        timeObj = {
+          'M+': date.getUTCMonth() + 1, 'd+': date.getUTCDate(), 'h+': date.getUTCHours(),
+          'm+': date.getUTCMinutes(), 's+': date.getUTCSeconds(), 'S':  date.getUTCMilliseconds(),
+          'q+': Math.floor((date.getUTCMonth() + 3) / 3),
+        } 
+      } else {
+        year = date.getFullYear();
+        timeObj = {
+          'M+': date.getMonth() + 1, 'd+': date.getDate(), 'h+': date.getHours(),
+          'm+': date.getMinutes(), 's+': date.getSeconds(), 'S':  date.getMilliseconds(),
+          'q+': Math.floor((date.getMonth() + 3) / 3),
+        } 
       }
-      forIn(obj, function (k) {
+      if (/(y+)/.test(fmtStr)) {
+        fmtStr = fmtStr.replace(RegExp.$1, (year + '').substr(4 - RegExp.$1.length));
+      }
+      forIn(timeObj, function (k) {
         if (new RegExp('(' + k + ')').test(fmtStr)) {
           fmtStr = fmtStr.replace(
-            RegExp.$1, (RegExp.$1.length === 1) ? obj[k] : (('00' + obj[k]).substr((obj[k] + '').length))
+            RegExp.$1, (RegExp.$1.length === 1) ? timeObj[k] : (('00' + timeObj[k]).substr((timeObj[k] + '').length))
           );
         }
       });
@@ -842,6 +826,24 @@
         sti += 3;
       }
       return decimal ? integerStr + '.' + decimal : integerStr;
+    }
+    
+    /**
+     * [fn.maskString] 编码字符串或其子串
+     * @param srcStr : any
+     * @param mask   : string = '*'
+     * @param start  : number
+     * @param length : number
+     */
+    function maskString(srcStr, mask, start, length) {
+      var str = String(srcStr), ptn = /[^\u4e00-\u9fa5]/mg, ptn_ = /[\u4e00-\u9fa5]/mg;
+      if (typeOf(mask, 'num')) {
+        length = start, start = mask, mask = '*';
+      } else if (!typeOf(mask, 'str')) {
+        mask = '*';
+      }
+      var maskStr = str.substr(start, length).replace(ptn, mask).replace(ptn_, mask + mask);
+      return str.substr(0, start) + maskStr + (typeOf(length, 'udf') ? '' : str.substr(start + length));
     }
 
     /**
@@ -980,7 +982,8 @@
     /**
      * [fn.testPattern]用一个或几个通用正则测试
      * @param srcStr : string
-     * @param type_  : string
+     * @param type_  : 'cnChar'|'dbChar'|'email'|'mobPhone'|'telPhone'|'idCard'|'uuid'|'base64Code'|'domain'|
+     * 'port'|'ip'|'ipUrl'|'domainUrl'|'url'|'ipWithPortUrl'|'domainWithPortUrl'|'withPortUrl'
      * @param types  : ...string[]
      * @param limit  : boolean = true
      */
@@ -992,7 +995,8 @@
     /**
      * [fn.matchPattern]与一个或几个通用正则匹配
      * @param srcStr : string
-     * @param type_  : string
+     * @param type_  : 'cnChar'|'dbChar'|'email'|'mobPhone'|'telPhone'|'idCard'|'uuid'|'base64Code'|'domain'|
+     * 'port'|'ip'|'ipUrl'|'domainUrl'|'url'|'ipWithPortUrl'|'domainWithPortUrl'|'withPortUrl'
      * @param types  : ...string[]
      * @param limit  : boolean = true
      */
@@ -1377,6 +1381,7 @@
     funclib.unescape = unescape;
     funclib.capitalize = capitalize;
     funclib.fmtCurrency = fmtCurrency;
+    funclib.maskString = maskString;
     funclib.cutString = cutString;
     funclib.parseQueryStr = parseQueryStr;
     funclib.stringifyQueryStr = stringifyQueryStr;

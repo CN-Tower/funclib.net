@@ -40,7 +40,8 @@
       </a>&nbsp;&nbsp;
 
       <select id="version_select">
-        <option value="./index.html">v3.4.2</option>
+        <option value="./index.html">v3.4.5</option>
+        <option value="./versions/js/v3.4.2/index.html">v3.4.2</option>
         <option value="./versions/js/v3.3.1/index.html">v3.3.1</option>
         <option value="./versions/js/v3.1.12/index.html">v3.1.12</option>
         <option value="./versions/js/v3.1.9/index.html">v3.1.9</option>
@@ -237,6 +238,9 @@
           </li>
           <li data-name="fnfmtcurrency">
             <a href="#fnfmtcurrency">fn.fmtCurrency</a>
+          </li>
+          <li data-name="fnmaskstring">
+            <a href="#fnmaskstring">fn.maskString</a>
           </li>
           <li data-name="fncutstring">
             <a href="#fncutstring">fn.cutString</a>
@@ -440,10 +444,18 @@
       <table>
         <tr>
           <td>
+            <a href="./lib/funclib/funclib.core.js" target="_blank">funclib.core.js</a>
+          </td>
+          <td>
+            <i>(v3.4.5) Development Core, Uncompressed</i>
+          </td>
+        </tr>
+        <tr>
+          <td>
             <a href="./lib/funclib/funclib.js" target="_blank">funclib.js</a>
           </td>
           <td>
-            <i>(v3.4.2) Development Version, Uncompressed</i>
+            <i>(v3.4.5) Development Version, Uncompressed</i>
           </td>
         </tr>
         <tr>
@@ -451,7 +463,7 @@
             <a href="./lib/funclib/funclib.min.js" target="_blank">funclib.min.js</a>
           </td>
           <td>
-            <i>(v3.4.2) Production Version, Minified</i>
+            <i>(v3.4.5) Production Version, Minified</i>
           </td>
         </tr>
         <tr>
@@ -459,7 +471,7 @@
             <a href="./lib/funclib/index.js" target="_blank">index.js</a>
           </td>
           <td>
-            <i>(v3.4.2) Server Side Version, Uncompressed</i>
+            <i>(v3.4.5) Server Side Version, Uncompressed</i>
           </td>
         </tr>
         <tr>
@@ -467,7 +479,7 @@
             <a href="./lib/funclib/index.d.ts" target="_blank">index.d.ts</a>
           </td>
           <td>
-            <i>(v3.4.2) TypeScript Definition File</i>
+            <i>(v3.4.5) TypeScript Definition File</i>
           </td>
         </tr>
       </table>
@@ -967,6 +979,7 @@ fn.keys(['name', 'age']);         // ['0', '1']</pre>
 fn.pick({name: 'Tom', age: 28}, 'name');                  // {name: 'Tom'}
 fn.pick({name: 'Tom', age: 28}, 'name', 'age');           // {name: 'Tom', age: 28}
 fn.pick({name: 'Tom', age: 28}, ['name', 'age', 'sex']);  // {name: 'Tom', age: 28}
+fn.pick({name: 'Tom', age: 28}, {default: undefined}, ['name', 'age', 'sex']);  // {name: 'Tom', age: 28, sex: undefined}
 fn.pick({name: 'Tom', age: 28}, (k, v) => v === 28);      // {age: 28}</pre>
 
         <p id="fnextend">
@@ -1416,6 +1429,32 @@ fn.capitalize(true);   // true</pre>
 '￥' + fn.fmtCurrency(199999999);    // ￥199,999,999.00
 '￥' + fn.fmtCurrency(199999999, 4); // ￥199,999,999.0000</pre>
 
+        <p id="fnmaskstring">
+          <b class="header">fn.maskString</b>
+          <br>编码字符串或其子串
+          <br>
+          <code>
+            fn.maskString(srcStr, mask?, start, length);
+          </code>
+          <br>
+          <b>@param srcStr : any</b>
+          <br>传入字符串
+          <br>
+          <b>@param mask : string</b>
+          <br>掩码字符
+          <br>
+          <b>@param start : number</b>
+          <br>开始位置
+          <br>
+          <b>@param length : number</b>
+          <br>编码长度
+        </p>
+        <pre>
+fn.maskString(18770347428, 3, 4);         // 187****7428
+fn.maskString(18770347428, 3);            // 187********
+fn.maskString('18770347428', 'x', 3, 4);  // 187xxxx7428
+fn.maskString('测试双字节', 2, 1);         // 测试**字节</pre>
+
         <p id="fncutstring">
           <b class="header">fn.cutString</b>
           <br>裁切字符串到指定长度
@@ -1779,7 +1818,7 @@ fn.print('test', 'cyan');</pre>
           <pre>
 fn.log([{name: 'tom', age: 22}], false);
 // =>
-[15:27:16] ( funclib(v3.4.2) ):
+[15:27:16] ( funclib(v3.4.5) ):
 [
   {
     "name": "tom",
@@ -2026,7 +2065,7 @@ console.log(fn)   // undefined</pre>
             </code>
           </p>
           <pre>
-fn.version;  //3.4.2 </pre>
+fn.version;  //3.4.5 </pre>
 
           <h2 id="changelog">Change Log</h2>
 
