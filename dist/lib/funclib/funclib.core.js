@@ -1,6 +1,6 @@
 /**
  * @license
- * Funclib v3.4.8 <https://www.funclib.net>
+ * Funclib v3.4.9 <https://www.funclib.net>
  * GitHub Repository <https://github.com/CN-Tower/funclib.js>
  * Released under MIT license <https://github.com/CN-Tower/funclib.js/blob/master/LICENSE>
  */
@@ -13,7 +13,7 @@
   var _module = _exports && typeof module == 'object' && module && !module.nodeType && module;
   var root = _global || _self || Function('return this')();
 
-  var version = '3.4.8';
+  var version = '3.4.9';
   var oldFn = root.fn;
 
   var fn = (function () {
@@ -23,7 +23,7 @@
      * @param func : function
      */
     function rest(func) {
-      if (!isFun(func)) throwError('fun')
+      if (!isFun(func)) throwError('fun');
       var start = func.length - 1;
       return function () {
         var len = Math.max(arguments.length - start, 0);
@@ -369,7 +369,7 @@
      */
     function forEach(srcObj, iteratee) {
       if (!srcObj) return srcObj;
-      if (!isFun(iteratee)) throwError('fun')
+      if (!isFun(iteratee)) throwError('fun');
       var length = srcObj.length;
       if (length && length >= 0 && length < Math.pow(2, 53) - 1) {
         for (var i = 0; i < length; i++) {
@@ -512,7 +512,7 @@
      * @arg iteratee : function
      */
     function forIn(srcObj, iteratee) {
-      if (!isFun(iteratee)) throwError('fun')
+      if (!isFun(iteratee)) throwError('fun');
       return forEach(srcObj, function (val, key) { iteratee(key, val); });
     }
 
@@ -1034,7 +1034,7 @@
      */
     function throttle(func, wait, options) {
       var leading = true, trailing = true;
-      if (!isFun(func)) throwError('fun')
+      if (!isFun(func)) throwError('fun');
       if (isObj(options)) {
         leading = has(options, 'leading') ? !!options.leading : leading;
         trailing = has(options, 'trailing') ? !!options.trailing : trailing;
@@ -1057,7 +1057,7 @@
      * trailing: boolean = true
      */
     function debounce(func, wait, options) {
-      if (!isFun(func)) throwError('fun')
+      if (!isFun(func)) throwError('fun');
       var lastArgs, lastThis, maxWait, result, timerId, lastCallTime
         , lastInvokeTime = 0, leading = false, maxing = false, trailing = true;
       wait = +wait || 0;
