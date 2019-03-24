@@ -1,6 +1,6 @@
 /**
  * @license
- * Funclib v3.4.5 <https://www.funclib.net>
+ * Funclib v3.4.7 <https://www.funclib.net>
  * GitHub Repository <https://github.com/CN-Tower/funclib.js>
  * Released under MIT license <https://github.com/CN-Tower/funclib.js/blob/master/LICENSE>
  */
@@ -12,6 +12,17 @@
  ## Type
  * fn.typeOf                [-] 检查值的类型
  * fn.typeVal               [-] 获取期望类型的值
+ * fn.isStr                 [-] 判断类型是否为：string
+ * fn.isNum                 [-] 判断类型是否为：number
+ * fn.isBol                 [-] 判断类型是否为：boolean
+ * fn.isFun                 [-] 判断类型是否为：function
+ * fn.isNul                 [-] 判断是否为：null
+ * fn.isUdf                 [-] 判断类型是否为：undefined
+ * fn.isErr                 [-] 判断类型是否为：Error
+ * fn.isDat                 [-] 判断类型是否为：Date
+ * fn.isReg                 [-] 判断类型是否为：RegExp
+ * fn.isArr                 [-] 判断类型是否为：Array
+ * fn.isObj                 [-] 判断是否为：正常Object
  ## Array
  * fn.array                 [-] 返回指定长度和默认值的数组
  * fn.range                 [-] 返回一个范围数组
@@ -71,7 +82,7 @@
  * fn.testPattern           [-] 用一个或几个通用正则测试
  * fn.matchPattern          [-] 与一个或几个通用正则匹配
  ## Function
- * fn.restArgs              [-] 获取函数的剩余参数
+ * fn.rest                  [-] 获取函数的剩余参数
  * fn.throttle              [-] 节流函数
  * fn.debounce              [-] 防抖函数
  ## Loger
@@ -109,10 +120,14 @@ declare var fn: fn.Funclib;
 declare namespace fn {
 
   type Any = any;
-  type Type = 'arr' | 'obj' | 'fun' | 'str' | 'num' | 'bol' | 'udf' | 'nul' | 'ptn' | 'dat' | string | string[];
+  
+  type Type = 'arr' | 'obj' | 'fun' | 'str' | 'num' | 'bol' | 'udf'
+            | 'nul' | 'err' | 'reg' | 'dat' | string | string[];
+
   type Color = 'grey' | 'blue' | 'cyan' | 'green' | 'magenta' | 'red' | 'yellow';
-  type Pattern = 'cnChar' | 'dbChar' | 'email' | 'mobPhone' | 'telPhone' | 'idCard' | 'uuid' | 'base64Code' | 'domain'
-               | 'port' | 'ip' | 'ipUrl' | 'domainUrl' | 'url' | 'ipWithPortUrl' | 'domainWithPortUrl' | 'withPortUrl' | string
+
+  type Pattern = 'cnChar' | 'dbChar' | 'email' | 'mobPhone' | 'telPhone' | 'idCard' | 'uuid'
+               | 'base64Code' | 'domain' | 'port' | 'ip' | 'ipUrl' | 'domainUrl' | 'url' | string
 
   interface Progress {
     /**
@@ -194,6 +209,73 @@ declare namespace fn {
      * @param types : ...string[]
      */
     typeVal(value: any, type_: Type | Type[], ...types: Type[]): any;
+
+    /**
+     * [fn.isStr] 判断类型是否为：string
+     * @param value : any
+     */
+    isStr(value: any): boolean;
+
+    /**
+     * [fn.isNum] 判断类型是否为：number
+     * @param value : any
+     * @param impure : boolean = false
+     */
+    isNum(value: any, impure?: boolean): boolean;
+
+    /**
+     * [fn.isBol] 判断类型是否为：boolean
+     * @param value : any
+     */
+    isBol(value: any): boolean;
+
+    /**
+     * [fn.isFun] 判断类型是否为：function
+     * @param value : any
+     */
+    isFun(value: any): boolean;
+
+    /**
+     * [fn.isNul] 判断是否为：null
+     * @param value : any
+     */
+    isNul(value: any): boolean;
+
+    /**
+     * [fn.isUdf] 判断类型是否为：undefined
+     * @param value : any
+     */
+    isUdf(value: any): boolean;
+
+    /**
+     * [fn.isErr] 判断类型是否为：Error
+     * @param value : any
+     */
+    isErr(value: any): boolean;
+
+    /**
+     * [fn.isDat] 判断类型是否为：Date
+     * @param value : any
+     */
+    isDat(value: any): boolean;
+
+    /**
+     * [fn.isReg] 判断类型是否为：RegExp
+     * @param value : any
+     */
+    isReg(value: any): boolean;
+
+    /**
+     * [fn.isArr] 判断类型是否为：Array
+     * @param value : any
+     */
+    isArr(value: any): boolean;
+
+    /**
+     * [fn.isObj] 判断是否为：正常Object
+     * @param value : any
+     */
+    isObj(value: any): boolean;
 
     /**
      * [fn.array] 返回一个指定长度和默认值的数组
@@ -336,7 +418,7 @@ declare namespace fn {
      * default?: any;
      * @param props     : ...string[]
      */
-    pick(srcObj: Object, predicate: any, ...props: string[]): any;
+    pick(srcObj: Object, predicate: { default?: any } | any, ...props: string[]): any;
 
     /**
      * [fn.extend] 给对象赋值
@@ -346,7 +428,7 @@ declare namespace fn {
      * default?: any;
      * @param props     : ...string[]
      */
-    extend(tarObj: any, srcObj: any, predicate?: any, ...props: string[]): any;
+    extend(tarObj: any, srcObj: any, predicate?: { default?: any } | any, ...props: string[]): any;
 
     /**
      * [fn.forIn] 遍历对象的可数自有属性
@@ -379,8 +461,9 @@ declare namespace fn {
      * [fn.random] 返回一个指定范围内的随机数
      * @param start : number
      * @param end   : number [?]
+     * @param isFlt : boolean = true;
      */
-    random(start: number, end?: number): number;
+    random(start: number, end?: number, isFlt?: boolean): number;
 
     /**
      * [fn.gid] 返回一个指定长度的随机ID
@@ -564,10 +647,10 @@ declare namespace fn {
     matchPattern(srcStr: string, type_: Pattern, ...types: Pattern[]): any;
 
     /**
-     * [fn.restArgs] 获取函数的剩余参数
-     * @param srcFunc : function
+     * [fn.rest] 获取函数的剩余参数
+     * @param func : function
      */
-    restArgs(srcFunc: Function): Function;
+    rest(func: Function): Function;
 
     /**
      * [fn.throttle] 节流函数，适用于限制resize和scroll等函数的调用频率
@@ -580,16 +663,16 @@ declare namespace fn {
     throttle(func: Function, wait: number, options?: { leading?: boolean, trailing?: boolean }): Function;
 
     /**
-     * [fn.debounce] 防抖函数, 适用于获取用户输入
+     * [fn.debounce] 防抖函数, 适用于获取用户输入或防止函数频繁调用
      * @param  func    : function
      * @param  wait    : number
-     * @param  options : object [?]
+     * @param  options : object|boolean [?] 为true时，leading = true, trailing = false;
      * leading: boolean = false
      * maxing: boolean = false
      * maxWait: number = Math.max(0, wait)
      * trailing: boolean = true
      */
-    debounce(func: Function, wait: number, options?: { leading?: boolean, trailing?: boolean, maxing?: boolean, maxWait?: number }): Function;
+    debounce(func: Function, wait: number, options?: boolean | { leading?: boolean, trailing?: boolean, maxing?: boolean, maxWait?: number }): Function;
 
     /**
      * [fn.fullScreen] 全屏显示HTML元素
