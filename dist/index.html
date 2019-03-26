@@ -40,7 +40,7 @@
       </a>&nbsp;&nbsp;
 
       <select id="version_select">
-        <option value="./index.html">v3.4.5</option>
+        <option value="./index.html">v3.5.2</option>
         <option value="./versions/js/v3.4.2/index.html">v3.4.2</option>
         <option value="./versions/js/v3.3.1/index.html">v3.3.1</option>
         <option value="./versions/js/v3.1.12/index.html">v3.1.12</option>
@@ -80,6 +80,39 @@
           </li>
           <li data-name="fntypeval">
             <a href="#fntypeval">fn.typeVal</a>
+          </li>
+          <li data-name="fnisstr">
+            <a href="#fnisstr">fn.isStr</a>
+          </li>
+          <li data-name="fnisnum">
+            <a href="#fnisnum">fn.isNum</a>
+          </li>
+          <li data-name="fnisbol">
+            <a href="#fnisbol">fn.isBol</a>
+          </li>
+          <li data-name="fnisfun">
+            <a href="#fnisfun">fn.isFun</a>
+          </li>
+          <li data-name="fnisnul">
+            <a href="#fnisnul">fn.isNul</a>
+          </li>
+          <li data-name="fnisudf">
+            <a href="#fnisudf">fn.isUdf</a>
+          </li>
+          <li data-name="fniserr">
+            <a href="#fniserr">fn.isErr</a>
+          </li>
+          <li data-name="fnisdat">
+            <a href="#fnisdat">fn.isDat</a>
+          </li>
+          <li data-name="fnisreg">
+            <a href="#fnisreg">fn.isReg</a>
+          </li>
+          <li data-name="fnisarr">
+            <a href="#fnisarr">fn.isArr</a>
+          </li>
+          <li data-name="fnisobj">
+            <a href="#fnisobj">fn.isObj</a>
           </li>
         </ul>
       </div>
@@ -145,6 +178,9 @@
           </li>
           <li data-name="fnget">
             <a href="#fnget">fn.get</a>
+          </li>
+          <li data-name="fnset">
+            <a href="#fnset">fn.set</a>
           </li>
           <li data-name="fnkeys">
             <a href="#fnkeys">fn.keys</a>
@@ -366,17 +402,14 @@
       </div>
 
       <div class="searchable_section">
-        <a class="toc_title" href="#OOP"> OOP </a>
-        <ul class="toc_section">
-          <li data-name="fnmethod">
-            <a href="#fnmethod">fn().method</a>
-          </li>
-        </ul>
-      </div>
-
-      <div class="searchable_section">
         <a class="toc_title" href="#Tricks"> Tricks </a>
         <ul class="toc_section">
+            <li data-name="fnmethod">
+              <a href="#fnmethod">fn().method</a>
+            </li>
+            <li data-name="fnchain">
+              <a href="#fnchain">fn.chain</a>
+            </li>
           <li data-name="fnnoconflict">
             <a href="#fnnoconflict">fn.noConflict</a>
           </li>
@@ -447,7 +480,7 @@
             <a href="./lib/funclib/funclib.core.js" target="_blank">funclib.core.js</a>
           </td>
           <td>
-            <i>(v3.4.5) Development Core, Uncompressed</i>
+            <i>(v3.5.2) Development Core, Uncompressed</i>
           </td>
         </tr>
         <tr>
@@ -455,7 +488,7 @@
             <a href="./lib/funclib/funclib.js" target="_blank">funclib.js</a>
           </td>
           <td>
-            <i>(v3.4.5) Development Version, Uncompressed</i>
+            <i>(v3.5.2) Development Version, Uncompressed</i>
           </td>
         </tr>
         <tr>
@@ -463,7 +496,7 @@
             <a href="./lib/funclib/funclib.min.js" target="_blank">funclib.min.js</a>
           </td>
           <td>
-            <i>(v3.4.5) Production Version, Minified</i>
+            <i>(v3.5.2) Production Version, Minified</i>
           </td>
         </tr>
         <tr>
@@ -471,7 +504,7 @@
             <a href="./lib/funclib/index.js" target="_blank">index.js</a>
           </td>
           <td>
-            <i>(v3.4.5) Server Side Version, Uncompressed</i>
+            <i>(v3.5.2) Server Side Version, Uncompressed</i>
           </td>
         </tr>
         <tr>
@@ -479,7 +512,7 @@
             <a href="./lib/funclib/index.d.ts" target="_blank">index.d.ts</a>
           </td>
           <td>
-            <i>(v3.4.5) TypeScript Definition File</i>
+            <i>(v3.5.2) TypeScript Definition File</i>
           </td>
         </tr>
       </table>
@@ -511,14 +544,15 @@ $ node
 ==================================================================
 
 > // var bob = fn.find(ps, function(p) { return p.name === 'Bob'; });
-> var bob = fn.find(ps, {name: 'Bob'});
-> fn.log(bob, 'Persons');
+> // var bob = fn.find(ps, {name: 'Bob'});
+> var p = fn(ps).find({name: 'Bob'}).set('name', 'Lee').val();
+> fn.log(p, 'Person');
 // =>
 ==================================================================
-                       [10:33:55] Persons 
+                       [10:33:55] Person
 ------------------------------------------------------------------
 {
-  "name": "Bob",
+  "name": "Lee",
   "age": 22
 }
 ==================================================================</pre>
@@ -582,6 +616,188 @@ fn.typeVal(true, 'bol');         // true
 fn.typeVal([], 'obj');           // false
 fn.typeVal([], 'str', 'arr');    // []
 fn.typeVal([], ['str', 'arr']);  // []</pre>
+
+        <p id="fnisstr">
+          <b class="header">fn.isStr</b>
+          <br>判断类型是否为：string
+          <br>
+          <code>
+            fn.isStr(value);
+          </code>
+          <br>
+          <b>@param value : any</b>
+          <br>接收一个任意类型的值
+          <br>
+        </p>
+        <pre>
+fn.isStr('true');  // true
+fn.isStr(true);    // false</pre>
+        <p id="fnisnum">
+          <b class="header">fn.isNum</b>
+          <br>判断类型是否为：number
+          <br>
+          <code>
+            fn.isStr(value, impure?);
+          </code>
+          <br>
+          <b>@param value : any</b>
+          <br>接收一个任意类型的值
+          <br>
+          <b>@param impure : boolean = false</b>
+          <br>是否包含NaN和Infinite
+          <br>
+        </p>
+        <pre>
+fn.isNum(NaN);        // false
+fn.isNum(NaN, true);  // true
+fn.isNum('123');      // false
+fn.isNum(123);        // true</pre>
+
+        <p id="fnisbol">
+          <b class="header">fn.isBol</b>
+          <br>判断类型是否为：boolean
+          <br>
+          <code>
+            fn.isBol(value);
+          </code>
+          <br>
+          <b>@param value : any</b>
+          <br>接收一个任意类型的值
+          <br>
+        </p>
+        <pre>
+fn.isBol('true');  // false
+fn.isBol(true);    // true</pre>
+
+        <p id="fnisfun">
+          <b class="header">fn.isFun</b>
+          <br>判断类型是否为：function
+          <br>
+          <code>
+            fn.isFun(value);
+          </code>
+          <br>
+          <b>@param value : any</b>
+          <br>接收一个任意类型的值
+          <br>
+        </p>
+        <pre>
+fn.isFun('true');  // false
+fn.isFun([].map);  // true</pre>
+
+        <p id="fnisnul">
+          <b class="header">fn.isNul</b>
+          <br>判断是否为：null
+          <br>
+          <code>
+            fn.isNul(value);
+          </code>
+          <br>
+          <b>@param value : any</b>
+          <br>接收一个任意类型的值
+          <br>
+        </p>
+        <pre>
+fn.isNul('null');  // false
+fn.isNul(null);    // true</pre>
+
+        <p id="fnisudf">
+          <b class="header">fn.isUdf</b>
+          <br>判断类型是否为：undefined
+          <br>
+          <code>
+            fn.isUdf(value);
+          </code>
+          <br>
+          <b>@param value : any</b>
+          <br>接收一个任意类型的值
+          <br>
+        </p>
+        <pre>
+fn.isUdf('');           // false
+fn.isUdf(undefined);    // true</pre>
+
+        <p id="fniserr">
+          <b class="header">fn.isErr</b>
+          <br>判断类型是否为：Error
+          <br>
+          <code>
+            fn.isErr(value);
+          </code>
+          <br>
+          <b>@param value : any</b>
+          <br>接收一个任意类型的值
+          <br>
+        </p>
+        <pre>
+fn.isErr(new Error('error'));  // true
+fn.isErr(true);                // false</pre>
+
+        <p id="fnisdat">
+          <b class="header">fn.isDat</b>
+          <br>判断类型是否为：Date
+          <br>
+          <code>
+            fn.isDat(value);
+          </code>
+          <br>
+          <b>@param value : any</b>
+          <br>接收一个任意类型的值
+          <br>
+        </p>
+        <pre>
+fn.isDat(new Data());  // true
+fn.isDat(123);         // false</pre>
+
+        <p id="fnisreg">
+          <b class="header">fn.isReg</b>
+          <br>判断类型是否为：RegExp
+          <br>
+          <code>
+            fn.isReg(value);
+          </code>
+          <br>
+          <b>@param value : any</b>
+          <br>接收一个任意类型的值
+          <br>
+        </p>
+        <pre>
+fn.isReg(new RegExp('test'));  // true
+fn.isReg(/test/);              // true</pre>
+
+        <p id="fnisarr">
+          <b class="header">fn.isArr</b>
+          <br>判断类型是否为：Array
+          <br>
+          <code>
+            fn.isArr(value);
+          </code>
+          <br>
+          <b>@param value : any</b>
+          <br>接收一个任意类型的值
+          <br>
+        </p>
+        <pre>
+fn.isArr(new Array());  // true
+fn.isArr([]);           // true
+fn.isArr({});           // false</pre>
+
+        <p id="fnisobj">
+          <b class="header">fn.isObj</b>
+          <br>判断是否为：正常Object
+          <br>
+          <code>
+            fn.isObj(value);
+          </code>
+          <br>
+          <b>@param value : any</b>
+          <br>接收一个任意类型的值
+          <br>
+        </p>
+        <pre>
+fn.isObj(new Object());  // true
+fn.isObj({});            // true
+fn.isObj([]);            // false</pre>
 
         <h2 id="Array">Array</h2>
 
@@ -938,13 +1154,33 @@ var obj1 = {name: 'Obj', metadata: {subObj: {name: 'Tom'}}};
 var obj2 = {name: 'Obj', metadata: null};
 var Arr1 = [{name: 'Tom'}];
 
-fn.get(obj1, '.metadata.subObj.name');         // Tom
-fn.get(obj1, '/metadata/subObj/name');         // Tom
-fn.get(obj1, '/metadata/subObj/name', 'str');  // Tom
-fn.get(obj2, '/metadata/subObj/name', 'bol');  // false
-fn.get({}, '/metadata/subObj/name');           // undefined
-fn.get(obj2, '/metadata/subObj/name');         // undefined
-fn.get(Arr1, '/0/name');                       // Tom</pre>
+        <p id="fnset">
+          <b class="header">fn.set</b>
+          <br>设置对象或子孙对象的属性
+          <br>
+          <code>
+            fn.get(srcObj, path, value);
+          </code>
+          <br>
+          <b>@param srcObj : object</b>
+          <br>目标对象
+          <br>
+          <b>@param path : string</b>
+          <br>属性的路径（可以以“.”分隔，也可以以“/”分隔。）
+          <br>
+          <b>@param value : any</b>
+          <br>任意类型的值
+          <br>
+        </p>
+        <pre>
+var obj1 = {name: 'Obj', metadata: {subObj: {name: 'Tom'}}};
+var obj2 = {name: 'Obj', metadata: null};
+var Arr1 = [{name: 'Tom'}];
+
+fn.set(obj1, '.metadata.subObj.name', 'tom');  // obj1.metadata.subObj.name === 'tom'
+fn.set(null, '/metadata/subObj/name');         // never
+fn.set(obj2, '/metadata/subObj/name');         // never
+fn.set(Arr1, '/0/name', 'Bob');                // [{name: 'Bob'}]</pre>
 
         <p id="fnkeys">
           <b class="header">fn.keys</b>
@@ -1818,7 +2054,7 @@ fn.print('test', 'cyan');</pre>
           <pre>
 fn.log([{name: 'tom', age: 22}], false);
 // =>
-[15:27:16] ( funclib(v3.4.5) ):
+[15:27:16] ( funclib(v3.5.2) ):
 [
   {
     "name": "tom",
@@ -2024,8 +2260,27 @@ Test [================                        ] 40%</pre>
 fn.progress.stop(() => { // Do something... });</pre>
 
           <p id="fnmethod">
+            <b class="header">fn.chain</b>
+            <br>并返回一个链式调用对象
+            <br>
+            <code>
+              fn.chain(data).method(...args)
+            </code>
+            <br>
+            <b>@param data : any</b>
+            <br>method方法的第一个参数
+            <br>
+            <b>@param args : ...any[]</b>
+            <br>method方法除去第一个参数后的剩余参数
+          </p>
+          <pre>
+var persons = [{name:'Tom', age: 22}, {name:'Jerry', age: 18}];
+fn(persons).find({name: 'Tom'}).val();                               // {name:'Tom', age: 22}
+fn(persons).find(ps => ps.name === 'Tom').set('name', 'Bob').val();  // {name:'Bob', age: 22}</pre>
+
+          <p id="fnmethod">
             <b class="header">fn().method</b>
-            <br>可把第一个参数传入fn()，剩余的参数传入method中，实现OOP风格的调用
+            <br>可把第一个参数传入fn()，剩余的参数传入method中，并返回一个链式调用对象
             <br>
             <code>
               fn(data).method(...args);
@@ -2039,8 +2294,8 @@ fn.progress.stop(() => { // Do something... });</pre>
           </p>
           <pre>
 var persons = [{name:'Tom', age: 22}, {name:'Jerry', age: 18}];
-fn(persons).find({name: 'Tom'});            // {name:'Tom', age: 22}
-fn(persons).find(ps => ps.name === 'Tom');  // {name:'Tom', age: 22}</pre>
+fn(persons).find({name: 'Tom'}).val();                               // {name:'Tom', age: 22}
+fn(persons).find(ps => ps.name === 'Tom').set('name', 'Bob').val();  // {name:'Bob', age: 22}</pre>
 
           <h2 id="Tricks">Tricks</h2>
 
@@ -2065,7 +2320,7 @@ console.log(fn)   // undefined</pre>
             </code>
           </p>
           <pre>
-fn.version;  //3.4.5 </pre>
+fn.version;  //3.5.2 </pre>
 
           <h2 id="changelog">Change Log</h2>
 
