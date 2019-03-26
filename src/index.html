@@ -632,6 +632,7 @@ fn.typeVal([], ['str', 'arr']);  // []</pre>
         <pre>
 fn.isStr('true');  // true
 fn.isStr(true);    // false</pre>
+
         <p id="fnisnum">
           <b class="header">fn.isNum</b>
           <br>判断类型是否为：number
@@ -1153,6 +1154,13 @@ fn.has(null, 'name');  // false</pre>
 var obj1 = {name: 'Obj', metadata: {subObj: {name: 'Tom'}}};
 var obj2 = {name: 'Obj', metadata: null};
 var Arr1 = [{name: 'Tom'}];
+fn.get(obj1, '.metadata.subObj.name');         // Tom
+fn.get(obj1, '/metadata/subObj/name');         // Tom
+fn.get(obj1, '/metadata/subObj/name', 'str');  // Tom
+fn.get(obj2, '/metadata/subObj/name', 'bol');  // false
+fn.get({}, '/metadata/subObj/name');           // undefined
+fn.get(obj2, '/metadata/subObj/name');         // undefined
+fn.get(Arr1, '/0/name');                       // Tom</pre>
 
         <p id="fnset">
           <b class="header">fn.set</b>
