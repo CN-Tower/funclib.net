@@ -40,7 +40,7 @@
       </a>&nbsp;&nbsp;
 
       <select id="version_select">
-        <option value="./index.html">v3.4.5</option>
+        <option value="./index.html">v3.5.1</option>
         <option value="./versions/js/v3.4.2/index.html">v3.4.2</option>
         <option value="./versions/js/v3.3.1/index.html">v3.3.1</option>
         <option value="./versions/js/v3.1.12/index.html">v3.1.12</option>
@@ -80,6 +80,39 @@
           </li>
           <li data-name="fntypeval">
             <a href="#fntypeval">fn.typeVal</a>
+          </li>
+          <li data-name="fnisstr">
+            <a href="#fnisstr">fn.isStr</a>
+          </li>
+          <li data-name="fnisnum">
+            <a href="#fnisnum">fn.isNum</a>
+          </li>
+          <li data-name="fnisbol">
+            <a href="#fnisbol">fn.isBol</a>
+          </li>
+          <li data-name="fnisfun">
+            <a href="#fnisfun">fn.isFun</a>
+          </li>
+          <li data-name="fnisnul">
+            <a href="#fnisnul">fn.isNul</a>
+          </li>
+          <li data-name="fnisudf">
+            <a href="#fnisudf">fn.isUdf</a>
+          </li>
+          <li data-name="fniserr">
+            <a href="#fniserr">fn.isErr</a>
+          </li>
+          <li data-name="fnisdat">
+            <a href="#fnisdat">fn.isDat</a>
+          </li>
+          <li data-name="fnisreg">
+            <a href="#fnisreg">fn.isReg</a>
+          </li>
+          <li data-name="fnisarr">
+            <a href="#fnisarr">fn.isArr</a>
+          </li>
+          <li data-name="fnisobj">
+            <a href="#fnisobj">fn.isObj</a>
           </li>
         </ul>
       </div>
@@ -145,6 +178,9 @@
           </li>
           <li data-name="fnget">
             <a href="#fnget">fn.get</a>
+          </li>
+          <li data-name="fnset">
+            <a href="#fnset">fn.set</a>
           </li>
           <li data-name="fnkeys">
             <a href="#fnkeys">fn.keys</a>
@@ -366,17 +402,14 @@
       </div>
 
       <div class="searchable_section">
-        <a class="toc_title" href="#OOP"> OOP </a>
-        <ul class="toc_section">
-          <li data-name="fnmethod">
-            <a href="#fnmethod">fn().method</a>
-          </li>
-        </ul>
-      </div>
-
-      <div class="searchable_section">
         <a class="toc_title" href="#Tricks"> Tricks </a>
         <ul class="toc_section">
+            <li data-name="fnmethod">
+              <a href="#fnmethod">fn().method</a>
+            </li>
+            <li data-name="fnchain">
+              <a href="#fnchain">fn.chain</a>
+            </li>
           <li data-name="fnnoconflict">
             <a href="#fnnoconflict">fn.noConflict</a>
           </li>
@@ -447,7 +480,7 @@
             <a href="./lib/funclib/funclib.core.js" target="_blank">funclib.core.js</a>
           </td>
           <td>
-            <i>(v3.4.5) Development Core, Uncompressed</i>
+            <i>(v3.5.1) Development Core, Uncompressed</i>
           </td>
         </tr>
         <tr>
@@ -455,7 +488,7 @@
             <a href="./lib/funclib/funclib.js" target="_blank">funclib.js</a>
           </td>
           <td>
-            <i>(v3.4.5) Development Version, Uncompressed</i>
+            <i>(v3.5.1) Development Version, Uncompressed</i>
           </td>
         </tr>
         <tr>
@@ -463,7 +496,7 @@
             <a href="./lib/funclib/funclib.min.js" target="_blank">funclib.min.js</a>
           </td>
           <td>
-            <i>(v3.4.5) Production Version, Minified</i>
+            <i>(v3.5.1) Production Version, Minified</i>
           </td>
         </tr>
         <tr>
@@ -471,7 +504,7 @@
             <a href="./lib/funclib/index.js" target="_blank">index.js</a>
           </td>
           <td>
-            <i>(v3.4.5) Server Side Version, Uncompressed</i>
+            <i>(v3.5.1) Server Side Version, Uncompressed</i>
           </td>
         </tr>
         <tr>
@@ -479,7 +512,7 @@
             <a href="./lib/funclib/index.d.ts" target="_blank">index.d.ts</a>
           </td>
           <td>
-            <i>(v3.4.5) TypeScript Definition File</i>
+            <i>(v3.5.1) TypeScript Definition File</i>
           </td>
         </tr>
       </table>
@@ -1818,7 +1851,7 @@ fn.print('test', 'cyan');</pre>
           <pre>
 fn.log([{name: 'tom', age: 22}], false);
 // =>
-[15:27:16] ( funclib(v3.4.5) ):
+[15:27:16] ( funclib(v3.5.1) ):
 [
   {
     "name": "tom",
@@ -2065,7 +2098,7 @@ console.log(fn)   // undefined</pre>
             </code>
           </p>
           <pre>
-fn.version;  //3.4.5 </pre>
+fn.version;  //3.5.1 </pre>
 
           <h2 id="changelog">Change Log</h2>
 
