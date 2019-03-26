@@ -1,6 +1,6 @@
 /**
  * @license
- * Funclib v3.5.1 <https://www.funclib.net>
+ * Funclib v3.5.2 <https://www.funclib.net>
  * GitHub Repository <https://github.com/CN-Tower/funclib.js>
  * Released under MIT license <https://github.com/CN-Tower/funclib.js/blob/master/LICENSE>
  */
@@ -113,7 +113,6 @@
  * fn().method              [-] 返回链接调用对象
  * fn.noConflict            [-] 释放fn变量占用权
  * fn.version               [-] 返回当前函数库版本
-
  ================================================================*/
 export = fn;
 export as namespace fn;
