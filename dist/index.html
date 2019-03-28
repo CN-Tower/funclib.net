@@ -1186,8 +1186,8 @@ var obj2 = {name: 'Obj', metadata: null};
 var Arr1 = [{name: 'Tom'}];
 
 fn.set(obj1, '.metadata.subObj.name', 'tom');  // obj1.metadata.subObj.name === 'tom'
-fn.set(null, '/metadata/subObj/name');         // never
-fn.set(obj2, '/metadata/subObj/name');         // never
+fn.set(null, '/metadata/subObj/name');         // null
+fn.set(obj2, '/metadata/subObj/name');         // {name: 'Obj', metadata: null}
 fn.set(Arr1, '/0/name', 'Bob');                // [{name: 'Bob'}]</pre>
 
         <p id="fnkeys">
@@ -2269,7 +2269,7 @@ fn.progress.stop(() => { // Do something... });</pre>
 
           <p id="fnmethod">
             <b class="header">fn.chain</b>
-            <br>并返回一个链式调用对象
+            <br>可把第一个参数传入fn.chain()，并返回一个链式调用对象(同: fn())
             <br>
             <code>
               fn.chain(data).method(...args)
@@ -2283,8 +2283,8 @@ fn.progress.stop(() => { // Do something... });</pre>
           </p>
           <pre>
 var persons = [{name:'Tom', age: 22}, {name:'Jerry', age: 18}];
-fn(persons).find({name: 'Tom'}).val();                               // {name:'Tom', age: 22}
-fn(persons).find(ps => ps.name === 'Tom').set('name', 'Bob').val();  // {name:'Bob', age: 22}</pre>
+fn.chain(persons).find({name: 'Tom'}).val();                               // {name:'Tom', age: 22}
+fn.chain(persons).find(ps => ps.name === 'Tom').set('name', 'Bob').val();  // {name:'Bob', age: 22}</pre>
 
           <p id="fnmethod">
             <b class="header">fn().method</b>
