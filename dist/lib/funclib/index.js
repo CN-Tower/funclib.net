@@ -1,6 +1,6 @@
 /**
  * @license
- * Funclib v3.5.3 <https://www.funclib.net>
+ * Funclib v3.5.5 <https://www.funclib.net>
  * GitHub Repository <https://github.com/CN-Tower/funclib.js>
  * Released under MIT license <https://github.com/CN-Tower/funclib.js/blob/master/LICENSE>
  */
@@ -14,7 +14,7 @@
     , root = _global || _self || Function('return this')()
     , oldFn = root.fn;
 
-  var version = '3.5.3';
+  var version = '3.5.5';
 
   var fn = (function () {
 
@@ -435,7 +435,7 @@
      * @param pathStr : string
      * @param value   : any
      */
-    var set = function (srcObj, pathStr, value) {
+    function set(srcObj, pathStr, value) {
       function setBase(origin, srcObj, pathStr, value) {
         if (!srcObj || !isStr(pathStr)) return origin;
         var paths = getPaths(pathStr), prop = paths.shift();
@@ -731,7 +731,7 @@
       var date = dateBase(time);
       if (!date.getTime()) return '';
       var ms = date.getUTCMilliseconds()
-        , tm = timestamp(fmtUtcDate('yyyy-MM-dd hh:mm:ss', time)) + ms + (!+offset ? 0 : +offset);
+        , tm = timestamp(fmtUtcDate('yyyy/MM/dd hh:mm:ss', time)) + ms + (!+offset ? 0 : +offset);
       return fmtDate(fmtStr, tm);
     }
 
@@ -1509,9 +1509,7 @@
           chainedFn[method] = function () { strProto[method].call(arguments); }
         } else {
           chainedFn[method] = rest(function (args) {
-            if (!isUdf(chainedFn.value)) {
-              args = [chainedFn.value].concat(args);
-            }
+            if (!isUdf(chainedFn.value)) args = [chainedFn.value].concat(args);
             return chain(isFun(fn[method]) ? fn[method].apply(void 0, args) : fn[method]);
           });
         }
