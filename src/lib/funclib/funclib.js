@@ -1,6 +1,6 @@
 /**
  * @license
- * Funclib v3.5.5 <https://www.funclib.net>
+ * Funclib v3.5.7 <https://www.funclib.net>
  * GitHub Repository <https://github.com/CN-Tower/funclib.js>
  * Released under MIT license <https://github.com/CN-Tower/funclib.js/blob/master/LICENSE>
  */
@@ -14,7 +14,7 @@
     , root = _global || _self || Function('return this')()
     , oldFn = root.fn;
 
-  var version = '3.5.5';
+  var version = '3.5.7';
 
   var fn = (function () {
 
@@ -460,32 +460,43 @@
      * @param srcObj : object
      */
     function keys(srcObj) { return Object.keys(srcObj); }
-
+    
     /**
-     * [fn.pick] 获取对象的部分属性
+     * [fn.pick] 获取包含部分属性的对象副本
      * @param srcObj    : object
-     * @param predicate : function|object
+     * @param predicate : function|string|string[]|{ default?: any }
      * @param props     : ...string[]
      */
     var pick = rest(function (srcObj, predicate, props) {
-      return extendBase({}, srcObj, predicate, props, false);
+      return extendBase({}, srcObj, predicate, props);
     });
 
+    /**
+     * [fn.omit] 获取省略部分属性的对象副本
+     * @param srcObj    : object
+     * @param predicate : function|string|string[]
+     * @param props     : ...string[]
+     */
+    var omit = rest(function (srcObj, predicate, props) {
+      return extendBase({}, srcObj, predicate, props, true, true);
+    });
+    
     /**
      * [fn.extend] 给对象赋值
      * @param tarObj    : object
      * @param srcObj    : object
-     * @param predicate : function|object
+     * @param predicate : function|string|string[]|{ default?: any }
      * @param props     : ...string[]
      */
     var extend = rest(function (tarObj, srcObj, predicate, props) {
       return extendBase(tarObj, srcObj, predicate, props, true);
     });
 
-    function extendBase(tarObj, srcObj, predicate, propList, isTraDft) {
+    function extendBase(tarObj, srcObj, predicate, propList, isTraDft, isOmit) {
       if (!isObj(srcObj)) return tarObj;
       propList = flatten(propList);
       var isPdtObj = isObj(predicate);
+      var srcKs = keys(srcObj);
       function traversal(tarObj, srcObj, propList) {
         forEach(propList, function (prop) {
           if (has(srcObj, prop)) {
@@ -496,15 +507,18 @@
         });
       }
       if (typeOf(predicate, 'str', 'arr', 'obj')) {
-        traversal(tarObj, srcObj, isPdtObj ? propList : toArr(predicate).concat(propList));
+        var props = isPdtObj ? propList : toArr(predicate).concat(propList);
+        if (isOmit) props = srcKs.filter(function(key) { return !contains(props, key); });
+        traversal(tarObj, srcObj, props);
       }
       else if (isFun(predicate)) {
         forIn(srcObj, function (key, val) {
-          if (predicate(key, val)) tarObj[key] = val;
+          var isPred = predicate(key, val);
+          if ((isPred && !isOmit ) || (!isPred && isOmit)) tarObj[key] = val;
         });
       }
       else if (isTraDft) {
-        traversal(tarObj, srcObj, keys(srcObj));
+        traversal(tarObj, srcObj, srcKs);
       }
       return tarObj;
     }
@@ -1208,39 +1222,42 @@
 
     /**
      * [fn.fullScreen] 全屏显示HTML元素
-     * @param el : HTMLElement
+     * @param el      : HTMLElement
+     * @param didFull : function [?]
      */
-    function fullScreen(el) {
-      if (typeof el === 'string') {
-        el = document.querySelector(el);
-      }
+    function fullScreen(el, didFull) {
+      if (typeof el === 'string') el = document.querySelector(el);
       if (el && el.tagName) {
-        var rfs = el['requestFullScreen']
-          || el['webkitRequestFullScreen']
-          || el['mozRequestFullScreen']
-          || el['msRequestFullScreen'];
-
-        if (rfs) return rfs.call(el);
-        if (window['ActiveXObject']) {
-          var ws = new window['ActiveXObject']('WScript.Shell');
-          if (ws) ws.SendKeys('{F11}');
+        var rfs = el.requestFullScreen || el.webkitRequestFullScreen
+          || el.mozRequestFullScreen || el.msRequestFullScreen;
+        rfs ? rfs.call(el) : sendF11();
+        if (isFun(didFull)) {
+          var timer = interval(100, function () {
+            if (isFullScreen()) clearInterval(timer), defer(didFull);
+          });
         }
       }
     }
 
     /**
      * [fn.exitFullScreen] 退出全屏显示
+     * @param didExit : function [?]
      */
-    function exitFullScreen() {
-      var cfs = document['cancelFullScreen']
-        || document['webkitCancelFullScreen']
-        || document['mozCancelFullScreen']
-        || document['exitFullScreen'];
+    function exitFullScreen(didExit) {
+      var cfs = document.cancelFullScreen || document.webkitCancelFullScreen
+        || document.mozCancelFullScreen || document.exitFullScreen;
+      cfs ? cfs.call(document) : sendF11();
+      if (isFun(didExit)) {
+        var timer = interval(100, function () {
+          if (!isFullScreen()) clearInterval(timer), defer(didExit);
+        });
+      }
+    }
 
-      if (cfs) return cfs.call(document);
-      if (window['ActiveXObject']) {
-        var ws = new window['ActiveXObject']('WScript.Shell');
-        if (ws != null) ws.SendKeys('{F11}');
+    function sendF11() {
+      if (window.ActiveXObject) {
+        var ws = new window.ActiveXObject('WScript.Shell');
+        if (ws) ws.SendKeys('{F11}');
       }
     }
 
@@ -1248,40 +1265,41 @@
      * [fn.isFullScreen] 检测是否全屏状态
      */
     function isFullScreen() {
-      return document['fullscreenEnabled']
-        || window['fullScreen']
-        || document['mozFullscreenEnabled']
-        || document['webkitIsFullScreen']
-        || document['msIsFullScreen']
-        || false;
+      return !!(document.fullscreenElement || document.msFullscreenElement ||
+        document.mozFullScreenElement || document.webkitFullscreenElement);
     }
+
+    var fsChangeEvents = {}
+      , fsEvent = 'fullscreenchange'
+      , fsEvents = [fsEvent, 'webkit' + fsEvent, 'moz' + fsEvent, 'MS' + fsEvent];
 
     /**
      * [fn.fullScreenChange] 全屏状态变化事件
-     * @param callback function|false [?]
+     * @param callback function
      */
     function fullScreenChange(callback) {
-      var event = 'fullscreenchange'
-        , events = [event, 'webkit' + event, 'moz' + event, 'MS' + event];
-      function removeFsChangeEvent() {
-        return events.forEach(function (e) {
-          document.removeEventListener(e, window['onfullscreen']);
-        });
-      };
       if (isFun(callback)) {
-        window['onfullscreen'] = callback;
-        events.forEach(function (e) {
-          document.addEventListener(e, window['onfullscreen']);
+        var eventId = Date.now();
+        fsChangeEvents[eventId] = callback;
+        forEach(fsEvents, function (e) {
+          document.addEventListener(e, fsChangeEvents[eventId]);
         });
+        return { 'remove': function() { rmFsChangeEvent(eventId); } };
       }
-      else if (window['onfullscreen']) {
-        if (callback === false) {
-          removeFsChangeEvent();
-        }
-        else {
-          return { off: removeFsChangeEvent };
-        }
-      }
+    }
+
+    /**
+     * [fn.fullScreenChange.removeAll] 清除所有全屏状态变化事件
+     */
+    fullScreenChange.removeAll = function() {
+      forIn(fsChangeEvents, function(eventId) { rmFsChangeEvent(eventId); });
+    }
+
+    function rmFsChangeEvent(eventId) {
+      forEach(fsEvents, function (e) {
+        document.removeEventListener(e, fsChangeEvents[eventId]);
+      });
+      delete fsChangeEvents[eventId];
     }
 
     /**
@@ -1373,6 +1391,7 @@
     funclib.set = set;
     funclib.keys = keys;
     funclib.pick = pick;
+    funclib.omit = omit;
     funclib.extend = extend;
     funclib.forIn = forIn;
     funclib.deepCopy = deepCopy;
