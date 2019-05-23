@@ -1,6 +1,6 @@
 /**
  * @license
- * Funclib v3.5.8 <https://www.funclib.net>
+ * Funclib v3.5.9 <https://www.funclib.net>
  * GitHub Repository <https://github.com/CN-Tower/funclib.js>
  * Released under MIT license <https://github.com/CN-Tower/funclib.js/blob/master/LICENSE>
  */
@@ -443,7 +443,7 @@ declare namespace fn {
      * @param pathStr : string
      * @param value   : any
      */
-    get(srcObj: Object, pathStr: string, value: any): void;
+    set(srcObj: Object, pathStr: string, value: any): void;
 
     /**
      * [fn.keys] 获取对象的键数组
