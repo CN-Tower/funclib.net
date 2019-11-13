@@ -1,11 +1,18 @@
+var fs = require('fs');
+var path = require('path');
+var execSync = require('child_process').execSync;
+var Pgbar = require('progress');
+
 /**
  * @license
- * Funclib v3.5.9 <https://www.funclib.net>
+ * Funclib v4.0.2 <https://www.funclib.net>
  * GitHub Repository <https://github.com/CN-Tower/funclib.js>
  * Released under MIT license <https://github.com/CN-Tower/funclib.js/blob/master/LICENSE>
  */
 ; (function () {
 
+  var version = '4.0.2';
+  
   var undefined, UDF = undefined
     , _global = typeof global == 'object' && global && global.Object === Object && global
     , _self = typeof self == 'object' && self && self.Object === Object && self
@@ -13,9 +20,64 @@
     , _module = _exports && typeof module == 'object' && module && !module.nodeType && module
     , root = _global || _self || Function('return this')()
     , oldFn = root.fn;
+  
+  /**
+   * HTML encode and decode characters.
+   */
+  var deCodes = ['&', '<', '>', ' ', '\'', '"']
+    , enCodes = ['&amp;', '&lt;', '&gt;', '&nbsp;', '&#39;', '&quot;'];
+  
+  /**
+   * String match variables.
+   */
+  var MATCH_SYMBOL='__@fnMatch__'
+    , MATCH_NEST = '@next';
+  
+  /**
+   * Frequently-used regular expression patterns.
+   */
+  var patterns = {
+    cnChar: /[\u4e00-\u9fa5]/,
+    dbChar: /[^x00-xff]/,
+    email: /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/,
+    mobPhone: /(\+?0?86\-?)?1[3456789]\d{9}/,
+    telPhone: /((d{3,4})|d{3,4}-)?d{7,8}/,
+    idCard: /(^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$)|(^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])((\d{4})|\d{3}[Xx])$)/,
+    uuid: /[0-9a-zA-Z]{8}-([0-9a-zA-Z]{4}-){3}[0-9a-zA-Z]{12}/,
+    base64Code: /([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?/,
+    domain: /([0-9a-z_!~*'()-]+\.)*([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\.[a-z]{2,6}/,
+    port: /([1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])/,
+    ip: /((25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(25[0-5]|2[0-4]\d|[01]?\d\d?)/,
+    url_: /(\/([^?#]*))?(\?([^#]*))?(#(.*))?/
+  };
+  patterns['ipUrl'] = new RegExp('http(s)?://' + patterns.ip.source + '(:' + patterns.port.source + ')?' + patterns.url_.source);
+  patterns['domainUrl'] = new RegExp('http(s)?://' + patterns.domain.source + '(:' + patterns.port.source + ')?' + patterns.url_.source);
+  patterns['url'] = new RegExp('http(s)?://(' + patterns.ip.source + '|' + patterns.domain.source + ')(:' + patterns.port.source + ')?' + patterns.url_.source);
+  
+  /**
+   * timers container.
+   */
+  var intervalTimers = {}
+    , timeoutTimers  = {};
+  
+  /**
+   * Color string of console display.
+   */
+  var colorList = {
+    'grey': '\x1B[90m%s\x1B[0m',
+    'blue': '\x1B[34m%s\x1B[0m',
+    'cyan': '\x1B[36m%s\x1B[0m',
+    'green': '\x1B[32m%s\x1B[0m',
+    'magenta': '\x1B[35m%s\x1B[0m',
+    'red': '\x1B[31m%s\x1B[0m',
+    'yellow': '\x1B[33m%s\x1B[0m',
+    'default': '%s\x1B[0m'
+  };
 
-  var version = '3.5.9';
 
+  /**
+   * Funclib definition closure.
+   */
   var fn = (function () {
 
     /**
@@ -78,13 +140,15 @@
     var typeVal = rest(function (value, type_, types) {
       return typeOf.apply(void 0, [value, type_].concat(types)) && value;
     });
-    
+
     /**
      * [fn.isStr] 判断类型是否为：string
      * @param value : any
      */
-    function isStr(value) { return typeof value == 'string'; }
-    
+    function isStr(value) {
+      return typeof value == 'string';
+    }
+
     /**
      * [fn.isNum] 判断类型是否为：number
      * @param value  : any
@@ -99,49 +163,65 @@
      * [fn.isBol] 判断类型是否为：boolean
      * @param value : any
      */
-    function isBol(value) { return typeof value == 'boolean'; }
+    function isBol(value) {
+      return typeof value == 'boolean';
+    }
 
     /**
      * [fn.isFun] 判断类型是否为：function
      * @param value : any
      */
-    function isFun(value) { return typeof value == 'function'; }
+    function isFun(value) {
+      return typeof value == 'function';
+    }
 
     /**
      * [fn.isNul] 判断是否为：null
      * @param value : any
      */
-    function isNul(value) { return value === null; }
+    function isNul(value) {
+      return value === null;
+    }
 
     /**
      * [fn.isUdf] 判断类型是否为：undefined
      * @param value : any
      */
-    function isUdf(value) { return value === UDF; }
+    function isUdf(value) {
+      return value === UDF;
+    }
 
     /**
      * [fn.isErr] 判断类型是否为：Error
      * @param value : any
      */
-    function isErr(value) { return value instanceof Error; }
+    function isErr(value) {
+      return value instanceof Error;
+    }
 
     /**
      * [fn.isDat] 判断类型是否为：Date
      * @param value : any
      */
-    function isDat(value) { return value instanceof Date; }
+    function isDat(value) {
+      return value instanceof Date;
+    }
 
     /**
      * [fn.isReg] 判断类型是否为：RegExp
      * @param value : any
      */
-    function isReg(value) { return value instanceof RegExp; };
+    function isReg(value) {
+      return value instanceof RegExp;
+    };
 
     /**
      * [fn.isArr] 判断类型是否为：Array
      * @param value : any
      */
-    function isArr(value) { return value instanceof Array; }
+    function isArr(value) {
+      return value instanceof Array;
+    }
 
     /**
      * [fn.isObj] 判断是否为：正常Object
@@ -243,26 +323,11 @@
 
     /**
       * [fn.reject] 根据条件过滤值
-     * @param srcArr    : array
-     * @param predicate : object|function|any
+      * @param srcArr    : array
+      * @param predicate : object|function|any
       */
-    function reject(srcArr, predicate) {
+      function reject(srcArr, predicate) {
       return filterBase(srcArr, predicate, false);
-    }
-
-    function filterBase(srcArr, predicate, isFilter) {
-      var fts = [], rjs = [];
-      forEach(srcArr, function (item) {
-        if (isObj(predicate)) {
-          keys(predicate).every(
-            function (key) { return predicate[key] === item[key]; }
-          ) ? fts.push(item) : rjs.push(item);
-        }
-        else if (isFun(predicate)) {
-          predicate(item) ? fts.push(item) : rjs.push(item);
-        }
-      });
-      return isFilter ? fts : rjs;
     }
 
     /**
@@ -451,16 +516,14 @@
       return setBase(srcObj, srcObj, pathStr, value);
     }
 
-    function getPaths(pathStr) {
-      return contains(pathStr, '.') ? drop(pathStr.split('.')) : drop(pathStr.split('/'));
-    }
-
     /**
      * [fn.keys] 获取对象的键数组
      * @param srcObj : object
      */
-    function keys(srcObj) { return Object.keys(srcObj); }
-    
+    function keys(srcObj) {
+      return Object.keys(srcObj);
+    }
+
     /**
      * [fn.pick] 获取包含部分属性的对象副本
      * @param srcObj    : object
@@ -480,7 +543,7 @@
     var omit = rest(function (srcObj, predicate, props) {
       return extendBase({}, srcObj, predicate, props, true, true);
     });
-    
+
     /**
      * [fn.extend] 给对象赋值
      * @param tarObj    : object
@@ -491,37 +554,6 @@
     var extend = rest(function (tarObj, srcObj, predicate, props) {
       return extendBase(tarObj, srcObj, predicate, props, true);
     });
-
-    function extendBase(tarObj, srcObj, predicate, propList, isTraDft, isOmit) {
-      if (!isObj(srcObj)) return tarObj;
-      propList = flatten(propList);
-      var isPdtObj = isObj(predicate);
-      var srcKs = keys(srcObj);
-      function traversal(tarObj, srcObj, propList) {
-        forEach(propList, function (prop) {
-          if (has(srcObj, prop)) {
-            tarObj[prop] = srcObj[prop];
-          } else if (isPdtObj && has(predicate, 'default')) {
-            tarObj[prop] = predicate.default;
-          }
-        });
-      }
-      if (typeOf(predicate, 'str', 'arr', 'obj')) {
-        var props = isPdtObj ? propList : toArr(predicate).concat(propList);
-        if (isOmit) props = srcKs.filter(function(key) { return !contains(props, key); });
-        traversal(tarObj, srcObj, props);
-      }
-      else if (isFun(predicate)) {
-        forIn(srcObj, function (key, val) {
-          var isPred = predicate(key, val);
-          if ((isPred && !isOmit ) || (!isPred && isOmit)) tarObj[key] = val;
-        });
-      }
-      else if (isTraDft) {
-        traversal(tarObj, srcObj, srcKs);
-      }
-      return tarObj;
-    }
 
     /**
      * [fn.forIn] 遍历对象的可数自有属性
@@ -638,7 +670,7 @@
     function interval(timerId, duration, callback) {
       return timerBase(timerId, duration, callback, 'interval');
     }
-    
+
     /**
      * [fn.timeout] 延时定时器
      * @param timerId  : string [?]
@@ -648,56 +680,22 @@
     function timeout(timerId, duration, callback) {
       return timerBase(timerId, duration, callback, 'timeout');
     }
-    
-    var intervalTimers = {}, timeoutTimers = {};
-
-    function timerBase(timerId, duration, callback, type_) {
-      var timer, setTimer, clearTimer;
-      if (type_ === 'interval') {
-        timer = intervalTimers, setTimer = setInterval, clearTimer = clearInterval;
-      } else if (type_ === 'timeout') {
-        timer = timeoutTimers, setTimer = setTimeout, clearTimer = clearTimeout;
-      }
-      var isTimerIdStr = typeVal(timerId, 'str');
-      function invokeClear() { return clearTimer(timer[timerId]); };
-      if (isTimerIdStr) {
-        if (isUdf(duration)) {
-          return { 'id': timer[timerId], 'stop': invokeClear, 'clear': invokeClear };
-        }
-        if (contains([null, false], duration)) {
-          invokeClear();
-          return timer[timerId] = null;
-        }
-        if (isFun(duration)) {
-          callback = duration, duration = 0;
-        }
-      }
-      if (isNum(timerId) && isFun(duration)) {
-        callback = duration, duration = timerId, timerId = UDF;
-      }
-      if (isFun(timerId)) {
-        callback = timerId, duration = 0, timerId = UDF;
-      }
-      if (isFun(callback) && isNum(duration) && duration >= 0) {
-        if (isUdf(timerId)) return setTimer(callback, duration);
-        if (isTimerIdStr) {
-          invokeClear();
-          return timer[timerId] = setTimer(callback, duration);
-        }
-      }
-    }
 
     /**
      * [fn.defer] 延迟执行函数
      * @param func : function
      */
-    function defer(func) { return setTimeout(func); }
+    function defer(func) {
+      return setTimeout(func);
+    }
 
     /**
      * [fn.timestamp] 返回一个时间戳
      * @param time : date|string|number
      */
-    function timestamp(time) { return dateBase(time).getTime(); }
+    function timestamp(time) {
+      return dateBase(time).getTime();
+    }
 
     /**
      * [fn.asUtcTime] 转化为相同时间的UTC时间戳
@@ -754,52 +752,6 @@
       return fmtDate(fmtStr, tm);
     }
 
-    function dateBase(time) {
-      if (time instanceof Date) return time;
-      time = String(time);
-      return new Date(time.match(/^[0-9]*$/) ? +time : time);
-    }
-
-    function getTimeObj(date, isUtc) {
-      return isUtc ? {
-        'y+': date.getUTCFullYear(),
-        'M+': date.getUTCMonth() + 1,
-        'd+': date.getUTCDate(),
-        'h+': date.getUTCHours(),
-        'm+': date.getUTCMinutes(),
-        's+': date.getUTCSeconds(),
-        'S':  date.getUTCMilliseconds(),
-        'q+': Math.floor((date.getUTCMonth() + 3) / 3)
-      } : {
-        'y+': date.getFullYear(),
-        'M+': date.getMonth() + 1,
-        'd+': date.getDate(),
-        'h+': date.getHours(),
-        'm+': date.getMinutes(),
-        's+': date.getSeconds(),
-        'S': date.getMilliseconds(),
-        'q+': Math.floor((date.getMonth() + 3) / 3)
-      }
-    }
-
-    function fmtDateBase(fmtStr, time, isUtc) {
-      var date = dateBase(time);
-      if (!date.getTime()) return '';
-      var timeObj = getTimeObj(date, isUtc);
-      forIn(timeObj, function (k) {
-        if (new RegExp('(' + k + ')').test(fmtStr)) {
-          if (k === 'y+') {
-            fmtStr = fmtStr.replace(RegExp.$1, (timeObj['y+'] + '').substr(4 - RegExp.$1.length));
-          } else {
-            var tmk = timeObj[k]
-              , fmt = RegExp.$1.length === 1 ? tmk : ('00' + tmk).substr((tmk + '').length);
-            fmtStr = fmtStr.replace(RegExp.$1, fmt);
-          }
-        }
-      });
-      return fmtStr;
-    }
-
     /**
      * [fn.match] 字符串匹配
      * @param source : any
@@ -809,21 +761,24 @@
     function match(source, cases, isExec) {
       if (!isObj(cases)) throwErr('obj');
       if (isUdf(isExec)) isExec = true;
-      var symbol = '__@fnMatch__';
+      var symbol = MATCH_SYMBOL;
       if (has(cases, source)) {
         symbol = source;
       } else if (has(cases, 'default')) {
         symbol = 'default';
       }
       var matched = cases[symbol];
-      if (matched === '@next') {
+      if (matched === MATCH_NEST) {
         var ks = keys(cases), i = ks.indexOf(symbol) - 1;
-        while (++i < ks.length) if (cases[ks[i]] !== '@next') { matched = cases[ks[i]]; break; }
+        while (++i < ks.length) if (cases[ks[i]] !== MATCH_NEST) {
+          matched = cases[ks[i]];
+          break;
+        }
       }
       if (isExec && isFun(matched)) {
         return len(matched) ? matched(source) : matched();
       } else {
-        return matched === '@next' ? UDF : matched;
+        return matched === MATCH_NEST ? UDF : matched;
       }
     }
 
@@ -834,9 +789,6 @@
     function pretty(srcObj) {
       return typeOf(srcObj, 'arr', 'obj') ? JSON.stringify(srcObj, null, 2) : String(srcObj);
     }
-
-    var deCodes = ['&', '<', '>', ' ', '\'', '"']
-      , enCodes = ['&amp;', '&lt;', '&gt;', '&nbsp;', '&#39;', '&quot;'];
 
     /**
      * [fn.escape] 编码HTML字符串
@@ -888,21 +840,18 @@
       }
       return decimal ? integerStr + '.' + decimal : integerStr;
     }
-    
+
     /**
      * [fn.maskString] 编码字符串或其子串
      * @param srcStr : any
-     * @param mask   : string = '*'
      * @param start  : number
      * @param length : number
+     * @param mask   : string = '*'
      */
-    function maskString(srcStr, mask, start, length) {
+    function maskString(srcStr, start, length, mask) {
       var str = String(srcStr), ptn = /[^\u4e00-\u9fa5]/mg, ptn_ = /[\u4e00-\u9fa5]/mg;
-      if (isNum(mask)) {
-        length = start, start = mask, mask = '*';
-      } else if (!isStr(mask)) {
-        mask = '*';
-      }
+      if (isStr(length)) mask = length, length = UDF;
+      if (!isStr(mask)) mask = '*';
       var maskStr = str.substr(start, length).replace(ptn, mask).replace(ptn_, mask + mask);
       return str.substr(0, start) + maskStr + (isUdf(length) ? '' : str.substr(start + length));
     }
@@ -954,27 +903,6 @@
       });
       return '?' + pairs.join('&');
     }
-
-    /**
-     * 常用的正则表达式收集
-     */
-    var patterns = {
-      cnChar: /[\u4e00-\u9fa5]/,
-      dbChar: /[^x00-xff]/,
-      email: /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/,
-      mobPhone: /(\+?0?86\-?)?1[3456789]\d{9}/,
-      telPhone: /((d{3,4})|d{3,4}-)?d{7,8}/,
-      idCard: /(^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$)|(^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])((\d{4})|\d{3}[Xx])$)/,
-      uuid: /[0-9a-zA-Z]{8}-([0-9a-zA-Z]{4}-){3}[0-9a-zA-Z]{12}/,
-      base64Code: /([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?/,
-      domain: /([0-9a-z_!~*'()-]+\.)*([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\.[a-z]{2,6}/,
-      port: /([1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])/,
-      ip: /((25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(25[0-5]|2[0-4]\d|[01]?\d\d?)/,
-      url_: /(\/([^?#]*))?(\?([^#]*))?(#(.*))?/
-    };
-    patterns['ipUrl'] = new RegExp('http(s)?://' + patterns.ip.source + '(:' + patterns.port.source + ')?' + patterns.url_.source);
-    patterns['domainUrl'] = new RegExp('http(s)?://' + patterns.domain.source + '(:' + patterns.port.source + ')?' + patterns.url_.source);
-    patterns['url'] = new RegExp('http(s)?://(' + patterns.ip.source + '|' + patterns.domain.source + ')(:' + patterns.port.source + ')?' + patterns.url_.source);
 
     /**
      * [fn.setPattern]设置一个正则表达式
@@ -1030,21 +958,6 @@
       if (!srcStr || !type_) return null;
       return patternBase(srcStr, [type_].concat(types), false);
     });
-
-    function patternBase(srcStr, types, isTest) {
-      var limit = true, ttRst = false, mtRst = null;
-      if (types.length && typeOf(types[types.length - 1], 'bol')) {
-        limit = types.pop();
-      }
-      for (var i = 0; i < types.length; i++) {
-        var pattern = getPattern(types[i], limit);
-        if (pattern) {
-          isTest ? ttRst = pattern.test(srcStr) : mtRst = srcStr.match(pattern);
-          if (ttRst || mtRst) break;
-        }
-      }
-      return isTest ? ttRst : mtRst;
-    }
 
     /**
      * [fn.throttle] 节流函数，适用于限制resize和scroll等函数的调用频率
@@ -1107,7 +1020,7 @@
         var time = Date.now();
         if (shouldInvoke(time)) return trailingEdge(time);
         var timeWaiting = wait - (time - lastCallTime)
-          , waitingTime = maxing ? Math.min(timeWaiting, maxWait - (time - lastInvokeTime)) : timeWaiting; 
+          , waitingTime = maxing ? Math.min(timeWaiting, maxWait - (time - lastInvokeTime)) : timeWaiting;
         timerId = timeout(waitingTime, timerExpired);
       }
       function trailingEdge(time) {
@@ -1143,29 +1056,6 @@
       };
       return debounced;
     }
-
-    function throwErr(type_) {
-      switch(type_) {
-        case 'arg': throw new TypeError('Arguments type error!');
-        case 'obj': throw new TypeError('Expect an Object param!');
-        case 'fun': throw new TypeError('Expect a Function param!');
-        case 'reg': throw new TypeError('Expect a RegExp pattern!');
-      }
-    }
-
-    /**@spliter*/
-    /**=================================================================== */
-
-    var colorList = {
-      'grey': '\x1B[90m%s\x1B[0m',
-      'blue': '\x1B[34m%s\x1B[0m',
-      'cyan': '\x1B[36m%s\x1B[0m',
-      'green': '\x1B[32m%s\x1B[0m',
-      'magenta': '\x1B[35m%s\x1B[0m',
-      'red': '\x1B[31m%s\x1B[0m',
-      'yellow': '\x1B[33m%s\x1B[0m',
-      'default': '%s\x1B[0m'
-    };
 
     /**
      * [fn.chalk] 返回带颜色的字符串
@@ -1280,108 +1170,6 @@
     }
 
     /**
-     * [fn.progress] 进度显示工具
-     * @param title: string
-     * @param options: object [?]
-     * title: string
-     * width: number = 40
-     * type : 'bar'|'spi' = 'bar'
-     * split: boolean = true
-     */
-    var pgBarId = '#FN_PG_BAR', pgSpiId = '#FN_PG_SPI';
-    function progress(title, options) {
-      timeout(pgBarId).stop(), interval(pgSpiId).stop();
-      var progressBar, duration, pgType;
-      if (isObj(title)) {
-        options = title, title = UDF;
-      }
-      if (!options) options = {};
-      title = typeVal(title, 'str') || get(options, '/title', 'str') || 'funclib ' + version;
-      options.title = title;
-      pgType = get(options, '/type', 'str');
-      if (has(options, 'isSplit', 'bol') ? options.isSplit : true) console.log('');
-      if (pgType === 'bar' || !contains(['bar', 'spi'], pgType)) {
-        var Pgbar = eval('require("progress")');
-        var prog = (options.title || '[fn.progress]') + ' [:bar] :percent';
-        pgType = 'bar';
-        duration = 250;
-        progressBar = new Pgbar(prog, {
-          complete: '=', incomplete: ' ',
-          width: options['width'] || 40,
-          total: options['total'] || 20
-        });
-        tick('+');
-      }
-      else {
-        var stream = process.stderr;
-        var flag = '/';
-        interval(pgSpiId, 180, function () {
-          stream.clearLine();
-          stream.cursorTo(0);
-          stream.write(chalk(flag, 'cyan') + ' ' + title);
-          flag = match(flag, { '/': '-', '-': '\\', '\\': '|', '|': '/', '@dft': '-' });
-        });
-      }
-
-      /**
-       * [fn.progress.stop] 结束进度条，结束后触发回调
-       * @param onStopped : function [?]
-       */
-      progress.stop = function (onStopped) {
-        if (pgType === 'bar') {
-          duration = 600;
-          tick('-', function () {
-            pgType = null;
-            if (isFun(onStopped)) onStopped();
-          });
-        }
-        else {
-          interval(pgSpiId).stop();
-          pgType = null;
-          if (isFun(onStopped)) onStopped();
-        }
-      }
-
-      /**
-       * [fn.progress.clear] 立即结束进度条，并触发回调
-       * @param onStopped : function [?]
-       */
-      progress.clear = function (onStopped) {
-        if (pgType === 'bar') {
-          pgType = null;
-          progressBar.complete = true;
-          timeout(pgBarId).stop();
-        }
-        else {
-          pgType = null;
-          interval(pgSpiId).stop();
-        }
-        if (isFun(onStopped)) onStopped();
-      }
-
-      function tick(tickType, onStopped, limited) {
-        timeout(pgBarId, duration, function () {
-          if (!limited) progressBar.tick();
-          switch (tickType) {
-            case '+': duration += 300; break;
-            case '-': duration -= duration * 0.2; break;
-          };
-          if (!progressBar.complete) {
-            var isLimit = tickType === '+' && progressBar.curr === progressBar.total -1;
-            tick(tickType, onStopped, isLimit);
-          }
-          else if (onStopped) {
-            onStopped();
-          }
-        });
-      }
-    }
-
-    var fs = eval('require("fs")'),
-      path = eval('require("path")'),
-      execSync = eval('require("child_process").execSync');
-
-    /**
      * [fn.rd] 读文件
      * @param file : string
      */
@@ -1457,21 +1245,21 @@
         }
         else if (stat.isDirectory()) {
           var subSrcs = fs.readdirSync(src);
-          subSrcs.forEach(function (file) {
+          forEach(subSrcs, function (file) {
             var subSrc = path.join(src, file);
             rm(subSrc);
           });
           try {
             fs.rmdirSync(src);
           } catch (e) {
-            setTimeout(function () {
+            timout(500, function () {
               if (/win/.test(process.platform)) {
                 var absSrc = path.resolve(src);
                 execSync('rd /s /q ' + absSrc);
               } else {
                 execSync('rm -rf ' + src);
               }
-            }, 500);
+            });
           }
         }
       }
@@ -1524,8 +1312,104 @@
       process.stdout.write(process.platform === 'win32' ? '\x1Bc' : '\x1B[2J\x1B[3J\x1B[H');
     }
 
-    /**=================================================================== */
-    /**@spliter*/
+    var pgBarId = '#FN_PG_BAR', pgSpiId = '#FN_PG_SPI';
+    
+    /**
+     * [fn.progress] 进度显示工具
+     * @param title: string
+     * @param options: object [?]
+     * title: string
+     * width: number = 40
+     * type : 'bar'|'spi' = 'bar'
+     * split: boolean = true
+     */
+    function progress(title, options) {
+      timeout(pgBarId).stop(), interval(pgSpiId).stop();
+      var progressBar, duration, pgType;
+      if (isObj(title)) {
+        options = title, title = UDF;
+      }
+      if (!options) options = {};
+      title = typeVal(title, 'str') || get(options, '/title', 'str') || 'funclib ' + version;
+      options.title = title;
+      pgType = get(options, '/type', 'str');
+      if (has(options, 'isSplit', 'bol') ? options.isSplit : true) console.log('');
+      if (pgType === 'bar' || !contains(['bar', 'spi'], pgType)) {
+        var Pgbar = eval('require("progress")');
+        var prog = (options.title || '[fn.progress]') + ' [:bar] :percent';
+        pgType = 'bar';
+        duration = 250;
+        progressBar = new Pgbar(prog, {
+          complete: '=', incomplete: ' ',
+          width: options['width'] || 40,
+          total: options['total'] || 20
+        });
+        tick('+');
+      }
+      else {
+        var stream = process.stderr;
+        var flag = '/';
+        interval(pgSpiId, 180, function () {
+          stream.clearLine();
+          stream.cursorTo(0);
+          stream.write(chalk(flag, 'cyan') + ' ' + title);
+          flag = match(flag, { '/': '-', '-': '\\', '\\': '|', '|': '/', '@dft': '-' });
+        });
+      }
+    
+      /**
+       * [fn.progress.stop] 结束进度条，结束后触发回调
+       * @param onStopped : function [?]
+       */
+      progress.stop = function (onStopped) {
+        if (pgType === 'bar') {
+          duration = 600;
+          tick('-', function () {
+            pgType = null;
+            if (isFun(onStopped)) onStopped();
+          });
+        }
+        else {
+          interval(pgSpiId).stop();
+          pgType = null;
+          if (isFun(onStopped)) onStopped();
+        }
+      }
+    
+      /**
+       * [fn.progress.clear] 立即结束进度条，并触发回调
+       * @param onStopped : function [?]
+       */
+      progress.clear = function (onStopped) {
+        if (pgType === 'bar') {
+          pgType = null;
+          progressBar.complete = true;
+          timeout(pgBarId).stop();
+        }
+        else {
+          pgType = null;
+          interval(pgSpiId).stop();
+        }
+        if (isFun(onStopped)) onStopped();
+      }
+    
+      function tick(tickType, onStopped, limited) {
+        timeout(pgBarId, duration, function () {
+          if (!limited) progressBar.tick();
+          switch (tickType) {
+            case '+': duration += 300; break;
+            case '-': duration -= duration * 0.2; break;
+          };
+          if (!progressBar.complete) {
+            var isLimit = tickType === '+' && progressBar.curr === progressBar.total -1;
+            tick(tickType, onStopped, isLimit);
+          }
+          else if (onStopped) {
+            onStopped();
+          }
+        });
+      }
+    }
 
     /**
      * [fn.chain] funclib链接调用
@@ -1556,10 +1440,195 @@
     }
 
     /**
+     * Throw error method.
+     */
+    function throwErr(type_) {
+      switch(type_) {
+        case 'arg': throw new TypeError('Arguments type error!');
+        case 'obj': throw new TypeError('Expect an Object param!');
+        case 'fun': throw new TypeError('Expect a Function param!');
+        case 'reg': throw new TypeError('Expect a RegExp pattern!');
+      }
+    }
+
+    /**
+     * Basic methods of array filter and reject.
+     */
+    function filterBase(srcArr, predicate, isFilter) {
+      var fts = [], rjs = [];
+      forEach(srcArr, function (item) {
+        if (isObj(predicate)) {
+          keys(predicate).every(
+            function (key) { return predicate[key] === item[key]; }
+          ) ? fts.push(item) : rjs.push(item);
+        }
+        else if (isFun(predicate)) {
+          predicate(item) ? fts.push(item) : rjs.push(item);
+        }
+      });
+      return isFilter ? fts : rjs;
+    }
+
+    /**
+     * Basic methods of collection extention.
+     */
+    function extendBase(tarObj, srcObj, predicate, propList, isTraDft, isOmit) {
+      if (!isObj(srcObj)) return tarObj;
+      propList = flatten(propList);
+      var isPdtObj = isObj(predicate);
+      var srcKs = keys(srcObj);
+      function traversal(tarObj, srcObj, propList) {
+        forEach(propList, function (prop) {
+          if (has(srcObj, prop)) {
+            tarObj[prop] = srcObj[prop];
+          } else if (isPdtObj && has(predicate, 'default')) {
+            tarObj[prop] = predicate.default;
+          }
+        });
+      }
+      if (typeOf(predicate, 'str', 'arr', 'obj')) {
+        var props = isPdtObj ? propList : toArr(predicate).concat(propList);
+        if (isOmit) props = srcKs.filter(function(key) { return !contains(props, key); });
+        traversal(tarObj, srcObj, props);
+      }
+      else if (isFun(predicate)) {
+        forIn(srcObj, function (key, val) {
+          var isPred = predicate(key, val);
+          if ((isPred && !isOmit ) || (!isPred && isOmit)) tarObj[key] = val;
+        });
+      }
+      else if (isTraDft) {
+        traversal(tarObj, srcObj, srcKs);
+      }
+      return tarObj;
+    }
+
+    /**
+     * Util method for path.
+     */
+    function getPaths(pathStr) {
+      return contains(pathStr, '.') ? drop(pathStr.split('.')) : drop(pathStr.split('/'));
+    }
+
+    /**
+     * Basic methods of timers.
+     */
+    function timerBase(timerId, duration, callback, type_) {
+      var timer, setTimer, clearTimer;
+      if (type_ === 'interval') {
+        timer = intervalTimers, setTimer = setInterval, clearTimer = clearInterval;
+      } else if (type_ === 'timeout') {
+        timer = timeoutTimers, setTimer = setTimeout, clearTimer = clearTimeout;
+      }
+      var isTimerIdStr = typeVal(timerId, 'str');
+      function invokeClear() { return clearTimer(timer[timerId]); };
+      if (isTimerIdStr) {
+        if (isUdf(duration)) {
+          return { 'id': timer[timerId], 'stop': invokeClear, 'clear': invokeClear };
+        }
+        if (contains([null, false], duration)) {
+          invokeClear();
+          return timer[timerId] = null;
+        }
+        if (isFun(duration)) {
+          callback = duration, duration = 0;
+        }
+      }
+      if (isNum(timerId) && isFun(duration)) {
+        callback = duration, duration = timerId, timerId = UDF;
+      }
+      if (isFun(timerId)) {
+        callback = timerId, duration = 0, timerId = UDF;
+      }
+      if (isFun(callback) && isNum(duration) && duration >= 0) {
+        if (isUdf(timerId)) return setTimer(callback, duration);
+        if (isTimerIdStr) {
+          invokeClear();
+          return timer[timerId] = setTimer(callback, duration);
+        }
+      }
+    }
+
+    /**
+     * Get data methods object.
+     */
+    function getTimeObj(date, isUtc) {
+      return isUtc ? {
+        'y+': date.getUTCFullYear(),
+        'M+': date.getUTCMonth() + 1,
+        'd+': date.getUTCDate(),
+        'h+': date.getUTCHours(),
+        'm+': date.getUTCMinutes(),
+        's+': date.getUTCSeconds(),
+        'S':  date.getUTCMilliseconds(),
+        'q+': Math.floor((date.getUTCMonth() + 3) / 3)
+      } : {
+        'y+': date.getFullYear(),
+        'M+': date.getMonth() + 1,
+        'd+': date.getDate(),
+        'h+': date.getHours(),
+        'm+': date.getMinutes(),
+        's+': date.getSeconds(),
+        'S': date.getMilliseconds(),
+        'q+': Math.floor((date.getMonth() + 3) / 3)
+      }
+    }
+
+    /**
+     * Transfer time to Date object.
+     */
+    function dateBase(time) {
+      if (isDat(time)) return time;
+      time = String(time);
+      return new Date(time.match(/^[0-9]*$/) ? +time : time);
+    }
+
+    /**
+     * Basic methods of date formation.
+     */
+    function fmtDateBase(fmtStr, time, isUtc) {
+      var date = dateBase(time);
+      if (!date.getTime()) return '';
+      var timeObj = getTimeObj(date, isUtc);
+      forIn(timeObj, function (k) {
+        if (new RegExp('(' + k + ')').test(fmtStr)) {
+          if (k === 'y+') {
+            fmtStr = fmtStr.replace(RegExp.$1, (timeObj['y+'] + '').substr(4 - RegExp.$1.length));
+          } else {
+            var tmk = timeObj[k]
+              , fmt = RegExp.$1.length === 1 ? tmk : ('00' + tmk).substr((tmk + '').length);
+            fmtStr = fmtStr.replace(RegExp.$1, fmt);
+          }
+        }
+      });
+      return fmtStr;
+    }
+
+    /**
+     * Basic methods of patterns match.
+     */
+    function patternBase(srcStr, types, isTest) {
+      var limit = true, ttRst = false, mtRst = null;
+      if (types.length && typeOf(types[types.length - 1], 'bol')) {
+        limit = types.pop();
+      }
+      for (var i = 0; i < types.length; i++) {
+        var pattern = getPattern(types[i], limit);
+        if (pattern) {
+          isTest ? ttRst = pattern.test(srcStr) : mtRst = srcStr.match(pattern);
+          if (ttRst || mtRst) break;
+        }
+      }
+      return isTest ? ttRst : mtRst;
+    }
+
+    /**@funclib
      * [fn().method] funclib链接调用
      * @param value: any
      */
-    function funclib(value) { return chain(value); }
+    function funclib(value) {
+      return chain(value);
+    }
 
     funclib.typeOf = typeOf;
     funclib.typeVal = typeVal;
@@ -1574,7 +1643,7 @@
     funclib.isReg = isReg;
     funclib.isArr = isArr;
     funclib.isObj = isObj;
-  
+
     funclib.array = array;
     funclib.range = range;
     funclib.toArr = toArr;
@@ -1641,7 +1710,7 @@
 
     var arrProto = Array.prototype , strProto = String.prototype , extMethods = [
       'pop', 'push', 'concat', 'join', 'reverse', 'shift', 'slice', 'split', 'sort', 'substr', 'substring', 'splice',
-      'splice', 'unshift', 'every', 'some', 'map', 'reduce', 'trim', 'toLowerCase', 'toUpperCase', 'replace', 'search', 
+      'splice', 'unshift', 'every', 'some', 'map', 'reduce', 'trim', 'toLowerCase', 'toUpperCase', 'replace', 'search',
     ];
     forEach(extMethods, function(method) {
       funclib[method] = rest(function(args) {
@@ -1652,9 +1721,6 @@
         throwErr('arg');
       });
     });
-
-    /**@spliter*/
-    /**=================================================================== */
 
     funclib.chalk = chalk;
     funclib.print = print;
@@ -1670,9 +1736,6 @@
     progress.stop = new Function();
     progress.start = progress;
     funclib.progress = progress;
-
-    /**=================================================================== */
-    /**@spliter*/
 
     funclib.chain = chain;
     funclib.noConflict = noConflict;

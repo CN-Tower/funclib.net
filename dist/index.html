@@ -1698,19 +1698,19 @@ fn.capitalize(true);   // true</pre>
           <b>@param srcStr : any</b>
           <br>传入字符串
           <br>
-          <b>@param mask : string</b>
-          <br>掩码字符
-          <br>
           <b>@param start : number</b>
           <br>开始位置
           <br>
           <b>@param length : number</b>
           <br>编码长度
+          <br>
+          <b>@param mask : string</b>
+          <br>掩码字符
         </p>
         <pre>
 fn.maskString(18770347428, 3, 4);         // 187****7428
 fn.maskString(18770347428, 3);            // 187********
-fn.maskString('18770347428', 'x', 3, 4);  // 187xxxx7428
+fn.maskString('18770347428', 3, 4, 'x');  // 187xxxx7428
 fn.maskString('测试双字节', 2, 1);         // 测试**字节</pre>
 
         <p id="fncutstring">
