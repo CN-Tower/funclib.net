@@ -8,24 +8,26 @@ var mk = require('./mk');
  * [fn.cp] 复制文件或文件夹
  * @param src  : string
  * @param dist : string
+ * @param isInner : boolean
  */
-function cp(src, dist) {
-  function copy(sr, di, isOnInit) {
-    if (fs.existsSync(sr)) {
-      var stat = fs.statSync(sr);
+function cp(src, dist, isInner) {
+  function copy(src_, dst_, isOnInit) {
+    if (fs.existsSync(src_)) {
+      var stat = fs.statSync(src_);
       if (stat.isFile()) {
-        var wtStream = fs.createWriteStream(di);
-        fs.createReadStream(sr).pipe(wtStream);
+        if (!path.extname(dst_)) {
+          mk(dst_);
+          dst_ = path.join(dst_, path.basename(src_));
+        }
+        fs.createReadStream(src_).pipe(fs.createWriteStream(dst_));
       }
       else if (stat.isDirectory()) {
-        if (isOnInit) {
-          di = path.join(di, path.basename(sr));
-        }
-        mk(di);
-        var subSrcs = fs.readdirSync(sr);
+        if (isOnInit && !isInner) dst_ = path.join(dst_, path.basename(src_));
+        mk(dst_);
+        var subSrcs = fs.readdirSync(src_);
         subSrcs.forEach(function (file) {
-          var subSrc = path.join(sr, file);
-          var subDist = path.join(di, file);
+          var subSrc = path.join(src_, file);
+          var subDist = path.join(dst_, file);
           copy(subSrc, subDist, false);
         });
       }

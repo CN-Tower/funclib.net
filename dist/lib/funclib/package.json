@@ -1,8 +1,8 @@
 {
   "_from": "funclib@^4.0.2",
-  "_id": "funclib@4.0.2",
+  "_id": "funclib@4.0.5",
   "_inBundle": false,
-  "_integrity": "sha512-7ldnCasmHmp8bQKW+VOhnLqNiVihQUtt3Uamo0i+P9bXJhQ41agc+kVYixJtKYQ8b7NNtZszhKd4sfHCm7eFRw==",
+  "_integrity": "sha512-na86CtuDpaA1dKI2l7PNv560KrsDyk2ZSIx8BQ8+huEmU5hThKgh+RJLrGpQjQujQC2MPG9hOFKIcbsGImXXrg==",
   "_location": "/funclib",
   "_phantomChildren": {},
   "_requested": {
@@ -19,10 +19,10 @@
     "#USER",
     "/"
   ],
-  "_resolved": "https://registry.npmjs.org/funclib/-/funclib-4.0.2.tgz",
-  "_shasum": "799ab79c08cd89c592bbb98a3e8faee1f1a2229f",
+  "_resolved": "https://registry.npmjs.org/funclib/-/funclib-4.0.5.tgz",
+  "_shasum": "dc61ef4db87e0dd62dc322338b462ce54485e4de",
   "_spec": "funclib@^4.0.2",
-  "_where": "E:\\work\\code\\funclib",
+  "_where": "E:\\work\\Code\\funclib",
   "author": {
     "name": "CN-Tower"
   },
@@ -90,5 +90,5 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "version": "4.0.2"
+  "version": "4.0.5"
 }

@@ -1,6 +1,6 @@
 /**
  * @license
- * Funclib v4.0.2 <https://www.funclib.net>
+ * Funclib v4.0.5 <https://www.funclib.net>
  * GitHub Repository <https://github.com/CN-Tower/funclib.js>
  * Released under MIT license <https://github.com/CN-Tower/funclib.js/blob/master/LICENSE>
  */
@@ -527,16 +527,18 @@ declare namespace fn {
      * @param timerId  : string [?]
      * @param duration : number|false|null [?]
      * @param callback : function
+     * @param leading  : boolean [?]
      */
-    interval(timerId: any, duration?: any, callback?: any): Timer;
+    interval(timerId: any, duration?: any, callback?: any, leading?: any): Timer;
 
     /**
      * [fn.timeout] 延时定时器
      * @param timerId  : string [?]
      * @param duration : number|false|null [?]
      * @param callback : function
+     * @param leading  : boolean [?]
      */
-    timeout(timerId: any, duration?: any, callback?: any): Timer;
+    timeout(timerId: any, duration?: any, callback?: any, leading?: any): Timer;
 
     /**
      * [fn.defer] 延迟执行函数
@@ -795,8 +797,9 @@ declare namespace fn {
      * [fn.cp] 复制文件或文件夹
      * @param src  : string
      * @param dist : string
+     * @param isInner : boolean
      */
-    cp(src: string, dist: string): void;
+    cp(src: string, dist: string, isInner?: boolean): void;
 
     /**
      * [fn.mv] 移动文件或文件夹
@@ -827,8 +830,9 @@ declare namespace fn {
 
     /**
      * [fn.clear] 命令行清屏
+     * @param isForce : boolean
      */
-    clear(): void;
+    clear(isForce?: boolean): void;
 
     /**
      * [fn.chain] 释放fn变量占用权
