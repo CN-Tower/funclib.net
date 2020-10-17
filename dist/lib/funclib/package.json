@@ -1,28 +1,28 @@
 {
-  "_from": "funclib@^4.0.2",
-  "_id": "funclib@4.0.5",
+  "_from": "funclib@^4.0.5",
+  "_id": "funclib@4.0.8",
   "_inBundle": false,
-  "_integrity": "sha512-na86CtuDpaA1dKI2l7PNv560KrsDyk2ZSIx8BQ8+huEmU5hThKgh+RJLrGpQjQujQC2MPG9hOFKIcbsGImXXrg==",
+  "_integrity": "sha512-EmieEUC7kySnIjeWirAOsvINKaKrCcWGyCjFYr57aSdzMV4G1UZnsiH4TnYrFVeuG1TE9J0GSR8MF3hvGX4+RQ==",
   "_location": "/funclib",
   "_phantomChildren": {},
   "_requested": {
     "type": "range",
     "registry": true,
-    "raw": "funclib@^4.0.2",
+    "raw": "funclib@^4.0.5",
     "name": "funclib",
     "escapedName": "funclib",
-    "rawSpec": "^4.0.2",
+    "rawSpec": "^4.0.5",
     "saveSpec": null,
-    "fetchSpec": "^4.0.2"
+    "fetchSpec": "^4.0.5"
   },
   "_requiredBy": [
     "#USER",
     "/"
   ],
-  "_resolved": "https://registry.npmjs.org/funclib/-/funclib-4.0.5.tgz",
-  "_shasum": "dc61ef4db87e0dd62dc322338b462ce54485e4de",
-  "_spec": "funclib@^4.0.2",
-  "_where": "E:\\work\\Code\\funclib",
+  "_resolved": "https://registry.npmjs.org/funclib/-/funclib-4.0.8.tgz",
+  "_shasum": "414c66869f9aa21576ea1d87968d954f57761e15",
+  "_spec": "funclib@^4.0.5",
+  "_where": "D:\\Code\\funclib",
   "author": {
     "name": "CN-Tower"
   },
@@ -90,5 +90,5 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "version": "4.0.5"
+  "version": "4.0.8"
 }
