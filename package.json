@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/CN-Tower/funclib#readme",
   "dependencies": {
-    "funclib": "^4.0.8"
+    "funclib": "^5.1.1"
   },
   "devDependencies": {
     "browser-sync": "^2.24.5",

@@ -54,13 +54,6 @@
    */
   var intervalTimers = {}
     , timeoutTimers  = {};
-  
-  /**
-   * Full screen events.
-   */
-  var fsChangeEvents = {}
-    , fsEvent = 'fullscreenchange'
-    , fsEvents = [fsEvent, 'webkit' + fsEvent, 'moz' + fsEvent, 'MS' + fsEvent];
 
   /**
    * Funclib definition closure.
@@ -1136,93 +1129,6 @@
     }
 
     /**
-     * [fn.fullScreen] 全屏显示HTML元素
-     * @param el      : HTMLElement
-     * @param didFull : function [?]
-     */
-    function fullScreen(el, didFull) {
-      if (typeof el === 'string') el = document.querySelector(el);
-      if (el && el.tagName) {
-        var rfs = el.requestFullScreen || el.webkitRequestFullScreen
-          || el.mozRequestFullScreen || el.msRequestFullScreen;
-        rfs ? rfs.call(el) : sendF11();
-        if (isFun(didFull)) {
-          var timer = interval(100, function () {
-            if (isFullScreen()) clearInterval(timer), defer(didFull);
-          });
-        }
-      }
-    }
-
-    /**
-     * [fn.exitFullScreen] 退出全屏显示
-     * @param didExit : function [?]
-     */
-    function exitFullScreen(didExit) {
-      var cfs = document.cancelFullScreen || document.webkitCancelFullScreen
-        || document.mozCancelFullScreen || document.exitFullScreen;
-      cfs ? cfs.call(document) : sendF11();
-      if (isFun(didExit)) {
-        var timer = interval(100, function () {
-          if (!isFullScreen()) clearInterval(timer), defer(didExit);
-        });
-      }
-    }
-
-    /**
-     * [fn.isFullScreen] 检测是否全屏状态
-     */
-    function isFullScreen() {
-      return !!(document.fullscreenElement || document.msFullscreenElement ||
-        document.mozFullScreenElement || document.webkitFullscreenElement);
-    }
-
-    /**
-     * [fn.fullScreenChange] 全屏状态变化事件
-     * @param callback function
-     */
-    function fullScreenChange(callback) {
-      if (isFun(callback)) {
-        var eventId = Date.now();
-        fsChangeEvents[eventId] = callback;
-        forEach(fsEvents, function (e) {
-          document.addEventListener(e, fsChangeEvents[eventId]);
-        });
-        return { 'remove': function() { rmFsChangeEvent(eventId); } };
-      }
-    }
-    
-    /**
-     * [fn.fullScreenChange.removeAll] 清除所有全屏状态变化事件
-     */
-    fullScreenChange.removeAll = function() {
-      forIn(fsChangeEvents, function(eventId) { rmFsChangeEvent(eventId); });
-    }
-    
-    function rmFsChangeEvent(eventId) {
-      forEach(fsEvents, function (e) {
-        document.removeEventListener(e, fsChangeEvents[eventId]);
-      });
-      delete fsChangeEvents[eventId];
-    }
-
-    /**
-     * [fn.copyText] 复制文本到粘贴板
-     * @param text : string
-     */
-    function copyText(text) {
-      if (isUdf(text)) text = '';
-      var textarea = document.createElement('textarea');
-      textarea.style.position = 'fixed';
-      textarea.style.left = '200%';
-      document.body.appendChild(textarea);
-      textarea.value = text;
-      textarea.select();
-      document.execCommand('Copy');
-      document.body.removeChild(textarea);
-    }
-
-    /**
      * [fn.chain] funclib链接调用
      * @param value: any
      */
@@ -1449,16 +1355,6 @@
       return isTest ? ttRst : mtRst;
     }
 
-    /**
-     * Send F11 command to browser.
-     */
-    function sendF11() {
-      if (window.ActiveXObject) {
-        var ws = new window.ActiveXObject('WScript.Shell');
-        if (ws) ws.SendKeys('{F11}');
-      }
-    }
-
     /**@funclib
      * [fn().method] funclib链接调用
      * @param value: any
@@ -1561,11 +1457,6 @@
 
     funclib.print = print;
     funclib.log = log;
-    funclib.fullScreen = fullScreen;
-    funclib.exitFullScreen = exitFullScreen;
-    funclib.isFullScreen = isFullScreen;
-    funclib.fullScreenChange = fullScreenChange;
-    funclib.copyText = copyText;
 
     funclib.chain = chain;
     funclib.noConflict = noConflict;
