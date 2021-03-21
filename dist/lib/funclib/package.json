@@ -1,8 +1,8 @@
 {
   "_from": "funclib",
-  "_id": "funclib@5.1.1",
+  "_id": "funclib@5.1.2",
   "_inBundle": false,
-  "_integrity": "sha512-C1z7JSvqTGzZvSPwn6aG7alVUavLQLiCKuCkpepn5arpmXLyctBnHlLOplWcfr4GxWL/1407+RwOxib6gsh2iw==",
+  "_integrity": "sha512-hnO7SsWfdt2snxH7G1DNJWIL+9zyr/ixDemyJhr2stP1r70i8hKfoimg+qa5nZh+K88a2tB1af/zqja+viahlA==",
   "_location": "/funclib",
   "_phantomChildren": {},
   "_requested": {
@@ -19,10 +19,10 @@
     "#USER",
     "/"
   ],
-  "_resolved": "https://registry.npmjs.org/funclib/-/funclib-5.1.1.tgz",
-  "_shasum": "53e2a39849d2be685a9c91fb653e23ed54da40b2",
+  "_resolved": "https://registry.npmjs.org/funclib/-/funclib-5.1.2.tgz",
+  "_shasum": "a91b0fdcb8a40714dfa152db5c12cdf947a2e4da",
   "_spec": "funclib",
-  "_where": "E:\\work\\Code\\funclib",
+  "_where": "/Users/cntower/code/funclib.net",
   "author": {
     "name": "CN-Tower"
   },
@@ -88,5 +88,5 @@
     "type": "git",
     "url": "git+https://github.com/CN-Tower/funclib.js.git"
   },
-  "version": "5.1.1"
+  "version": "5.1.2"
 }
