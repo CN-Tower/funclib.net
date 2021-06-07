@@ -1,18 +1,18 @@
 var fs = require('fs');
 var path = require('path');
 var execSync = require('child_process').execSync;
-var ProgressBar = require('./ProgressBar');
-var ProgressSpi = require('./ProgressSpi');
+var ProgressBar = require('./lib/ProgressBar');
+var ProgressSpi = require('./lib/ProgressSpi');
 
 /**
  * @license
- * Funclib v5.1.4 <https://www.funclib.net>
+ * Funclib v6.0.1 <https://www.funclib.net>
  * GitHub Repository <https://github.com/CN-Tower/funclib.js>
  * Released under MIT license <https://github.com/CN-Tower/funclib.js/blob/master/LICENSE>
  */
 ; (function () {
 
-  var version = '5.1.4';
+  var version = '6.0.1';
   
   var undefined, UDF = undefined, F = function() {}
     , _global = typeof global == 'object' && global && global.Object === Object && global
@@ -41,8 +41,8 @@ var ProgressSpi = require('./ProgressSpi');
     cnChar: /[\u4e00-\u9fa5]/,
     dbChar: /[^x00-xff]/,
     email: /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/,
-    mobPhone: /(\+?0?86\-?)?1[3456789]\d{9}/,
-    telPhone: /((\d{3,4})|\d{3,4}-)?\d{7,8}/,
+    phone: /(\+?0?86\-?)?1[3456789]\d{9}/,
+    telephone: /((\d{3,4})|\d{3,4}-)?\d{7,8}/,
     idCard: /(^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$)|(^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])((\d{4})|\d{3}[Xx])$)/,
     uuid: /[0-9a-zA-Z]{8}-([0-9a-zA-Z]{4}-){3}[0-9a-zA-Z]{12}/,
     base64Code: /([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?/,
@@ -469,7 +469,7 @@ var ProgressSpi = require('./ProgressSpi');
       if (isObj(srcObj)) {
         return keys(srcObj).length;
       }
-      else if (typeOf(srcObj, 'str', 'arr', 'fun') || get(srcObj, 'length', 'num')) {
+      else if (typeOf(srcObj, 'str', 'arr', 'fun') || (srcObj && srcObj.length)) {
         return srcObj.length;
       }
       else return -1;
@@ -676,12 +676,12 @@ var ProgressSpi = require('./ProgressSpi');
     }
 
     /**
-     * [fn.gid] 返回一个指定长度的随机ID
+     * [fn.randomId] 返回一个指定长度的随机ID
      * @param length : number = 12
      * @param charSet: string?
      * charSet presets: [pwd] | [0-9] | [a-z] | [A-A] | [0-9a-z]... | string.
      */
-    function gid(length, charSet) {
+    function randomId(length, charSet) {
       if (isUdf(length)) length = 12;
       if (!charSet || !isStr(charSet)) {
         charSet = charNb + charUpper;
@@ -704,9 +704,9 @@ var ProgressSpi = require('./ProgressSpi');
     }
 
     /**
-     * [fn.gcolor] 返回一个随机颜色色值
+     * [fn.randomColor] 返回一个随机颜色色值
      */
-    function gcolor() {
+    function randomColor() {
       return '#' + ('00000' + (random(0x1000000) << 0).toString(16)).slice(-6);
     }
 
@@ -947,6 +947,7 @@ var ProgressSpi = require('./ProgressSpi');
     function stringifyQueryStr(obj) {
       if (!typeOf(obj, 'obj', 'arr')) return '';
       obj = JSON.parse(JSON.stringify(obj));
+      if (!len(obj)) return '';
       var pairs = [];
       forIn(obj, function (key, value) {
         var encode = encodeURIComponent;
@@ -987,7 +988,7 @@ var ProgressSpi = require('./ProgressSpi');
     /**
      * [fn.testPattern]用一个或几个通用正则测试
      * @param srcStr : string
-     * @param type_  : 'cnChar'|'dbChar'|'email'|'mobPhone'|'telPhone'|'idCard'|'uuid'|'base64Code'|'domain'|
+     * @param type_  : 'cnChar'|'dbChar'|'email'|'phone'|'telephone'|'idCard'|'uuid'|'base64Code'|'domain'|
      * 'port'|'ip'|'ipUrl'|'domainUrl'|'url'|'ipWithPortUrl'|'domainWithPortUrl'|'withPortUrl'
      * @param types  : ...string[]
      * @param limit  : boolean = true
@@ -1000,7 +1001,7 @@ var ProgressSpi = require('./ProgressSpi');
     /**
      * [fn.matchPattern]与一个或几个通用正则匹配
      * @param srcStr : string
-     * @param type_  : 'cnChar'|'dbChar'|'email'|'mobPhone'|'telPhone'|'idCard'|'uuid'|'base64Code'|'domain'|
+     * @param type_  : 'cnChar'|'dbChar'|'email'|'phone'|'telephone'|'idCard'|'uuid'|'base64Code'|'domain'|
      * 'port'|'ip'|'ipUrl'|'domainUrl'|'url'|'ipWithPortUrl'|'domainWithPortUrl'|'withPortUrl'
      * @param types  : ...string[]
      * @param limit  : boolean = true
@@ -1809,8 +1810,8 @@ var ProgressSpi = require('./ProgressSpi');
     funclib.isDeepEqual = isDeepEqual;
 
     funclib.random = random;
-    funclib.gid = gid;
-    funclib.gcolor = gcolor;
+    funclib.randomId = randomId;
+    funclib.randomColor = randomColor;
 
     funclib.interval = interval;
     funclib.timeout = timeout;

@@ -1,12 +1,12 @@
 /**
  * @license
- * Funclib v5.1.4 <https://www.funclib.net>
+ * Funclib v6.0.1 <https://www.funclib.net>
  * GitHub Repository <https://github.com/CN-Tower/funclib.js>
  * Released under MIT license <https://github.com/CN-Tower/funclib.js/blob/master/LICENSE>
  */
 ; (function () {
 
-  var version = '5.1.4';
+  var version = '6.0.1';
   
   var undefined, UDF = undefined, F = function() {}
     , _global = typeof global == 'object' && global && global.Object === Object && global
@@ -35,8 +35,8 @@
     cnChar: /[\u4e00-\u9fa5]/,
     dbChar: /[^x00-xff]/,
     email: /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/,
-    mobPhone: /(\+?0?86\-?)?1[3456789]\d{9}/,
-    telPhone: /((\d{3,4})|\d{3,4}-)?\d{7,8}/,
+    phone: /(\+?0?86\-?)?1[3456789]\d{9}/,
+    telephone: /((\d{3,4})|\d{3,4}-)?\d{7,8}/,
     idCard: /(^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$)|(^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])((\d{4})|\d{3}[Xx])$)/,
     uuid: /[0-9a-zA-Z]{8}-([0-9a-zA-Z]{4}-){3}[0-9a-zA-Z]{12}/,
     base64Code: /([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?/,
@@ -62,13 +62,6 @@
     , charLower = 'abcdefghijklmnopqrstuvwxyz'
     , charUpper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
     , charPwd = '~!@#$%^&*_';
-  
-  /**
-   * Full screen events.
-   */
-  var fsChangeEvents = {}
-    , fsEvent = 'fullscreenchange'
-    , fsEvents = [fsEvent, 'webkit' + fsEvent, 'moz' + fsEvent, 'MS' + fsEvent];
 
   /**
    * Funclib definition closure.
@@ -454,7 +447,7 @@
       if (isObj(srcObj)) {
         return keys(srcObj).length;
       }
-      else if (typeOf(srcObj, 'str', 'arr', 'fun') || get(srcObj, 'length', 'num')) {
+      else if (typeOf(srcObj, 'str', 'arr', 'fun') || (srcObj && srcObj.length)) {
         return srcObj.length;
       }
       else return -1;
@@ -661,12 +654,12 @@
     }
 
     /**
-     * [fn.gid] 返回一个指定长度的随机ID
+     * [fn.randomId] 返回一个指定长度的随机ID
      * @param length : number = 12
      * @param charSet: string?
      * charSet presets: [pwd] | [0-9] | [a-z] | [A-A] | [0-9a-z]... | string.
      */
-    function gid(length, charSet) {
+    function randomId(length, charSet) {
       if (isUdf(length)) length = 12;
       if (!charSet || !isStr(charSet)) {
         charSet = charNb + charUpper;
@@ -689,9 +682,9 @@
     }
 
     /**
-     * [fn.gcolor] 返回一个随机颜色色值
+     * [fn.randomColor] 返回一个随机颜色色值
      */
-    function gcolor() {
+    function randomColor() {
       return '#' + ('00000' + (random(0x1000000) << 0).toString(16)).slice(-6);
     }
 
@@ -932,6 +925,7 @@
     function stringifyQueryStr(obj) {
       if (!typeOf(obj, 'obj', 'arr')) return '';
       obj = JSON.parse(JSON.stringify(obj));
+      if (!len(obj)) return '';
       var pairs = [];
       forIn(obj, function (key, value) {
         var encode = encodeURIComponent;
@@ -972,7 +966,7 @@
     /**
      * [fn.testPattern]用一个或几个通用正则测试
      * @param srcStr : string
-     * @param type_  : 'cnChar'|'dbChar'|'email'|'mobPhone'|'telPhone'|'idCard'|'uuid'|'base64Code'|'domain'|
+     * @param type_  : 'cnChar'|'dbChar'|'email'|'phone'|'telephone'|'idCard'|'uuid'|'base64Code'|'domain'|
      * 'port'|'ip'|'ipUrl'|'domainUrl'|'url'|'ipWithPortUrl'|'domainWithPortUrl'|'withPortUrl'
      * @param types  : ...string[]
      * @param limit  : boolean = true
@@ -985,7 +979,7 @@
     /**
      * [fn.matchPattern]与一个或几个通用正则匹配
      * @param srcStr : string
-     * @param type_  : 'cnChar'|'dbChar'|'email'|'mobPhone'|'telPhone'|'idCard'|'uuid'|'base64Code'|'domain'|
+     * @param type_  : 'cnChar'|'dbChar'|'email'|'phone'|'telephone'|'idCard'|'uuid'|'base64Code'|'domain'|
      * 'port'|'ip'|'ipUrl'|'domainUrl'|'url'|'ipWithPortUrl'|'domainWithPortUrl'|'withPortUrl'
      * @param types  : ...string[]
      * @param limit  : boolean = true
@@ -1181,84 +1175,6 @@
         console.log(dbLine_1);
         if (isBreakEnd) console.log('');
       }
-    }
-
-    /**
-     * [fn.fullScreen] 全屏显示HTML元素
-     * @param el      : HTMLElement
-     * @param didFull : function [?]
-     */
-    function fullScreen(el, didFull) {
-      if (typeof el === 'string') el = document.querySelector(el);
-      if (el && el.tagName) {
-        var requestFullScreen = el.requestFullScreen
-          || el.webkitRequestFullScreen
-          || el.mozRequestFullScreen || el.msRequestFullScreen;
-        requestFullScreen ? requestFullScreen.call(el) : sendF11();
-        if (isFun(didFull)) {
-          var timer = interval(100, function () {
-            if (isFullScreen()) clearInterval(timer), defer(didFull);
-          });
-        }
-      }
-    }
-
-    /**
-     * [fn.exitFullScreen] 退出全屏显示
-     * @param didExit : function [?]
-     */
-    function exitFullScreen(didExit) {
-      var cancelFullScreen = document.cancelFullScreen
-        || document.webkitCancelFullScreen
-        || document.mozCancelFullScreen || document.exitFullScreen;
-      cancelFullScreen ? cancelFullScreen.call(document) : sendF11();
-      if (isFun(didExit)) {
-        var timer = interval(100, function () {
-          if (!isFullScreen()) {
-            clearInterval(timer);
-            defer(didExit);
-          }
-        });
-      }
-    }
-
-    /**
-     * [fn.isFullScreen] 检测是否全屏状态
-     */
-    function isFullScreen() {
-      return !!(
-        document.fullscreenElement || document.msFullscreenElement ||
-        document.mozFullScreenElement || document.webkitFullscreenElement
-      );
-    }
-
-    /**
-     * [fn.fullScreenChange] 全屏状态变化事件
-     * @param callback function
-     */
-    function fullScreenChange(callback) {
-      if (isFun(callback)) {
-        var eventId = Date.now();
-        fsChangeEvents[eventId] = callback;
-        forEach(fsEvents, function (e) {
-          document.addEventListener(e, fsChangeEvents[eventId]);
-        });
-        return { 'remove': function() { rmFsChangeEvent(eventId); } };
-      }
-    }
-    
-    /**
-     * [fn.fullScreenChange.removeAll] 清除所有全屏状态变化事件
-     */
-    fullScreenChange.removeAll = function() {
-      forIn(fsChangeEvents, function(eventId) { rmFsChangeEvent(eventId); });
-    }
-    
-    function rmFsChangeEvent(eventId) {
-      forEach(fsEvents, function (e) {
-        document.removeEventListener(e, fsChangeEvents[eventId]);
-      });
-      delete fsChangeEvents[eventId];
     }
 
     /**
@@ -1523,16 +1439,6 @@
       return isTest ? ttRst : mtRst;
     }
 
-    /**
-     * Send F11 command to browser.
-     */
-    function sendF11() {
-      if (window.ActiveXObject) {
-        var ws = new window.ActiveXObject('WScript.Shell');
-        if (ws) ws.SendKeys('{F11}');
-      }
-    }
-
     /**@funclib
      * [fn().method] funclib链接调用
      * @param value: any
@@ -1585,8 +1491,8 @@
     funclib.isDeepEqual = isDeepEqual;
 
     funclib.random = random;
-    funclib.gid = gid;
-    funclib.gcolor = gcolor;
+    funclib.randomId = randomId;
+    funclib.randomColor = randomColor;
 
     funclib.interval = interval;
     funclib.timeout = timeout;
@@ -1635,10 +1541,6 @@
 
     funclib.print = print;
     funclib.log = log;
-    funclib.fullScreen = fullScreen;
-    funclib.exitFullScreen = exitFullScreen;
-    funclib.isFullScreen = isFullScreen;
-    funclib.fullScreenChange = fullScreenChange;
     funclib.copyText = copyText;
 
     funclib.chain = chain;
